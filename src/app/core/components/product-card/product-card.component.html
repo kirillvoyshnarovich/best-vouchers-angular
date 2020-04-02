@@ -1,27 +1,18 @@
-<div class="product-card">
-    <ng-template [ngIf]="product" [ngIfElse]="placeholder">
-        <a [routerLink]="['/product', product.slug]" class="image-wrapper">
-            <img class="product-image" [src]="product.productAsset | assetPreview:200:200">
+<div [ngClass]="{'card-tabs': mode === 'tab'}" class="product-card">
+    <ng-template [ngIf]="product">
+        <a [routerLink]="['/product', product.slug]" class="product-card__image-wrapper">
+            <img class="product-card__product-image" [src]="product.productAsset | assetPreview:200:200">
         </a>
-        <div class="">
-            <a [routerLink]="['/product', product.slug]" class="product-name">
+        <div class="product-card__info">
+            <a class="product-card__name" [routerLink]="['/product', product.slug]">
                 {{ product.productName }}
             </a>
-            <div class="price">
-                <ng-template [ngIf]="product.priceWithTax.min === product.priceWithTax.max" [ngIfElse]="range">
-                    {{ product.priceWithTax.min | formatPrice }}
-                </ng-template>
-                <ng-template #range>
-                    From {{ product.priceWithTax.min | formatPrice }}
-                </ng-template>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template #placeholder>
-        <div class="placeholder-image loading-placeholder"></div>
-        <div class="card-body">
-            <div class="placeholder-title loading-placeholder"></div>
-            <div class="placeholder-body loading-placeholder"></div>
+            <span class="product-card__price">
+                {{ product.priceWithTax.min | formatPrice }}
+            </span>
+            <button class="product-card__button">
+                Check
+            </button>
         </div>
     </ng-template>
 </div>

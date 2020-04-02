@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -13,6 +13,14 @@ export class AppComponent implements OnInit {
     cartDrawerVisible$: Observable<boolean>;
     mobileNavVisible$: Observable<boolean>;
     isHomePage$: Observable<boolean>;
+
+    // @HostListener('scroll') scroll() {
+    //     console.log('scroll in hostListentr in APP COMPONENT')
+    // }
+
+    // @HostListener("window:scroll", ['$event']) onWindowScroll(event: any) {
+    //     console.log("Scrolling!", event.target.offsetTop);
+    // }
 
     constructor(private router: Router,
                 private stateService: StateService) {

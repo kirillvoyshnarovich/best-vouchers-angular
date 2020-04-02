@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-
 import { environment } from '../environments/environment';
-
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { HomePageComponent } from './core/components/home-page/home-page.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faGlobe, faShoppingBag, faGlobeEurope  } from '@fortawesome/free-solid-svg-icons';
 
 const STATE_KEY = makeStateKey<any>('apollo.state');
 
@@ -25,6 +25,7 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
         CoreModule,
         SharedModule,
         ServiceWorkerModule.register('/storefront/ngsw-worker.js', {enabled: environment.production, registrationStrategy: 'registerWithDelay:5000'}),
+        FontAwesomeModule
     ],
     bootstrap: [AppComponent],
 })
@@ -33,7 +34,9 @@ export class AppModule {
     constructor(
         private coreModule: CoreModule,
         private readonly transferState: TransferState,
+        private library: FaIconLibrary
     ) {
+        this.library.addIcons(faGlobe, faShoppingBag, faGlobeEurope);
         const isBrowser = this.transferState.hasKey<any>(STATE_KEY);
 
         if (isBrowser) {

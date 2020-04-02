@@ -67,6 +67,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             variantId: variant.id,
             qty,
         }).subscribe((data) => {
+            console.log('addToCart', data);
             this.stateService.setState('activeOrderId', data.addItemToOrder ? data.addItemToOrder.id : null);
         });
     }

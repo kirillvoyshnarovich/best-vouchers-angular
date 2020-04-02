@@ -1,20 +1,157 @@
-<div class="hero" [style.background-image]="heroImage">
-    <h1 class="display-1 title text-center">vendure storefront</h1>
+<div class="banner" [style.background-image]="heroImage">
+    <div class="banner__description">
+        <h1>
+            Unique springtime gifts
+        </h1>
+        <button class="banner__control">
+            Check
+        </button>
+    </div>
 </div>
 
-<div class="container">
+<div class="bv-wrapper">
     <div class="top-categories mt-5">
         <vsf-collection-card *ngFor="let collection of collections$ | async"
                              [collection]="collection">
         </vsf-collection-card>
     </div>
-    <h3 class="display-4 mt-5">Top Sellers</h3>
-    <div class="product-list">
-        <ng-container *ngIf="topSellersLoaded$ | async; else placeholders">
-            <vsf-product-card *ngFor="let product of topSellers$ | async" [product]="product"></vsf-product-card>
-        </ng-container>
-        <ng-template #placeholders>
-            <vsf-product-card *ngFor="let product of placeholderProducts" [product]="product"></vsf-product-card>
-        </ng-template>
+    <div class="our-advantages">
+        <div class="our-advantages__list">
+            <div class="our-advantages__item" *ngFor="let item of ourAdvantagesList">
+                <div class="our-advantages__left">
+                    <i class="fa fa-truck" *ngIf="item.icon === 'trunk'"></i>
+                    <i class="fa fa-history" *ngIf="item.icon === 'history'"></i>
+                    <i class="fa fa-lock" *ngIf="item.icon === 'lock'"></i>
+                </div>
+                <div class="our-advantages__rigth">
+                    <h3 class="our-advantages__title">{{item.title}}</h3>
+                    <div class="our-advantages__description">
+                        {{item.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="main-content__sidebar">
+            <div class="list-category">
+                <div class="list-category__control" (click)="chnageCollapsed()">
+                    <span class="list-category__icon">
+                        <i class="fa fa-outdent" aria-hidden="true"></i>
+                    </span>
+                    All Products
+                </div>
+                <ul [ngClass]="{'collapse_ul': collapsedMenuCategory}" class="list-category__ul">
+                    <li class="list-category__item" *ngFor="let category of categoryList" [routerLink]="['/category', category | collectionUrl]">
+                        {{category.name}}
+                    </li>
+                    <!-- <li class="list-category__item">Active And Fit</li>
+                    <li class="list-category__item">Workshops</li>
+                    <li class="list-category__item">Automotive</li>
+                    <li class="list-category__item">Culinary</li>
+                    <li class="list-category__item">Up In The Sky</li>
+                    <li class="list-category__item">Education</li> -->
+                </ul>
+            </div>
+            <div class="advertising">
+                <img src="../../../../assets/bestvouchers/baner.jpg">
+            </div>
+            <div class="paypal">
+                <img src="../../../../assets/bestvouchers/paypal.jpeg">
+            </div>
+        </div>
+        
+        <div class="main-content__grid">
+            <div class="best-deal">
+                <div class="best-deal__image">
+                    <img src="../../../../assets/bestvouchers/best-deal.jpg">
+                </div>
+                <div class="best-deal__vouchers">
+
+                </div>
+            </div>
+            <div class="products">
+                <div class="products__bar">
+                    <div class="products__most-popular">
+                        <h3 class="products__title">MOST POPULAR BY CATEGORY</h3>
+                        <div class="products__control">
+                            <button class="products__control-button">
+                                <i class="fa fa-caret-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="products__control-button">
+                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="products__tabs">
+                        <div (click)="changeActiveMenu(category)" [ngClass]="{'active-tab': category.id === currentActiveMenu}" class="products__tab" *ngFor="let category of categoryList">
+                            {{category.name}}
+                        </div>
+                        <!-- <div class="products__tab">
+                            Culinary
+                        </div>
+                        <div class="products__tab">
+                            Education
+                        </div>
+                        <div class="products__tab">
+                            Workshops
+                        </div>
+                        <div class="products__tab">
+                            Active and fit
+                        </div>
+                        <div class="products__tab">
+                            Up in the sky
+                        </div>
+                        <div class="products__tab">
+                            Beauty and SPA
+                        </div> -->
+                    </div>
+                </div>
+                <div class="products__list">
+                    <ng-container *ngIf="listVendersInitialCategory.length">
+                        <vsf-product-card *ngFor="let product of listVendersInitialCategory" [product]="product" [mode]="'tab'"></vsf-product-card>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="advertising">
+                <div class="advertising__row">
+                    <div class="advertising__small-box">
+                        <img src="../../../../assets/bestvouchers/EN_baner2.jpg">
+                    </div>
+                    <div class="advertising__small-box">
+                        <img src="../../../../assets/bestvouchers/EN_baner4.jpg">
+                    </div>
+                </div>
+                <div class="advertising__row">
+                    <div class="advertising__big-box"> 
+                        <img src="../../../../assets/bestvouchers/EN_baner3.jpg">  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slider">
+        <div class="slider__header">
+            <div class="slider__title">Bestsellers</div>
+            <div class="slider__control">
+                <button class="slider__control-button" (click)="prevSlide()">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                </button>
+                <button class="slider__control-button" (click)="nextSlide()">
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <div class="slider__wrapper">
+            <div>
+                <ng-container *ngIf="topSellers.length">
+                    <vsf-product-card *ngFor="let product of topSellers | slice:indexStart:indexEnd" [product]="product" [mode]="'slider'"></vsf-product-card>
+                </ng-container>
+                <!-- <ng-template #placeholders>
+                    <vsf-product-card *ngFor="let product of placeholderProducts" [product]="product"></vsf-product-card>
+                </ng-template> -->
+            </div>
+        </div>
     </div>
 </div>

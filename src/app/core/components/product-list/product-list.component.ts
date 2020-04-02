@@ -69,6 +69,7 @@ export class ProductListComponent implements OnInit {
         this.collection$ = collectionId$.pipe(
             switchMap(collectionId => {
                 if (collectionId) {
+                    console.log('collectionId',collectionId)
                     return this.dataService.query<GetCollection.Query, GetCollection.Variables>(GET_COLLECTION, {
                         id: collectionId,
                     }).pipe(
@@ -111,6 +112,8 @@ export class ProductListComponent implements OnInit {
         const queryResult$ = triggerFetch$.pipe(
             switchMap(([collectionId, facetValueIds, term]) => {
                 const perPage = 24;
+                console.log('facetValueIds', facetValueIds);
+                console.log('term', term);
                 return this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
                     input: {
                         term,
