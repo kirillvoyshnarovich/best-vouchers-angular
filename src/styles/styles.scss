@@ -3,6 +3,11 @@
 
 @import "variables";
 
+html {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 10px;
+}
+
 .loading-placeholder {
     position: relative;
     overflow: hidden;
@@ -36,4 +41,16 @@ img[data-zoom] {
 }
 .vsf-zoom-zoom-pane {
     box-shadow: $box-shadow-lg;
+}
+
+.bv-container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bv-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
 }

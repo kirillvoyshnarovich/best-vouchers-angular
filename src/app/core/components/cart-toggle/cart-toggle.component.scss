@@ -3,14 +3,21 @@
 button.btn {
     background-color: transparent;
     border: none;
-    &:hover {
-        background-color: $light;
+    color: #fff;
+    
+    // &:hover {
+    //     background-color: $light;
+    // }
+
+    i {
+        font-size: 3.4rem;
     }
 }
 
 .badge.qty-indicator {
     position: absolute;
     right: -2px;
+    font-size: 1.2rem;
 
     &.cart-changed {
         background-color: $warning;

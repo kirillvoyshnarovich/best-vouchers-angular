@@ -2,43 +2,89 @@
 
 :host {
     display: block;
-    margin: $spacer $spacer / 2 $spacer * 2;
-    width: 200px;
+    width: auto;
+}
 
+.product-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding-top: 20px;
+    padding-bottom: 70px;
+    position: relative;
+    overflow: hidden;
+    // margin-left: 15px;
+    
     &:hover {
-        .product-image {
-            transform: scale(1.05);
-            opacity: 1;
+        .product-card__info {
+            transform: translateY(0px);
         }
     }
-}
 
-.image-wrapper {
-    display: block;
-    overflow: hidden;
-}
+    &__info {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: rgb(75%, 6%, 6%, 0.4);
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, 0.7);
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        transform: translateY(80px);
+        transition: transform 0.2s linear;
+    }
 
-.product-image {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0.85;
-}
+    &__name {
+        font-size: 1.5rem;
+        text-transform: capitalize;
+        font-family: 'Open Sans',sans-serif;
+        font-weight: 400;
+        color: #000;
+    }
 
-.product-name {
-    text-align: center;
-    color: $gray-800;
-    display: block;
+    &__price {
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
 
-    &:hover {
-        color: $gray-700;
-        text-decoration: underline;
-        text-decoration-color: $gray-400;
+    &__button {
+        background: #2d265a;
+        border: 0;
+        color: #fff;
+        text-transform: capitalize;
+        padding: 0 15px;
+        height: 48px;
+        font-weight: 600;
+        border-radius: 5px;
+        font-family: 'Open Sans',sans-serif;
+        width: 100%;
+        font-size: 2.2rem;
+        margin-top: 20px;
+
+        &:hover {
+            background: #fa4157;
+        }
+    }
+
+    &__image-wrapper {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    &__product-image {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0.85;
     }
 }
 
-.price {
-    font-weight: normal;
-    text-align: center;
-    color: $gray-600;
+.card-tabs {
+    // margin-top: 15px;
+}
+
+.card-slider {
+
 }
 
 .placeholder-image {
@@ -54,3 +100,4 @@
 .placeholder-body {
     height: $font-size-base;
 }
+
