@@ -44,13 +44,6 @@
     }
 }
 
-.product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 220px);
-    grid-row-gap: $spacer;
-    justify-content: space-around;
-}
-
 .no-results {
     text-align: center;
     margin: $spacer * 4 0;
@@ -83,13 +76,23 @@
 
 .content {
     display: flex;
+    margin: 40px 0px;
+    width:100%;
 
     &__grid {
         display: flex;
-        width: 70%;
+        width: 75%;
     }
 
     &__sidebar {
-        width: 30%;
+        width: 25%;
     }
+}
+
+.product-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 32%);
+    grid-row-gap: $spacer;
+    justify-content: space-around;
 }
