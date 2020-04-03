@@ -2,5 +2,18 @@
 
 :host {
     display: block;
-    // margin: $spacer / 2 0;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+
+    .breadcrumb {
+        color: #333;
+        font-size: 14px;
+    }
+
+    a {
+        color: #333;  
+        :hover {
+            color: #333;  
+        }
+    }
 }

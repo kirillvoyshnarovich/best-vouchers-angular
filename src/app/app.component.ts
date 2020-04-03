@@ -13,6 +13,29 @@ export class AppComponent implements OnInit {
     cartDrawerVisible$: Observable<boolean>;
     mobileNavVisible$: Observable<boolean>;
     isHomePage$: Observable<boolean>;
+    listlang = [
+        'English',
+        'Polski',
+        'Ελληνικά',
+        'Český',
+        'Português',
+        'Magyar',
+        'Français',
+        'Български',
+        'Hrvatski',
+        'Italiano',
+        'Slovenský',
+        'Slovenščina',
+        'Eesti',
+        'Deutsch',
+        'Lietuvių',
+        'Español',
+        'Latviešu',
+        'Turkish',
+        'Indonesia',
+        'Română'
+    ];
+    currentLang: any = null;
 
     // @HostListener('scroll') scroll() {
     //     console.log('scroll in hostListentr in APP COMPONENT')
@@ -33,6 +56,7 @@ export class AppComponent implements OnInit {
             filter<any>(event => event instanceof RouterEvent),
             map((event: RouterEvent) => event.url === '/'),
         );
+        this.currentLang = this.listlang[0];
     }
 
     openCartDrawer() {
@@ -41,5 +65,9 @@ export class AppComponent implements OnInit {
 
     closeCartDrawer() {
         this.stateService.setState('cartDrawerOpen', false);
+    }
+
+    chooseLang(lang: void) {
+        this.currentLang = lang;
     }
 }

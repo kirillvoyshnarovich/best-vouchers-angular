@@ -74,3 +74,22 @@
         margin-left: $spacer / 2;
     }
 }
+
+.container-p-l {
+    width: 1200px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content {
+    display: flex;
+
+    &__grid {
+        display: flex;
+        width: 70%;
+    }
+
+    &__sidebar {
+        width: 30%;
+    }
+}

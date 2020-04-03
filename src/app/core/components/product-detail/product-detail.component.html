@@ -1,57 +1,50 @@
-<div class="container">
-    <vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs"
-                                *ngIf="product"
-                                class="mb-2"
-                                [linkLast]="true"></vsf-collection-breadcrumbs>
-    <ng-template [ngIf]="product" [ngIfElse]="placeholder">
-        <div class="row">
-            <div class="col-12 col-md-6 text-center">
-                <vsf-asset-gallery [assets]="product.assets"
-                                   [selectedAssetId]="product.featuredAsset?.id"></vsf-asset-gallery>
-            </div>
-            <div class="col-12 col-md-6" #zoomPreviewArea>
-                <h2 class="display-4 product-name">{{ product.name }}</h2>
-                <div class="purchase-options">
-                    <div class="variant-selector" *ngIf="product.variants.length > 1">
-                        <select [(ngModel)]="selectedVariant" class="form-control">
-                            <option *ngFor="let variant of product.variants"
-                                    [ngValue]="variant">{{ variant.name }}</option>
-                        </select>
+<vsf-collection-breadcrumbs 
+    [breadcrumbs]="breadcrumbs" 
+    *ngIf="product" class="mb-2" 
+    [linkLast]="true">
+</vsf-collection-breadcrumbs>
+<div class="container-p-d">
+    <div class="content">
+        <div class="content__main">
+                <div>
+                    <h2 class="display-4 product-name">{{ product.name }}</h2>
+                    <vsf-asset-gallery 
+                        [assets]="product.assets"
+                        [selectedAssetId]="product.featuredAsset?.id">
+                    </vsf-asset-gallery>
+                </div>
+                <div class="content__info" #zoomPreviewArea>
+                    <!-- <div class="sku">
+                        {{ selectedVariant?.sku }}
+                    </div> -->
+                    <div class="price">
+                        {{ selectedVariant?.priceWithTax | formatPrice }}
                     </div>
-                    <div class="add-to-cart-row">
-                        <div class="sku">
-                            {{ selectedVariant?.sku }}
-                        </div>
-                        <div class="price">
-                            {{ selectedVariant?.priceWithTax | formatPrice }}
-                        </div>
-                        <div class="qty mr-md-2 ml-2">
-                            <input type="number" min="0" max="99" placeholder="Qty" [(ngModel)]="qty"
-                                   class="form-control form-control-lg">
-                        </div>
-                        <button [disabled]="qty === 0"
-                                class="btn btn-primary btn-lg"
-                                (click)="addToCart(selectedVariant, qty)">Add to cart
+                    <div class="qty">
+                        <span class="qty__label">Qty</span>
+                        <input 
+                            type="number" 
+                            min="0" 
+                            max="99" 
+                            placeholder="Qty" 
+                            [(ngModel)]="qty"
+                            class="qty__control">
+                        <button [disabled]="qty === 0" class="qty__add" (click)="addToCart(selectedVariant, qty)">
+                            Add To Cart
                         </button>
                     </div>
+                    <div class="description" [innerHTML]="product.description">
+                    </div>
                 </div>
-                <div class="description" [innerHTML]="product.description">
+        </div>
+        <div class="content__additional">
+            <div class="content__table">
+                <div class="table-header">Details</div>
+                <div class="table-row">
                 </div>
             </div>
         </div>
-    </ng-template>
-    <ng-template #placeholder>
-        <div class="placeholder-breadcrumb loading-placeholder"></div>
-        <div class="row">
-            <div class="col-12 col-md-6 text-center">
-                <div class="product-image">
-                    <div class="placeholder-image loading-placeholder"></div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="placeholder-title loading-placeholder"></div>
-                <div class="placeholder-description loading-placeholder"></div>
-            </div>
-        </div>
-    </ng-template>
+    </div>
+    
+    <vsf-slider></vsf-slider> 
 </div>
