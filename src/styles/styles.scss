@@ -3,6 +3,10 @@
 
 @import "variables";
 
+button {
+    outline: none;
+}
+
 html {
     font-family: 'Open Sans', sans-serif !important;
     font-size: 10px;

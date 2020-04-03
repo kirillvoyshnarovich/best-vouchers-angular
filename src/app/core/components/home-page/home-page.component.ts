@@ -24,6 +24,7 @@ export class HomePageComponent implements OnInit {
     readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
     constructor(private dataService: DataService, private sanitizer: DomSanitizer) { }
 
+
     collapsedMenuCategory = false;
     ourAdvantagesList = [
         {
@@ -53,14 +54,22 @@ export class HomePageComponent implements OnInit {
 
     indexStart = 0;
     indexEnd = 5;
-    topSellers = [];
+
     categoryList = [];
     currentActiveMenu = null;
     initIdCategory = '6';
     listVendersInitialCategory:any = [];
     currentPage = 0;
 
+    offsetMainSlider = 'translateX(0%)';
+    stepTranslateMainSlider: any = 0;
+    amountSlideInRow = 0;
+
+    offsetBestSellerSlider = 'translateX(0%)';
+    stepTranslateBestSellerSlider: any = 0;
+    amountBestSellerSlider = 0;
     ngOnInit() {
+        this.heroImage = this.sanitizer.bypassSecurityTrustStyle(this.getHeroImageUrl());
         // this.collections$ = this.dataService.query(GET_COLLECTIONS, {
         //     options: {},
         // }).pipe(
@@ -82,12 +91,7 @@ export class HomePageComponent implements OnInit {
         // );
 
         // this.topSellers$ = 
-        this.dataService.query(GET_TOP_SELLERS)
-        .subscribe((response) => {
-            console.log('response', response);
-            this.topSellers = response['search'].items;
-            console.log('this.topSellers.length', this.topSellers.length);
-        });
+
         let perPage = 24;
         return this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
             input: {
@@ -101,6 +105,8 @@ export class HomePageComponent implements OnInit {
         }).subscribe((response) => {
             console.log('response !!!', response);
             this.listVendersInitialCategory = response['search'].items;
+            this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length/2) - 3;
+            console.log('amountSlideInRow', this.amountSlideInRow);
         });
         // .pipe(
         //     map(data => data.search.items),
@@ -112,7 +118,7 @@ export class HomePageComponent implements OnInit {
         //     map(items => 0 < items.length),
         // );
 
-        this.heroImage = this.sanitizer.bypassSecurityTrustStyle(this.getHeroImageUrl());
+
     }
 
     private getHeroImageUrl(): string {
@@ -131,20 +137,26 @@ export class HomePageComponent implements OnInit {
     }
 
     // for slider in below
-    prevSlide(): void {
-        if(0 <= this.indexStart - 1) {
-            this.indexEnd = this.indexEnd - 1;
-            this.indexStart = this.indexStart - 1;
+    toggleBestSelerSlider(next: any): void {
+        if(next && this.stepTranslateBestSellerSlider < this.amountBestSellerSlider) {
+            this.stepTranslateBestSellerSlider += 1;
+            this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
+        } else if(!next && this.stepTranslateBestSellerSlider <= this.amountBestSellerSlider && 
+            this.stepTranslateBestSellerSlider > 0) {
+
+            this.stepTranslateBestSellerSlider -= 1;
+            this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
         }
     }
+    toggleMainSliderNext(next: any): void {
+        if(next && this.stepTranslateMainSlider < this.amountSlideInRow) {
+            this.stepTranslateMainSlider += 1;
+            this.offsetMainSlider = 'translate(-'+ 33.3*(this.stepTranslateMainSlider)+'%)';
+        } else if(!next && this.stepTranslateMainSlider <= this.amountSlideInRow && 
+            this.stepTranslateMainSlider > 0) {
 
-    nextSlide(): void {
-        if(this.topSellers.length >= this.indexEnd + 1) {
-            this.indexEnd = this.indexEnd + 1;
-            this.indexStart = this.indexStart + 1;
-        } else {
-            this.indexEnd = 5;
-            this.indexStart = 0;
+            this.stepTranslateMainSlider -= 1;
+            this.offsetMainSlider = 'translate(-'+ 33.3*(this.stepTranslateMainSlider)+'%)';
         }
     }
     // for slider in below
@@ -169,30 +181,3 @@ const GET_COLLECTIONS = gql`
     }
 `;
 
-const GET_TOP_SELLERS = gql`
-    query GetTopSellers {
-        search(input: {
-            take: 8,
-            groupByProduct: true,
-            sort: {
-                price: ASC
-            }
-        }) {
-            items {
-                productId
-                slug
-                productAsset {
-                    id
-                    preview
-                }
-                priceWithTax {
-                    ... on PriceRange {
-                        min
-                        max
-                    }
-                }
-                productName
-            }
-        }
-    }
-`;

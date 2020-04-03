@@ -21,10 +21,6 @@
         i {
             margin-right: 10px;
         }
-
-        &:hover {
-            cursor: pointer;
-        }
     }
 
     &__menu {
@@ -95,9 +91,54 @@
         }
     }
 
+    &__toggle {
+        &:hover {
+            cursor: pointer;
+            .header__list {
+                display: block;
+            }
+        }
+    }
+
+    &__list-wrapper {
+        span {
+            height: 10px;
+            display: block;
+        }
+    }
+
+
+    &__list {
+        padding: 0 0 5px 0;
+        list-style: none;
+        position: absolute;
+        top: 35px;
+        right: 0px;
+        z-index: 90;
+        text-align: center;
+        background: #2f2c57;
+        border: 1px solid #fa4157;
+        min-width: 100px;
+        display: none;
+
+        &-item {
+            padding: 3px;
+            font-size: 12px;
+            &:hover {
+                cursor: pointer;
+                color:#fa4157
+            }
+        }
+
+        &:hover {
+            display: block;
+        }
+    }
+
     .lang-container {
         justify-content: flex-end;
         align-items: center;
+        position: relative;
     }
     .header-container {
         justify-content: space-between;

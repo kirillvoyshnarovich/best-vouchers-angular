@@ -4,8 +4,18 @@
         <div class="header">
             <div class="header__lang">
                 <div class="bv-container lang-container">
-                    <i class="fa fa-globe" aria-hidden="true"></i>
-                    <span>Language: English</span>
+                    <div class="header__toggle">
+                        <i class="fa fa-globe" aria-hidden="true"></i>
+                        <span>Language: {{currentLang}}</span>
+                        <div class="header__list-wrapper">
+                            <span></span>
+                            <ul class="header__list">
+                                <li class="header__list-item" *ngFor="let lang of listlang" (click)="chooseLang(lang)">
+                                    {{lang}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="header__menu">

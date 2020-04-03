@@ -1,18 +1,21 @@
-<div [ngClass]="{'card-tabs': mode === 'tab'}" class="product-card">
-    <ng-template [ngIf]="product">
-        <a [routerLink]="['/product', product.slug]" class="product-card__image-wrapper">
-            <img class="product-card__product-image" [src]="product.productAsset | assetPreview:200:200">
-        </a>
-        <div class="product-card__info">
-            <a class="product-card__name" [routerLink]="['/product', product.slug]">
-                {{ product.productName }}
+<div class="wrapper-card">
+    <div [ngClass]="{'card-tabs': mode === 'tab'}" class="product-card">
+        <ng-template [ngIf]="product">
+            <a [routerLink]="['/product', product.slug]" class="product-card__image-wrapper">
+                <img class="product-card__product-image" [src]="product.productAsset | assetPreview:200:200">
             </a>
-            <span class="product-card__price">
-                {{ product.priceWithTax.min | formatPrice }}
-            </span>
-            <button class="product-card__button">
-                Check
-            </button>
-        </div>
-    </ng-template>
+            <div class="product-card__info">
+                <a class="product-card__name" [routerLink]="['/product', product.slug]">
+                    {{ product.productName }}
+                </a>
+                <span class="product-card__price">
+                    {{ product.priceWithTax.min | formatPrice }}
+                </span>
+                <button class="product-card__button">
+                    Check
+                </button>
+            </div>
+        </ng-template>
+    </div>
 </div>
+

@@ -1,0 +1,20 @@
+<div class="slider">
+    <div class="slider__header">
+        <div class="slider__title">Bestsellers</div>
+        <div class="slider__control">
+            <button class="slider__control-button" (click)="toggleBestSelerSlider(false)">
+                <i class="fa fa-caret-left" aria-hidden="true"></i>
+            </button>
+            <button class="slider__control-button" (click)="toggleBestSelerSlider(true)">
+                <i class="fa fa-caret-right" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="slider__wrapper">
+        <div class="slider__container" [ngStyle]="{'transform': offsetBestSellerSlider}">
+            <ng-container *ngIf="topSellers.length">
+                <vsf-product-card *ngFor="let product of topSellers" [product]="product" [mode]="'slider'"></vsf-product-card>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -28,6 +28,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductSearchBarComponent } from './components/product-search-bar/product-search-bar.component';
 import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
+import { SliderComponent } from './components/slider/slider.component';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -46,6 +47,7 @@ const CORE_COMPONENTS = [
     ProductListControlsComponent,
     ProductSearchBarComponent,
     AssetGalleryComponent,
+    SliderComponent,
 ];
 
 let apolloCache: InMemoryCache;

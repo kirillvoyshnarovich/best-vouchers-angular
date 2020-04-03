@@ -10,11 +10,11 @@
 </div>
 
 <div class="bv-wrapper">
-    <div class="top-categories mt-5">
+    <!-- <div class="top-categories mt-5">
         <vsf-collection-card *ngFor="let collection of collections$ | async"
                              [collection]="collection">
         </vsf-collection-card>
-    </div>
+    </div> -->
     <div class="our-advantages">
         <div class="our-advantages__list">
             <div class="our-advantages__item" *ngFor="let item of ourAdvantagesList">
@@ -68,7 +68,17 @@
                     <img src="../../../../assets/bestvouchers/best-deal.jpg">
                 </div>
                 <div class="best-deal__vouchers">
+                    <div class="best-deal__nested-image">
+                        <div class="best-deal__nested-name">
+                            Romantic flight by plane for two
+                        </div>
+                        <img src="../../../../assets/bestvouchers/best-deal-2.jpg">
+                    </div>
 
+                    <div class="best-deal__nested-price">
+                        <span class="best-deal__nested-new-price">$48.00</span>
+                        <span class="best-deal__nested-old-price">$60.00</span>
+                    </div>
                 </div>
             </div>
             <div class="products">
@@ -76,10 +86,10 @@
                     <div class="products__most-popular">
                         <h3 class="products__title">MOST POPULAR BY CATEGORY</h3>
                         <div class="products__control">
-                            <button class="products__control-button">
+                            <button class="products__control-button" (click)="toggleMainSliderNext(false)">
                                 <i class="fa fa-caret-left" aria-hidden="true"></i>
                             </button>
-                            <button class="products__control-button">
+                            <button class="products__control-button" (click)="toggleMainSliderNext(true)">
                                 <i class="fa fa-caret-right" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -108,10 +118,17 @@
                         </div> -->
                     </div>
                 </div>
-                <div class="products__list">
-                    <ng-container *ngIf="listVendersInitialCategory.length">
-                        <vsf-product-card *ngFor="let product of listVendersInitialCategory" [product]="product" [mode]="'tab'"></vsf-product-card>
-                    </ng-container>
+                <div class="products__list" *ngIf="listVendersInitialCategory.length">
+                    <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
+                        <ng-container *ngFor="let product of listVendersInitialCategory; let even = even">
+                            <vsf-product-card *ngIf="even" [product]="product" [mode]="'tab'"></vsf-product-card>
+                        </ng-container>
+                    </div>
+                    <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
+                        <ng-container *ngFor="let product of listVendersInitialCategory; let odd = odd">
+                            <vsf-product-card *ngIf="odd"  [product]="product" [mode]="'tab'"></vsf-product-card>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
             <div class="advertising">
@@ -131,27 +148,6 @@
             </div>
         </div>
     </div>
-    <div class="slider">
-        <div class="slider__header">
-            <div class="slider__title">Bestsellers</div>
-            <div class="slider__control">
-                <button class="slider__control-button" (click)="prevSlide()">
-                    <i class="fa fa-caret-left" aria-hidden="true"></i>
-                </button>
-                <button class="slider__control-button" (click)="nextSlide()">
-                    <i class="fa fa-caret-right" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-        <div class="slider__wrapper">
-            <div>
-                <ng-container *ngIf="topSellers.length">
-                    <vsf-product-card *ngFor="let product of topSellers | slice:indexStart:indexEnd" [product]="product" [mode]="'slider'"></vsf-product-card>
-                </ng-container>
-                <!-- <ng-template #placeholders>
-                    <vsf-product-card *ngFor="let product of placeholderProducts" [product]="product"></vsf-product-card>
-                </ng-template> -->
-            </div>
-        </div>
-    </div>
+
+    <vsf-slider></vsf-slider> 
 </div>
