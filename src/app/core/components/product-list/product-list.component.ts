@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
 import { distinctUntilChanged, map, mapTo, scan, share, shareReplay, skip, switchMap, tap } from 'rxjs/operators';
-
 import { GetCollection, SearchProducts } from '../../../common/generated-types';
 import { getRouteArrayParam } from '../../../common/utils/get-route-array-param';
 import { AssetPreviewPipe } from '../../../shared/pipes/asset-preview.pipe';
 import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
-
 import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
 
 @Component({
     selector: 'vsf-product-list',
     templateUrl: './product-list.component.html',
-styleUrls: ['./product-list.component.scss'],
-    })
+    styleUrls: ['./product-list.component.scss']
+})
 export class ProductListComponent implements OnInit {
     products$: Observable<SearchProducts.Items[]>;
     totalResults$: Observable<number>;
@@ -30,6 +28,8 @@ export class ProductListComponent implements OnInit {
     private currentPage = 0;
     private refresh = new BehaviorSubject<void>(undefined);
     readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
+
+    pageList = [1, 2, 3, 4, 5]
 
     constructor(private dataService: DataService,
                 private route: ActivatedRoute,
