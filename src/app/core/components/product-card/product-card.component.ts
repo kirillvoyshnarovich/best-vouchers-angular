@@ -14,6 +14,9 @@ export class ProductCardComponent {
 
     @Input() product: SearchProducts.Items;
 
+
     ngOnInit():void {
+        console.log('product', this.product)
+
     }
 }

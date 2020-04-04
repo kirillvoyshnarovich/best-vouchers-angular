@@ -15,6 +15,7 @@
                              [collection]="collection">
         </vsf-collection-card>
     </div> -->
+
     <div class="our-advantages">
         <div class="our-advantages__list">
             <div class="our-advantages__item" *ngFor="let item of ourAdvantagesList">
@@ -65,7 +66,9 @@
         <div class="main-content__grid">
             <div class="best-deal">
                 <div class="best-deal__image">
-                    <img src="../../../../assets/bestvouchers/best-deal.jpg">
+                    <img src="../../../../assets/bestvouchers/best-deal.jpg" class="d-none d-xl-block">
+                    <img src="../../../../assets/bestvouchers/best-deal-mobile.jpg" class="d-xl-none">
+
                 </div>
                 <div class="best-deal__vouchers">
                     <div class="best-deal__nested-image">

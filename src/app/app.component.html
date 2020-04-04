@@ -22,7 +22,7 @@
                 <div class="bv-container header-container">
                     <!-- <vsf-mobile-menu-toggle></vsf-mobile-menu-toggle> !!!-->
                     <div class="header__logo">
-                        <a [routerLink]="['/']" class="logo-link d-none d-md-inline-block ">
+                        <a [routerLink]="['/']" class="logo-link d-md-inline-block ">
                             <img src="../assets/bestvouchers/logo_1.png" class="logo" alt="best vouchers logo">
                         </a>
                     </div>
@@ -71,60 +71,64 @@
                 <div class="bv-container">
                     <div class="footer__row">
                         <div class="footer__section">
-                            <span class="footer__section-name">Contact us</span>
-                            <span class=" footer__line"></span>
+                            <div class="footer__section__wrapperTop">
+                                <span class="footer__section-name">Contact us</span>
+                                <span class=" footer__line"></span>
+                            </div>
+                            <div class="footer__column">
+                                <div class="footer__block-info">
+                                    <div class="right">
+                                        <span>
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div class="left">
+                                        <span>Email</span>
+                                        <span>contact@thebestvouchers.com</span>
+                                    </div>
+                                </div>
+    
+                                <div class="footer__block-info">
+                                    <div class="right">
+                                        <span>
+                                            <i class="fa fa-phone" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <div class="left">
+                                        <span>Phone</span>
+                                        <span>(+44) 752 066 07 48</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="footer__section">
-                            <span class="footer__section-name">Follow us</span>
-                            <span class=" footer__line"></span>
+                            <div class="footer__section__wrapperTop">
+                                <span class="footer__section-name">Follow us</span>
+                                <span class=" footer__line"></span>
+                            </div>
+                            <div class="footer__column">
+                                <div class="right">
+                                    <span class="facebook">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="footer__section">
-                            <span class="footer__section-name">Quick links</span>
-                            <span class=" footer__line"></span>
-                        </div>
-                    </div>
-                    <div class="footer__row">
-                        <div class="footer__column">
-                            <div class="footer__block-info">
-                                <div class="right">
-                                    <span>
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div class="left">
-                                    <span>Email</span>
-                                    <span>contact@thebestvouchers.com</span>
-                                </div>
+                            <div class="footer__section__wrapperTop">
+                                <span class="footer__section-name">Quick links</span>
+                                <span class=" footer__line"></span>
                             </div>
-
-                            <div class="footer__block-info">
-                                <div class="right">
-                                    <span>
-                                        <i class="fa fa-phone" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div class="left">
-                                    <span>Phone</span>
-                                    <span>(+44) 752 066 07 48</span>
-                                </div>
+                            <div class="footer__column">
+                                <ul class="footer__links">
+                                    <li><a>Terms and Services</a></li>
+                                    <li><a>Check your order</a></li>
+                                    <li><a>Privacy Policy</a></li>
+                                    <li><a>Return Policy</a></li>
+                                    <li><a>Delivery</a></li>
+                                    <li><a>Contact Us</a></li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="footer__column">
-                            <div class="right">
-                                <span class="facebook">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="footer__column">
-                            <ul class="footer__links">
-                                <li><a>Terms and Services</a></li>
-                                <li><a>Check your order</a></li>
-                                <li><a>Privacy Policy</a></li>
-                                <li><a>Return Policy</a></li>
-                                <li><a>Delivery</a></li>
-                                <li><a>Contact Us</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
