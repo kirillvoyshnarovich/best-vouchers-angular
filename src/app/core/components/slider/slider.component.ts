@@ -19,13 +19,10 @@ export class SliderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('init slider @@@');
     this.dataService.query(GET_TOP_SELLERS)
     .subscribe((response) => {
-        console.log('response', response);
-        this.topSellers = response['search'].items;
-        this.amountBestSellerSlider = this.topSellers.length -5;
-        console.log('this.topSellers.length', this.topSellers.length);
+      this.topSellers = response['search'].items;
+      this.amountBestSellerSlider = this.topSellers.length -5;
     });
   }
 

@@ -4,43 +4,50 @@
     [linkLast]="true">
 </vsf-collection-breadcrumbs>
 <div class="container-p-d">
-    <div class="content">
-        <div class="content__main">
-                <div>
-                    <h2 class="display-4 product-name">{{ product.name }}</h2>
-                    <vsf-asset-gallery 
-                        [assets]="product.assets"
-                        [selectedAssetId]="product.featuredAsset?.id">
-                    </vsf-asset-gallery>
+    <div class="product">
+        <div class="product__main" *ngIf="product">
+            <h1 class="product__caption">{{ product?.name }}</h1>
+            <div class="product__image">
+                <vsf-asset-gallery 
+                    [assets]="product?.assets"
+                    [selectedAssetId]="product?.featuredAsset?.id">
+                </vsf-asset-gallery>
+            </div>
+            <div class="product__info" #zoomPreviewArea>
+                <!-- <div class="sku">
+                    {{ selectedVariant?.sku }}
+                </div> -->
+                <div class="price">
+                    {{ selectedVariant?.priceWithTax | formatPrice }}
                 </div>
-                <div class="content__info" #zoomPreviewArea>
-                    <!-- <div class="sku">
-                        {{ selectedVariant?.sku }}
-                    </div> -->
-                    <div class="price">
-                        {{ selectedVariant?.priceWithTax | formatPrice }}
-                    </div>
-                    <div class="qty">
-                        <span class="qty__label">Qty</span>
-                        <input 
-                            type="number" 
-                            min="0" 
-                            max="99" 
-                            placeholder="Qty" 
-                            [(ngModel)]="qty"
-                            class="qty__control">
-                        <button [disabled]="qty === 0" class="qty__add" (click)="addToCart(selectedVariant, qty)">
-                            Add To Cart
-                        </button>
-                    </div>
-                    <div class="description" [innerHTML]="product.description">
-                    </div>
+                <div class="qty">
+                    <span class="qty__label">Qty</span>
+                    <input 
+                        type="number" 
+                        min="0" 
+                        max="99" 
+                        placeholder="Qty" 
+                        [(ngModel)]="qty"
+                        class="qty__control">
+                    <button [disabled]="qty === 0" class="qty__add" (click)="addToCart(selectedVariant, qty)">
+                        Add To Cart
+                    </button>
                 </div>
+                <div class="description" [innerHTML]="product?.description">
+                </div>
+            </div>
         </div>
-        <div class="content__additional">
-            <div class="content__table">
+        <div class="product__additional">
+            <div class="product__table">
                 <div class="table-header">Details</div>
-                <div class="table-row">
+                <div class="table-body">
+                    <div class="table-description">A 30-minute theoretical introduction and 15 minutes of drifting practice on the track.</div>
+                    <div class="table-list">
+                        <div class="table-list__header">Available locations</div>
+                        <ul class="table-list__ul">
+                            <li class="table-list__ul-item" *ngFor="let location of listLocation">{{location}}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

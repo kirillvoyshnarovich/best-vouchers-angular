@@ -20,15 +20,17 @@
             </div>
             <div class="header__menu">
                 <div class="bv-container header-container">
-                    <!-- <vsf-mobile-menu-toggle></vsf-mobile-menu-toggle> !!!-->
+
                     <div class="header__logo">
                         <a [routerLink]="['/']" class="logo-link d-md-inline-block ">
                             <img src="../assets/bestvouchers/logo_1.png" class="logo" alt="best vouchers logo">
                         </a>
                     </div>
-                    <div class="header__control">
-                        <vsf-cart-toggle (toggle)="openCartDrawer()"></vsf-cart-toggle>
+                    <div class="header__control" (mouseover)="viewMiniCart()">
+                        <!-- (toggle)="openCartDrawer()" -->
+                        <vsf-cart-toggle [routerLink]="['/checkout']"></vsf-cart-toggle>
                         <span>My cart</span>
+                        <vsf-mini-cart (mouseout)="hiddenMiniCart()" [ngClass]="{'display-flex': showMiniCart}"></vsf-mini-cart>
                     </div>  
                     <div class="header__support">
                         <i class="fa fa-whatsapp" aria-hidden="true"></i>
@@ -46,15 +48,13 @@
                         <i class="fa fa-shopping-bag" aria-hidden="true" !!!></i>
                     </div> -->
                     <!-- <div class="flex-grow-1 d-none d-sm-block"></div> !!!-->
-                    <!-- <vsf-product-search-bar class="flex-grow-1"></vsf-product-search-bar> !!!--> 
+
                     <!-- <vsf-account-link class="mr-2"></vsf-account-link> !!!-->
                 </div>
             </div>
-            <!-- <vsf-collections-menu></vsf-collections-menu> !!!-->
+
         </div>
     </vsf-layout-header>
-
-    <vsf-collections-menu-mobile [visible]="mobileNavVisible$ | async"></vsf-collections-menu-mobile>
 
     <vsf-cart-drawer [visible]="cartDrawerVisible$ | async" (close)="closeCartDrawer()"></vsf-cart-drawer>
     
@@ -71,7 +71,7 @@
                 <div class="bv-container">
                     <div class="footer__row">
                         <div class="footer__section">
-                            <div class="footer__section__wrapperTop">
+                            <div class="footer__section-wrapperTop">
                                 <span class="footer__section-name">Contact us</span>
                                 <span class=" footer__line"></span>
                             </div>
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
     
-                                <div class="footer__block-info">
+                                <div class="footer__block-info phone-block">
                                     <div class="right">
                                         <span>
                                             <i class="fa fa-phone" aria-hidden="true"></i>
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="footer__section">
-                            <div class="footer__section__wrapperTop">
+                            <div class="footer__section-wrapperTop">
                                 <span class="footer__section-name">Follow us</span>
                                 <span class=" footer__line"></span>
                             </div>
@@ -115,18 +115,18 @@
                             </div>
                         </div>
                         <div class="footer__section">
-                            <div class="footer__section__wrapperTop">
+                            <div class="footer__section-wrapperTop">
                                 <span class="footer__section-name">Quick links</span>
                                 <span class=" footer__line"></span>
                             </div>
                             <div class="footer__column">
                                 <ul class="footer__links">
-                                    <li><a>Terms and Services</a></li>
-                                    <li><a>Check your order</a></li>
-                                    <li><a>Privacy Policy</a></li>
-                                    <li><a>Return Policy</a></li>
-                                    <li><a>Delivery</a></li>
-                                    <li><a>Contact Us</a></li>
+                                    <li><a [routerLink]="['/terms-and-services']">Terms and Services</a></li>
+                                    <li><a [routerLink]="['/check-your-order']">Check your order</a></li>
+                                    <li><a [routerLink]="['/privacy-policy']">Privacy Policy</a></li>
+                                    <li><a [routerLink]="['/return-policy']">Return Policy</a></li>
+                                    <li><a [routerLink]="['/delivery']">Delivery</a></li>
+                                    <li><a [routerLink]="['/contact']">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>

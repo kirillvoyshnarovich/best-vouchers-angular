@@ -25,11 +25,14 @@ export class ProductListComponent implements OnInit {
     loading$: Observable<boolean>;
     breadcrumbs$: Observable<Array<{id: string; name: string; }>>;
     mastheadBackground$: Observable<SafeStyle>;
-    private currentPage = 0;
+
     private refresh = new BehaviorSubject<void>(undefined);
     readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
 
-    pageList = [1, 2, 3, 4, 5]
+    pageList = [1, 2, 3, 4, 5];
+    collectionId:any = null;
+    products:any = [];
+    currentPage = 1;
 
     constructor(private dataService: DataService,
                 private route: ActivatedRoute,
@@ -47,32 +50,59 @@ export class ProductListComponent implements OnInit {
                 }
             }),
             tap(collectionId => {
+                this.collectionId = collectionId;
                 this.stateService.setState('lastCollectionId', collectionId || null);
-                this.currentPage = 0;
             }),
-            shareReplay(1),
-        );
-        const facetValueIds$ = this.route.queryParamMap.pipe(
-            map(pm => getRouteArrayParam(pm, 'facets')),
-            distinctUntilChanged((x, y) => x.toString() === y.toString()),
-            tap(() => {
-                this.currentPage = 0;
-            }),
-            shareReplay(1),
-        );
-        this.searchTerm$ = this.route.queryParamMap.pipe(
-            map(pm => pm.get('search') || ''),
-            distinctUntilChanged(),
             shareReplay(1),
         );
 
+        this.route.paramMap.pipe(
+            map(pm => pm.get('collectionId')),
+            distinctUntilChanged(),
+            map(id => {
+                if (id) {
+                    const parts = id.split('_');
+                    return parts[parts.length - 1];
+                }
+            }),
+            tap(collectionId => {
+                this.collectionId = collectionId;
+                this.stateService.setState('lastCollectionId', collectionId || null);
+                this.getCollection();
+                this.getItems();
+            }),
+            shareReplay(1),
+        ).subscribe((response) => {
+            
+        });
+
+        // const facetValueIds$ = this.route.queryParamMap.pipe(
+        //     map(pm => getRouteArrayParam(pm, 'facets')),
+        //     distinctUntilChanged((x, y) => x.toString() === y.toString()),
+        //     tap((value) => {
+        //         this.currentPage = 0;
+        //     }),
+        //     shareReplay(1),
+        // );
+        // this.searchTerm$ = this.route.queryParamMap.pipe(
+        //     map(value => {
+        //         return value;
+        //     }),
+        //     map(pm => {
+        //         return pm.get('search') || ''}),
+        //     distinctUntilChanged(),
+        //     shareReplay(1),
+        // );
         this.collection$ = collectionId$.pipe(
             switchMap(collectionId => {
                 if (collectionId) {
-                    console.log('collectionId',collectionId)
                     return this.dataService.query<GetCollection.Query, GetCollection.Variables>(GET_COLLECTION, {
                         id: collectionId,
                     }).pipe(
+                        map(value => {
+
+                            return value;
+                        }),
                         map(data => data.collection),
                     );
                 } else {
@@ -86,6 +116,9 @@ export class ProductListComponent implements OnInit {
 
         this.mastheadBackground$ = this.collection$.pipe(
             map(c => 'url(' + assetPreviewPipe.transform(c?.featuredAsset || undefined, 1000, 300) + ')'),
+            map(value => {
+                return value;
+            }),
             map(style => this.sanitizer.bypassSecurityTrustStyle(style)),
         );
 
@@ -105,57 +138,62 @@ export class ProductListComponent implements OnInit {
             }),
         );
 
-        const triggerFetch$ = combineLatest(collectionId$, facetValueIds$, this.searchTerm$, this.refresh);
-        this.loading$ = merge(
-            triggerFetch$.pipe(mapTo(true)),
-        );
-        const queryResult$ = triggerFetch$.pipe(
-            switchMap(([collectionId, facetValueIds, term]) => {
-                const perPage = 24;
-                console.log('facetValueIds', facetValueIds);
-                console.log('term', term);
-                return this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
-                    input: {
-                        term,
-                        groupByProduct: true,
-                        collectionId,
-                        facetValueIds,
-                        take: perPage,
-                        skip: this.currentPage * perPage,
-                    },
-                });
-            }),
-            shareReplay(1),
-        );
+        // const triggerFetch$ = combineLatest(collectionId$, facetValueIds$, this.searchTerm$, this.refresh);
+        // this.loading$ = merge(
+        //     triggerFetch$.pipe(mapTo(true)),
+        // );
 
-        this.loading$ = merge(
-            triggerFetch$.pipe(mapTo(true)),
-            queryResult$.pipe(mapTo(false)),
-        );
+        // const queryResult$ = triggerFetch$.pipe(
+        //     switchMap(([collectionId, facetValueIds, term]) => {
+        //         const perPage = 24;
+        //         return this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
+        //             input: {
+        //                 term,
+        //                 groupByProduct: true,
+        //                 collectionId,
+        //                 facetValueIds,
+        //                 take: perPage,
+        //                 skip: this.currentPage * perPage,
+        //             },
+        //         });
+        //     }),
+        //     shareReplay(1),
+        // );
 
-        const RESET = 'RESET';
-        const items$ = this.products$ = queryResult$.pipe(map(data => data.search.items));
-        const reset$ = merge(collectionId$, facetValueIds$, this.searchTerm$).pipe(
-            mapTo(RESET),
-            skip(1),
-            share(),
-        );
-        this.products$ = merge(items$, reset$).pipe(
-            scan<SearchProducts.Items[] | string, SearchProducts.Items[]>((acc, val) => {
-                if (typeof val === 'string') {
-                    return [];
-                } else {
-                    return acc.concat(val);
-                }
-            }, [] as SearchProducts.Items[]),
-        );
-        this.totalResults$ = queryResult$.pipe(map(data => data.search.totalItems));
-        this.facetValues$ = queryResult$.pipe(map(data => data.search.facetValues));
-        this.displayLoadMore$ = combineLatest(this.products$, this.totalResults$).pipe(
-            map(([products, totalResults]) => {
-                return 0 < products.length && products.length < totalResults;
-            }),
-        );
+        // this.loading$ = merge(
+        //     triggerFetch$.pipe(mapTo(true)),
+        //     queryResult$.pipe(mapTo(false)),
+        // );
+
+        // const RESET = 'RESET';
+        // const items$ = this.products$ = queryResult$.pipe(map(data => data.search.items));
+        // const reset$ = merge(collectionId$, facetValueIds$, this.searchTerm$).pipe(
+        //     mapTo(RESET),
+        //     skip(1),
+        //     share(),
+        // );
+        // this.products$ = merge(items$, reset$).pipe(
+        //     scan<SearchProducts.Items[] | string, SearchProducts.Items[]>((acc, val) => {
+        //         if (typeof val === 'string') {
+        //             return [];
+        //         } else {
+        //             return acc.concat(val);
+        //         }
+        //     }, [] as SearchProducts.Items[]),
+        // );
+        // this.totalResults$ = queryResult$.pipe(
+        //     map(value => {
+        //         return value;
+        //     }),
+        //     map(data => data.search.totalItems)
+        // );
+        // this.facetValues$ = queryResult$.pipe(map(data => data.search.facetValues));
+        // this.displayLoadMore$ = combineLatest(this.products$, this.totalResults$).pipe(
+        //     map(([products, totalResults]) => {
+        //         return 0 < products.length && products.length < totalResults;
+        //     }),
+        // );
+
     }
 
     loadMore() {
@@ -163,4 +201,38 @@ export class ProductListComponent implements OnInit {
         this.refresh.next();
     }
 
+
+    getCollection(): void {
+        this.dataService.query<GetCollection.Query, GetCollection.Variables>(GET_COLLECTION, {
+            id: this.collectionId,
+        }).pipe(
+            map(value => {
+                return value;
+            }),
+            map(data => data.collection),
+        ).subscribe((result) => {
+
+        })
+    }
+
+    getItems(): void {
+        const perPage = 24;
+        this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
+            input: {
+                term: '',
+                groupByProduct: true,
+                collectionId: this.collectionId,
+                facetValueIds: [],
+                take: perPage,
+                skip: this.currentPage - 1 * perPage,
+            },
+        }).subscribe((response) => {
+            this.products = response['search'].items;
+            let totalProduct = response['search'].totalItems;
+        });
+    }
+
+    choosePage(page: any): void {
+        this.currentPage = +page;
+    }
 }

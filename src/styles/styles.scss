@@ -3,9 +3,56 @@
 
 @import "variables";
 
+@font-face {
+    font-family: "Open Sans";
+    src: url("../assets/bestvouchers/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
+// overwrite default style
+* {
+    transition: all 0.3s linear;
+    box-sizing: border-box;
+}
+
 button {
     outline: none;
+
+    &:hover {
+        outline: none;
+    }
+
+    &:focus {
+        outline: none;
+    }
 }
+
+input {
+    outline: none;
+
+    &:hover {
+        outline: none;
+    }
+
+    &:active {
+        outline: none;
+    }
+}
+
+ul {
+    li {
+        outline: none;
+
+        &:active {
+            outline: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+// overwrite default style
+
 
 html {
     font-family: 'Open Sans', sans-serif !important;
@@ -43,6 +90,7 @@ html {
 img[data-zoom] {
     cursor: crosshair;
 }
+
 .vsf-zoom-zoom-pane {
     box-shadow: $box-shadow-lg;
 }

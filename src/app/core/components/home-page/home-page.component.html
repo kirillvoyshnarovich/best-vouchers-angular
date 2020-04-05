@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div class="products__tabs">
-                        <div (click)="changeActiveMenu(category)" [ngClass]="{'active-tab': category.id === currentActiveMenu}" class="products__tab" *ngFor="let category of categoryList">
+                        <div (click)="changeActiveMenu(category)" [ngClass]="{'active-tab': category.id == +initIdCategory}" class="products__tab" *ngFor="let category of categoryList">
                             {{category.name}}
                         </div>
                         <!-- <div class="products__tab">
@@ -121,7 +121,7 @@
                         </div> -->
                     </div>
                 </div>
-                <div class="products__list" *ngIf="listVendersInitialCategory.length">
+                <div [@apperCategory]="hiddenItems ? 'hidden' : 'appear'" class="products__list" *ngIf="listVendersInitialCategory.length">
                     <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
                         <ng-container *ngFor="let product of listVendersInitialCategory; let even = even">
                             <vsf-product-card *ngIf="even" [product]="product" [mode]="'tab'"></vsf-product-card>

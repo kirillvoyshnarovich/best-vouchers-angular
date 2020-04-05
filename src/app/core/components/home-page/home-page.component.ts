@@ -8,12 +8,27 @@ import { environment } from '../../../../environments/environment';
 import { DataService } from '../../providers/data/data.service';
 import { GetCollection, SearchProducts } from '../../../common/generated-types';
 import { GET_COLLECTION, SEARCH_PRODUCTS } from '../product-list/product-list.graphql';
+import { trigger, transition, animate, style, state } from '@angular/animations';
+
+export const slideInAnimation =
+  trigger('apperCategory', [
+    state('hidden', style({
+        opacity: 0,
+    })),
+    state('appear', style({
+        opacity: 1,
+    })),
+    transition('hidden => appear', [
+        animate('1s')
+    ]),
+  ]);
 
 @Component({
     selector: 'vsf-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     // changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [slideInAnimation]
 })
 export class HomePageComponent implements OnInit {
 
@@ -55,9 +70,9 @@ export class HomePageComponent implements OnInit {
     indexStart = 0;
     indexEnd = 5;
 
-    categoryList = [];
+    categoryList: any[] = [];
     currentActiveMenu = null;
-    initIdCategory = '6';
+    initIdCategory: any = 6;
     listVendersInitialCategory:any = [];
     currentPage = 0;
 
@@ -65,9 +80,10 @@ export class HomePageComponent implements OnInit {
     stepTranslateMainSlider: any = 0;
     amountSlideInRow = 0;
 
-    offsetBestSellerSlider = 'translateX(0%)';
-    stepTranslateBestSellerSlider: any = 0;
-    amountBestSellerSlider = 0;
+    hiddenItems = true;
+    // offsetBestSellerSlider = 'translateX(0%)';
+    // stepTranslateBestSellerSlider: any = 0;
+    // amountBestSellerSlider = 0;
     ngOnInit() {
         this.heroImage = this.sanitizer.bypassSecurityTrustStyle(this.getHeroImageUrl());
         // this.collections$ = this.dataService.query(GET_COLLECTIONS, {
@@ -81,7 +97,6 @@ export class HomePageComponent implements OnInit {
         this.dataService.query(GET_COLLECTIONS, {
             options: {},
         }).subscribe((response) => {
-            console.log('categoryList', response);
             this.categoryList = response['collections'].items;
         })
         // .pipe(
@@ -92,33 +107,29 @@ export class HomePageComponent implements OnInit {
 
         // this.topSellers$ = 
 
-        let perPage = 24;
-        return this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
-            input: {
-                term: '',
-                groupByProduct: true,
-                collectionId: this.initIdCategory,
-                facetValueIds: [],
-                take: perPage,
-                skip: this.currentPage * perPage,
-            },
-        }).subscribe((response) => {
-            console.log('response !!!', response);
-            this.listVendersInitialCategory = response['search'].items;
-            this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length/2) - 3;
-            console.log('amountSlideInRow', this.amountSlideInRow);
-        });
+        this.getCategory(this.initIdCategory);
+
+        // this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
+        //     input: {
+        //         term: '',
+        //         groupByProduct: true,
+        //         collectionId: this.initIdCategory,
+        //         facetValueIds: [],
+        //         take: perPage,
+        //         skip: this.currentPage * perPage,
+        //     },
+        // }).subscribe((response) => {
+        //     this.listVendersInitialCategory = response['search'].items;
+        //     this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length/2) - 3;
+        // });
         // .pipe(
         //     map(data => data.search.items),
         //     shareReplay(1),
         // );
 
-        // console.log('this.topSellers$', this.topSellers$);
         // this.topSellersLoaded$ = this.topSellers$.pipe(
         //     map(items => 0 < items.length),
         // );
-
-
     }
 
     private getHeroImageUrl(): string {
@@ -132,22 +143,25 @@ export class HomePageComponent implements OnInit {
     }
 
     changeActiveMenu(category: any): void {
-        console.log('changeActiveMenu', category);
-        this.currentActiveMenu = category.id;
+
+        this.initIdCategory= category.id;
+        this.offsetMainSlider = 'translateX(0%)';
+        this.hiddenItems = true;
+        this.getCategory(this.initIdCategory);
     }
 
     // for slider in below
-    toggleBestSelerSlider(next: any): void {
-        if(next && this.stepTranslateBestSellerSlider < this.amountBestSellerSlider) {
-            this.stepTranslateBestSellerSlider += 1;
-            this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
-        } else if(!next && this.stepTranslateBestSellerSlider <= this.amountBestSellerSlider && 
-            this.stepTranslateBestSellerSlider > 0) {
+    // toggleBestSelerSlider(next: any): void {
+    //     if(next && this.stepTranslateBestSellerSlider < this.amountBestSellerSlider) {
+    //         this.stepTranslateBestSellerSlider += 1;
+    //         this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
+    //     } else if(!next && this.stepTranslateBestSellerSlider <= this.amountBestSellerSlider && 
+    //         this.stepTranslateBestSellerSlider > 0) {
 
-            this.stepTranslateBestSellerSlider -= 1;
-            this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
-        }
-    }
+    //         this.stepTranslateBestSellerSlider -= 1;
+    //         this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
+    //     }
+    // }
     toggleMainSliderNext(next: any): void {
         if(next && this.stepTranslateMainSlider < this.amountSlideInRow) {
             this.stepTranslateMainSlider += 1;
@@ -160,6 +174,34 @@ export class HomePageComponent implements OnInit {
         }
     }
     // for slider in below
+
+
+    getCategory(id: any): void {
+
+        let perPage = 24;
+        this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
+            input: {
+                term: '',
+                groupByProduct: true,
+                collectionId: id,
+                facetValueIds: [],
+                take: perPage,
+                skip: this.currentPage * perPage,
+            },
+        }).subscribe((response) => {
+            this.listVendersInitialCategory = response['search'].items;
+            this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length/2) - 3;
+
+            // later check !!!
+            setTimeout(() => {
+                this.hiddenItems = false;
+            })
+        });
+    }
+
+    getStateAnimation(state: string): any {
+        return state;
+    }
 }
 
 const GET_COLLECTIONS = gql`

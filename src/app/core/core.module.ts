@@ -15,20 +15,16 @@ import { AssetGalleryComponent } from './components/asset-gallery/asset-gallery.
 import { CartDrawerComponent } from './components/cart-drawer/cart-drawer.component';
 import { CartToggleComponent } from './components/cart-toggle/cart-toggle.component';
 import { CollectionBreadcrumbsComponent } from './components/collection-breadcrumbs/collection-breadcrumbs.component';
-import { CollectionsMenuMobileComponent } from './components/collections-menu-mobile/collections-menu-mobile.component';
-import { CollectionsMenuComponent } from './components/collections-menu/collections-menu.component';
 import { LayoutFooterComponent } from './components/layout/layout-footer.component';
 import { LayoutHeaderComponent } from './components/layout/layout-header.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { MobileMenuToggleComponent } from './components/mobile-menu-toggle/mobile-menu-toggle.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { ProductListControlsComponent } from './components/product-list-controls/product-list-controls.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductSearchBarComponent } from './components/product-search-bar/product-search-bar.component';
 import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
 import { SliderComponent } from './components/slider/slider.component';
+import { MiniCartComponent } from './components/mini-cart/mini-cart.component';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -39,15 +35,11 @@ const CORE_COMPONENTS = [
     LayoutComponent,
     LayoutHeaderComponent,
     LayoutFooterComponent,
-    CollectionsMenuComponent,
-    CollectionsMenuMobileComponent,
-    MobileMenuToggleComponent,
     ProductCardComponent,
     CollectionBreadcrumbsComponent,
-    ProductListControlsComponent,
-    ProductSearchBarComponent,
     AssetGalleryComponent,
     SliderComponent,
+    MiniCartComponent
 ];
 
 let apolloCache: InMemoryCache;

@@ -25,7 +25,7 @@ import { AssetPreviewPipe } from './pipes/asset-preview.pipe';
 import { CollectionUrlPipe } from './pipes/collection-url.pipe';
 import { FormatPricePipe } from './pipes/format-price.pipe';
 import { ProductUrlPipe } from './pipes/product-url.pipe';
-
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
     AddressCardComponent,
@@ -46,6 +46,7 @@ const SHARED_DECLARATIONS = [
     CollectionUrlPipe,
     ProductUrlPipe,
     AssetPreviewPipe,
+    ConfirmModalComponent
 ];
 
 const IMPORTS = [

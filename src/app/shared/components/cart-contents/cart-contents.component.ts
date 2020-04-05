@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 import { Cart, GetActiveOrder } from '../../../common/generated-types';
 
 @Component({
     selector: 'vsf-cart-contents',
     templateUrl: './cart-contents.component.html',
-    styleUrls: ['./cart-contents.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./cart-contents.component.scss']
 })
-export class CartContentsComponent {
+export class CartContentsComponent implements OnInit {
     @Input() cart: GetActiveOrder.ActiveOrder;
     @Input() canAdjustQuantities = false;
     @Output() setQuantity = new EventEmitter<{ itemId: string; quantity: number; }>();
@@ -23,6 +22,15 @@ export class CartContentsComponent {
 
     trackByFn(index: number, line: { id: string; }) {
         return line.id;
+    }
+
+    ngOnInit(): void {
+
+    }
+
+    changeQuatity(item: Cart.Lines): void {
+        console.log('changeQuatity', item);
+        this.setQuantity.emit({ itemId: item.id, quantity: item.quantity });
     }
 
     /**
