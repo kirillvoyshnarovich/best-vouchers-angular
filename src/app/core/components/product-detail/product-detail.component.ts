@@ -22,6 +22,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     selectedVariant: GetProductDetail.Variants;
     qty = 1;
     breadcrumbs: GetProductDetail.Breadcrumbs[] | null = null;
+
+    // test data
+    listLocation = [
+        'London',
+        'Manchester',
+        'Birmingham',
+        'Leeds',
+        'Glasgow',
+        'Southampton',
+        'Liverpool',
+        'Newcastle',
+        'Nottingham',
+        'Sheffield',
+        'Bristol',
+        'Belfast',
+        'Leicester'
+    ];
+    // test data
     private sub: Subscription;
 
     constructor(private dataService: DataService,
@@ -67,7 +85,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             variantId: variant.id,
             qty,
         }).subscribe((data) => {
-            console.log('addToCart', data);
             this.stateService.setState('activeOrderId', data.addItemToOrder ? data.addItemToOrder.id : null);
         });
     }

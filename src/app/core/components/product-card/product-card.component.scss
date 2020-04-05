@@ -1,12 +1,6 @@
-@import "variables";
-
 :host {
     display: block;
     width: auto;
-}
-
-.wrapper-card {
-    // padding: 
 }
 
 .product-card {
@@ -83,25 +77,5 @@
     }
 }
 
-.card-tabs {
-    // margin-top: 15px;
-}
 
-.card-slider {
-
-}
-
-.placeholder-image {
-    height: 200px;
-    width: 200px;
-}
-
-.placeholder-title {
-    height: $font-size-base;
-    margin-bottom: $spacer / 2;
-}
-
-.placeholder-body {
-    height: $font-size-base;
-}
 

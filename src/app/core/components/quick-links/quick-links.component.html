@@ -1,0 +1,128 @@
+<div class="quick-links">
+    <ng-container [ngSwitch]="mode">
+        <div *ngSwitchCase="'term'" class="terms-and-services">
+            <div [innerHTML]="termAndConditions"></div>
+        </div>
+        <div *ngSwitchCase="'check'" class="check-your-order">
+            <div class="container-q-l">
+                <h2 class="check-your-order__header">Activate</h2>
+                <h4 class="check-your-order__explanation">To activate the code, please provide tahe data listed below:</h4>
+                <form class="form">
+                    <div class="form-input">
+                        <label>The e-mail address used while placing the order</label>
+                        <input type="email" placeholder="E-mail">
+                    </div>
+                    <div class="form-input">
+                        <label>8-digit code from the card</label>
+                        <input type="text" placeholder="Code">
+                    </div>
+                    <button class="form-button" type="submit">Activate</button>
+                </form>
+            </div>
+        </div>
+        <div *ngSwitchCase="'private'" class="privacy-policy">
+            <div [innerHTML]="privacyPolicy"></div>
+        </div>
+        <div *ngSwitchCase="'return'" class="return-policy">
+            <div class="return-policy__header">
+                <div class="container-q-l">
+                    <h1 class="return-policy__caption">Returns Policy</h1>
+                    <p class="return-policy__description">Not everything always goes as we want, even if we plan it very carefully. 
+                        At The Best Vouchers, we understand that sometimes, as a result of an emergency, 
+                        something unfortunate may happen that will prevent you from using your coupon. 
+                        Therefore, we allow cancellation of the voucher and offer refund of its costs to 
+                        your bank account.
+                    </p>
+                </div>
+            </div>
+            <div class="return-policy__body">
+                <div class="container-q-l">
+                    <div class="return-policy__body-left">
+                        <img src="../../../../assets/bestvouchers/return_policy_img1.jpg">
+                    </div>
+                    <div class="return-policy__body-right">
+                        <p>
+                            Just let us know about it, using the support available on the site – it will 
+                            guide you through the entire return process. Thanks to this both you, the customer, 
+                            and the provider of the service to which the voucher relates do not waste time or money. 
+                            By cancelling the unused voucher, you are guaranteed that the money will return to your bank account 
+                            in just two weeks after accepting the return! This way you can decide to try another voucher 
+                            from our wide offer or use the same voucher at a more convenient time for you!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngSwitchCase="'delivery'" class="delivery">
+            <div class="delivery__header">
+                <div class="container-q-l">
+                    <h1 class="delivery__caption">Delivery</h1>
+                    <p class="delivery__description">
+                        As The Best Vouchers team, we believe that honesty and complete transparency 
+                        of the terms of purchase and cooperation should be the basis of contact 
+                        with customers. That is why we do not hide any loopholes or additional costs 
+                        from you. By ordering one of our unique vouchers through our website you will 
+                        only pay as much as the voucher costs and the delivery will not cost a penny!
+                    </p>
+                </div>
+            </div>
+            <div class="delivery__body">
+                <div class="container-q-l">
+                    <div class="delivery__body-left">
+                        <img src="../../../../assets/bestvouchers/delivery-1.jpg">
+                    </div>
+                    <div class="delivery__body-right">
+                        <p>
+                            That is right - the delivery of each of the numerous vouchers that you 
+                            order on our site is absolutely free! All prices that appear on the 
+                            vouchers we offer are the final amounts to be paid. Thanks to this, you 
+                            know exactly how much money you spend and on what. You do not have to worry 
+                            about any additional costs, such as delivery, package insurance or various 
+                            commissions. We will take care of all this so that you, dear customer, could 
+                            focus on choosing the perfect gift for your loved ones.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngSwitchCase="'contact'" class="contact">
+            <div class="contact__header">
+                <div class="container-q-l">
+                    <h1 class="contact__caption">Contact</h1>
+                    <p class="contact__description">
+                        We are aware that despite our constant efforts, our service may 
+                        not be completely satisfactory for some. That is why we want to encourage 
+                        you to send us your comments, questions, doubts and suggestions so that we 
+                        can develop and adapt to your needs and resolve any doubts on an ongoing basis.
+                    </p>
+                </div>
+            </div>
+            <div class="contact__body">
+                <div class="container-q-l">
+                    <div class="contact__body-left">
+                        <p>
+                            In case of problems that need immediate solution, please contact support 
+                            available at the number at the top of the page.
+                        </p>
+                        <button>
+                            (+44) 752 066 07 48
+                        </button>
+                    </div>
+                    <div class="contact__body-right">
+                        <div class="list-location-header">
+                            <strong>Please send suggestions and comments to the e-mail address</strong>
+                        </div>
+                        <ul class="list-location">
+                            <li class="list-location__item" *ngFor="let location of listLocation">
+                                <div class="list-location__name">{{location.loc}}</div>
+                                <div class="list-location__email">
+                                    <a [href]="location.email">{{location.email}}</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

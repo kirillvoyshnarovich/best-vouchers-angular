@@ -1,11 +1,11 @@
-@import "variables";
+// @import "variables";
 
 .slider {
     max-width: 1200px;
     overflow: hidden;
     margin-top: 40px;
     margin-bottom: 50px;
-    padding: 0 15px;
+    padding: 0 0px;
 
     &__header {
         width: 100%;
@@ -55,15 +55,11 @@
         display: flex;
         width: 100%;
         max-width: 1200px;
-        transition: transform 0.2s linear;
+        transition: transform 0.4s linear;
         vsf-product-card {
             padding-left: 15px;
             width: 20%;
             min-width: 20%;
-           
-            @include media-breakpoint-down(lg) {
-                min-width: 100%;
-            }
         }
 
         vsf-product-card:first-child {

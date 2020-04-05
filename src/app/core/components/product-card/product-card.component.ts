@@ -16,7 +16,5 @@ export class ProductCardComponent {
 
 
     ngOnInit():void {
-        console.log('product', this.product)
-
     }
 }

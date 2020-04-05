@@ -40,7 +40,6 @@ export class CartDrawerComponent implements OnInit {
     }
 
     setQuantity(event: { itemId: string; quantity: number; }) {
-        console.log('setQuantity', event);
         if (0 < event.quantity) {
             this.adjustItemQuantity(event.itemId, event.quantity);
         } else {

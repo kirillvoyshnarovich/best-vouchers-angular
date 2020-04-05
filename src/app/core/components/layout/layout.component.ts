@@ -8,6 +8,5 @@ import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core'
 })
 export class LayoutComponent {
     @HostListener('scroll') scroll() {
-        console.log('scroll in hostListentr IN LAYOUT')
     }
 }

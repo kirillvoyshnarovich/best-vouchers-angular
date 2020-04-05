@@ -24,33 +24,40 @@
                     </vsf-collection-card>
                 </div>
             </ng-container> -->
-            <ng-container *ngIf="(totalResults$ | async) !== 0; else noResults">
+            <!-- *ngIf="(totalResults$ | async) !== 0; else noResults" -->
+            <!-- <ng-container> -->
                 <div class="product-list">
-                    <ng-container *ngIf="(totalResults$ | async) !== null; else placeholders">
-                        <vsf-product-card *ngFor="let product of products$ | async"
+                    <!-- *ngIf="(totalResults$ | async) !== null" -->
+                    <ng-container *ngIf="products.length">
+                        <vsf-product-card *ngFor="let product of products"
                                           [product]="product"></vsf-product-card>
                     </ng-container>
-                    <ng-template #placeholders>
+                    <!-- <ng-template #placeholders>
                         <vsf-product-card *ngFor="let product of placeholderProducts"
                                           [product]="product"></vsf-product-card>
-                    </ng-template>
+                    </ng-template> -->
                 </div>
                 <div class="page-control">
+                    <div class="page-control__button" (click)="choosePage(+currentPage-1)">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
                     <div class="page-control__list">
-                        <span class="page-control__item" *ngFor="let page of pageList">
+                        <span (click)="choosePage(page)" *ngFor="let page of pageList" class="page-control__item" [ngClass]="{'ative-page': currentPage == page}" >
                             {{page}}
                         </span>
                     </div>
-                    <div class="page-control__button"></div>
+                    <div class="page-control__button" (click)="choosePage(+currentPage+1)">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
                 </div>
-            </ng-container>
+            <!-- </ng-container> -->
         </div>
     </div>
 </div>
 
-<ng-template #noResults>
+<!-- <ng-template #noResults>
     <div class="no-results col-12">
         <p class="h1">No results</p>
         <fa-icon icon="sad-cry" size="10x"></fa-icon>
     </div>
-</ng-template>
+</ng-template> -->

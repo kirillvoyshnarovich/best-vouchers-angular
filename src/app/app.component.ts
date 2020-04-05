@@ -37,12 +37,12 @@ export class AppComponent implements OnInit {
     ];
     currentLang: any = null;
 
+    showMiniCart = false;
+
     // @HostListener('scroll') scroll() {
-    //     console.log('scroll in hostListentr in APP COMPONENT')
     // }
 
     // @HostListener("window:scroll", ['$event']) onWindowScroll(event: any) {
-    //     console.log("Scrolling!", event.target.offsetTop);
     // }
 
     constructor(private router: Router,
@@ -70,4 +70,13 @@ export class AppComponent implements OnInit {
     chooseLang(lang: void) {
         this.currentLang = lang;
     }
+
+    viewMiniCart(): void {
+        this.showMiniCart = true;
+    }
+
+    hiddenMiniCart(): void {
+        this.showMiniCart = false;
+    }
+
 }

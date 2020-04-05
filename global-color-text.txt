@@ -1,0 +1,1 @@
+global color text in bestvauchers -- > #595e6f

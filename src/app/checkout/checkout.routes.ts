@@ -4,7 +4,6 @@ import { CheckoutConfirmationComponent } from './components/checkout-confirmatio
 import { CheckoutPaymentComponent } from './components/checkout-payment/checkout-payment.component';
 import { CheckoutProcessComponent } from './components/checkout-process/checkout-process.component';
 import { CheckoutShippingComponent } from './components/checkout-shipping/checkout-shipping.component';
-import { CheckoutSignInComponent } from './components/checkout-sign-in/checkout-sign-in.component';
 import { CheckoutResolver } from './providers/checkout-resolver';
 import { CheckoutGuard } from './providers/checkout.guard';
 
@@ -16,12 +15,6 @@ export const routes: Routes = [
             activeOrder: CheckoutResolver,
         },
         children: [
-            {
-                path: '',
-                pathMatch: 'full',
-                component: CheckoutSignInComponent,
-                canActivate: [CheckoutGuard],
-            },
             {
                 path: 'shipping',
                 component: CheckoutShippingComponent,

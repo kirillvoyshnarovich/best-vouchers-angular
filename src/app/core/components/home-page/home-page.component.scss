@@ -1,13 +1,5 @@
-@import "variables";
-
-$spacer: 1rem;
-
-button {
-    outline: none;
-}
-
 .banner {
-    padding: $spacer * 3 $spacer;
+    padding: 1rem;
     color: #d2d2d2;
     background-size: cover;
     position: relative;
@@ -16,26 +8,26 @@ button {
     font-family: 'Open Sans',sans-serif;
     margin-bottom: 35px;
 
-    @include media-breakpoint-down(lg) {
-        height: 350px;
-    }
+    // @include media-breakpoint-down(lg) {
+    //     height: 350px;
+    // }
 
-    @include media-breakpoint-down(md) {
-        height: 270px;
-    }
+    // @include media-breakpoint-down(md) {
+    //     height: 270px;
+    // }
     
-    @include media-breakpoint-down(sm) {
-        display: none;
-    }
+    // @include media-breakpoint-down(sm) {
+    //     display: none;
+    // }
 
     &__description {
         position: absolute;
         left: 13%;
         top: 30%;
 
-        @include media-breakpoint-down(md) {
-            top: 10%;
-        }
+        // @include media-breakpoint-down(md) {
+        //     top: 10%;
+        // }
     }
 
     h1 {
@@ -67,30 +59,30 @@ button {
     padding: 0 15px;
     margin-bottom: 40px;
 
-    @include media-breakpoint-down(sm) {
-        margin-top: 30px;
-    }
+    // @include media-breakpoint-down(sm) {
+    //     margin-top: 30px;
+    // }
 
     &__list {
         display: flex;
         justify-content: space-between;
 
-        @include media-breakpoint-down(sm) {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
+        // @include media-breakpoint-down(sm) {
+        //     flex-direction: column;
+        //     align-items: center;
+        //     text-align: center;
+        // }
     }
 
     &__item {
         width: 30%;
         display: flex;
-        @include media-breakpoint-down(sm) {
-            width: 100%;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 40px;
-        }
+        // @include media-breakpoint-down(sm) {
+        //     width: 100%;
+        //     flex-direction: column;
+        //     align-items: center;
+        //     margin-bottom: 40px;
+        // }
     }
 
     &__left {
@@ -106,9 +98,9 @@ button {
         display: flex;
         flex-direction: column;
        
-        @include media-breakpoint-down(sm) {
-            width: 100%;
-        }
+        // @include media-breakpoint-down(sm) {
+        //     width: 100%;
+        // }
     }
 
     &__title {
@@ -117,9 +109,9 @@ button {
         text-transform: uppercase;
         font-size: 1.7rem;
 
-        @include media-breakpoint-down(sm) {
-            margin-bottom: 10px;
-        }
+        // @include media-breakpoint-down(sm) {
+        //     margin-bottom: 10px;
+        // }
     }
 
     &__description {
@@ -136,9 +128,9 @@ button {
         width: 25%;
         padding-right: 30px;
 
-        @include media-breakpoint-down(md) {
-            display: none;
-        }
+        // @include media-breakpoint-down(md) {
+        //     display: none;
+        // }
 
         .advertising {
             img {
@@ -216,9 +208,9 @@ button {
         display: flex;
         flex-wrap: wrap;
 
-        @include media-breakpoint-down(md) {
-            width: 100%;
-        }
+        // @include media-breakpoint-down(md) {
+        //     width: 100%;
+        // }
     }
 
     .best-deal {
@@ -226,21 +218,21 @@ button {
         margin-bottom: 35px;
         width: 100%;
 
-        @include media-breakpoint-down(lg) {
-            justify-content: center;
-        }
-        @include media-breakpoint-down(xs) {
-            flex-direction: column;
-            align-items: center;
-        }
+        // @include media-breakpoint-down(lg) {
+        //     justify-content: center;
+        // }
+        // @include media-breakpoint-down(xs) {
+        //     flex-direction: column;
+        //     align-items: center;
+        // }
         &__image {
 
             img{
                 height: 225px;
                 
-                @include media-breakpoint-down(xs) {
-                    max-width: 360px;
-                }
+                // @include media-breakpoint-down(xs) {
+                //     max-width: 360px;
+                // }
             }
         }
 
@@ -314,9 +306,9 @@ button {
             font-size: 2.2rem;
             font-weight: 700;
 
-            @include media-breakpoint-down(xs) {
-                font-size: 1.9rem;
-            }
+            // @include media-breakpoint-down(xs) {
+            //     font-size: 1.9rem;
+            // }
         }
 
         &__control {
@@ -373,6 +365,7 @@ button {
             display: flex;
             flex-wrap: wrap;
             overflow: hidden;
+            min-height: 615px;
         }
 
         &__row {
@@ -385,9 +378,9 @@ button {
                 padding-top: 15px;
                 min-width: 33.3%;
 
-                @include media-breakpoint-down(sm) {
-                    min-width: 50%;
-                }
+                // @include media-breakpoint-down(sm) {
+                //     min-width: 50%;
+                // }
             }
 
             vsf-product-card:first-child {
@@ -409,26 +402,26 @@ button {
 
             &:first-child {
                 margin: 0px;
-                @include media-breakpoint-down(sm) {
-                    flex-direction: column;
-                }
+                // @include media-breakpoint-down(sm) {
+                //     flex-direction: column;
+                // }
             }
 
             margin-top: 25px;
 
-            @include media-breakpoint-down(sm) {
-                margin-top: 0;
-            }
+            // @include media-breakpoint-down(sm) {
+            //     margin-top: 0;
+            // }
         }   
 
         &__small-box {
             width: 48%;
 
-            @include media-breakpoint-down(sm) {
-                width: 100%;
-                margin-bottom: 25px;
-                text-align: center;
-            }
+            // @include media-breakpoint-down(sm) {
+            //     width: 100%;
+            //     margin-bottom: 25px;
+            //     text-align: center;
+            // }
 
             img {
                 max-width: 100%;
@@ -450,13 +443,13 @@ button {
 .top-categories {
     display: grid;
     grid-template-columns: repeat(auto-fill, 350px);
-    grid-row-gap: $spacer;
+    grid-row-gap: 1rem;
     justify-content: space-around;
 }
 
 .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, 220px);
-    grid-row-gap: $spacer;
+    grid-row-gap: 1rem;
     justify-content: space-around;
 }
