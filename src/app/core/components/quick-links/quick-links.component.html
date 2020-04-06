@@ -6,17 +6,41 @@
         <div *ngSwitchCase="'check'" class="check-your-order">
             <div class="container-q-l">
                 <h2 class="check-your-order__header">Activate</h2>
-                <h4 class="check-your-order__explanation">To activate the code, please provide tahe data listed below:</h4>
-                <form class="form">
+                <h4 class="check-your-order__explanation">To activate the code, please provide the data listed below:</h4>
+                <form class="form" [formGroup]="form" (ngSubmit)="submit()">
                     <div class="form-input">
                         <label>The e-mail address used while placing the order</label>
-                        <input type="email" placeholder="E-mail">
+                        <input type="email" placeholder="E-mail" formControlName="email">
+                        <div 
+                            *ngIf="form.get('email').invalid && form.get('email').touched"
+                            class="validation"
+                        >
+                            <small *ngIf="form.get('email').errors.required">
+                                The e-mail address cannot be empty
+                            </small>
+
+                            <small *ngIf="form.get('email').errors.email">
+                                Enter the correct e-mail address
+                            </small>
+                        </div>
                     </div>
                     <div class="form-input">
                         <label>8-digit code from the card</label>
-                        <input type="text" placeholder="Code">
+                        <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Code" formControlName="code">
+                        <div 
+                            *ngIf="form.get('code').invalid && form.get('code').touched"
+                            class="validation"
+                        >
+                            <small *ngIf="form.get('code').errors.minlength">
+                                Code must contain 8 characters.
+                            </small>
+
+                            <small *ngIf="form.get('code').errors.maxlength">
+                                Code must contain 8 characters.
+                            </small>
+                        </div>
                     </div>
-                    <button class="form-button" type="submit">Activate</button>
+                    <button class="form-button" type="submit" [disabled]="form.invalid">Activate</button>
                 </form>
             </div>
         </div>

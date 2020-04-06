@@ -1,8 +1,10 @@
+@import "variables";
+
 .quick-links {
 
     .container-q-l {
         max-width: 1200px;
-        width: 1200px;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -223,6 +225,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 0 15px;
         }
 
         &__header {
@@ -245,6 +248,11 @@
             width: 40%;
             display: flex;
             flex-direction: column;
+            margin-bottom: 60px;
+
+            @include media-breakpoint-down(xs) {
+                width: 80%;
+            }
 
             .form-input {
                 padding-top: 15px;
@@ -252,6 +260,11 @@
                 label {
                     font-size: 1.2rem;
 
+                }
+
+                .validation{
+                    color: red;
+                    font-size: 1.5rem;
                 }
 
                 input {
@@ -270,6 +283,14 @@
                         border: 1px solid #d7d7d7;
                         box-shadow: 0 1px 5px rgba(0,0,0,0.1);
                     }
+
+                    &.ng-invalid.ng-touched{
+                        border: 1px solid red;
+                    }
+
+                    &.ng-valid.ng-touched{
+                        border: 1px solid green;
+                    }
                 }
             }
 
@@ -284,11 +305,18 @@
                 border: 0;
                 border-radius: 5px;
                 font-size: 1.7rem;
-                align-self: flex-end;
+                align-self: center;
                 margin-top: 30px;
+                cursor: pointer;
 
                 &:hover {
                     background-color: #e80621;
+                }
+                &:disabled,
+                &[disabled]{
+                    background-color: #cccccc;
+                    color: #666666;
+                    cursor: not-allowed;
                 }
             }
         }
