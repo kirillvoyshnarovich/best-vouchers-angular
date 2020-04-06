@@ -44,10 +44,11 @@ export class ProductListComponent implements OnInit {
             map(pm => pm.get('collectionId')),
             distinctUntilChanged(),
             map(id => {
-                if (id) {
-                    const parts = id.split('_');
-                    return parts[parts.length - 1];
-                }
+                // if (id) {
+                //     const parts = id.split('_');
+                //     return parts[parts.length - 1];
+                // }
+                return id;
             }),
             tap(collectionId => {
                 this.collectionId = collectionId;

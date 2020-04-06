@@ -44,7 +44,8 @@
                     All Products
                 </div>
                 <ul [ngClass]="{'collapse_ul': collapsedMenuCategory}" class="list-category__ul">
-                    <li class="list-category__item" *ngFor="let category of categoryList" [routerLink]="['/category', category | collectionUrl]">
+                    <li class="list-category__item" *ngFor="let category of categoryList" [routerLink]="['/category', category.id]">
+                        <!-- | collectionUrl -->
                         {{category.name}}
                     </li>
                     <!-- <li class="list-category__item">Active And Fit</li>
@@ -68,7 +69,6 @@
                 <div class="best-deal__image">
                     <img src="../../../../assets/bestvouchers/best-deal.jpg" class="d-none d-xl-block">
                     <img src="../../../../assets/bestvouchers/best-deal-mobile.jpg" class="d-xl-none">
-
                 </div>
                 <div class="best-deal__vouchers">
                     <div class="best-deal__nested-image">
