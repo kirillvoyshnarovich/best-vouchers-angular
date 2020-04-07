@@ -233,6 +233,18 @@
                 @media only screen and (max-width: 575px) {
                     max-width: 320px;
                 }
+
+                &:first-of-type {
+                    @media only screen and (max-width: 1199px) {
+                        display: none;
+                    }
+                }
+                &:last-of-type {
+                    display: none;
+                    @media only screen and (max-width: 1199px) {
+                        display: block;
+                    }
+                }
             }
         }
 
