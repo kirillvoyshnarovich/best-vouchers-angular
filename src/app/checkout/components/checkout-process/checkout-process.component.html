@@ -1,6 +1,5 @@
 <div class="container-c-p">
-    <h1 class="header-card">Shopping Cart</h1>
-    <div *ngIf="data">
-        <vsf-cart-contents [cart]="data" class="mb-3"></vsf-cart-contents>
-    </div>
+    <vsf-checkout-stage-indicator 
+        *ngIf="currentProcess !== 'cart'" [activeStage]="activeStage"></vsf-checkout-stage-indicator>
+    <router-outlet ></router-outlet>
 </div>

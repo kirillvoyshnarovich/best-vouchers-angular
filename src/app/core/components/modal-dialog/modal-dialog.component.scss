@@ -1,8 +1,31 @@
-@import "variables";
-
 :host {
     display: block;
     animation: fadeIn 0.3s ease-out forwards;
+}
+
+.modal-content {
+    background-color: #fff;
+
+    .modal-header {
+        display: flex;
+        padding: 10px;
+        justify-content: flex-end;
+        .modal-title {
+
+        }
+
+        button {
+            font-size: 1.8rem;
+        }
+    }
+
+    .modal-body {
+        padding: 0 10px;
+    }
+
+    .modal-footer {
+        padding: 10px;
+    }
 }
 
 @keyframes fadeIn {

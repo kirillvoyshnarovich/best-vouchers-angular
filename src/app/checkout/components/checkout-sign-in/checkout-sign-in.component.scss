@@ -1,0 +1,17 @@
+.sign-in-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.or {
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+}
+
+.guest {
+    display: flex;
+    align-items: center;
+}

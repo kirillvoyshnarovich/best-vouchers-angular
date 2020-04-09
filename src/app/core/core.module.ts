@@ -10,7 +10,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { environment } from '../../environments/environment';
 import { SharedModule } from '../shared/shared.module';
 
-import { AccountLinkComponent } from './components/account-link/account-link.component';
 import { AssetGalleryComponent } from './components/asset-gallery/asset-gallery.component';
 import { CartDrawerComponent } from './components/cart-drawer/cart-drawer.component';
 import { CartToggleComponent } from './components/cart-toggle/cart-toggle.component';
@@ -25,12 +24,12 @@ import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
 import { SliderComponent } from './components/slider/slider.component';
 import { MiniCartComponent } from './components/mini-cart/mini-cart.component';
+import { QuickLinksComponent } from './components/quick-links/quick-links.component';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
     ProductDetailComponent,
     CartToggleComponent,
-    AccountLinkComponent,
     CartDrawerComponent,
     LayoutComponent,
     LayoutHeaderComponent,
@@ -39,7 +38,8 @@ const CORE_COMPONENTS = [
     CollectionBreadcrumbsComponent,
     AssetGalleryComponent,
     SliderComponent,
-    MiniCartComponent
+    MiniCartComponent,
+    QuickLinksComponent
 ];
 
 let apolloCache: InMemoryCache;

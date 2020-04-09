@@ -10,12 +10,6 @@
 </div>
 
 <div class="bv-wrapper">
-    <!-- <div class="top-categories mt-5">
-        <vsf-collection-card *ngFor="let collection of collections$ | async"
-                             [collection]="collection">
-        </vsf-collection-card>
-    </div> -->
-
     <div class="our-advantages">
         <div class="our-advantages__list">
             <div class="our-advantages__item" *ngFor="let item of ourAdvantagesList">
@@ -47,12 +41,6 @@
                     <li class="list-category__item" *ngFor="let category of categoryList" [routerLink]="['/category', category | collectionUrl]">
                         {{category.name}}
                     </li>
-                    <!-- <li class="list-category__item">Active And Fit</li>
-                    <li class="list-category__item">Workshops</li>
-                    <li class="list-category__item">Automotive</li>
-                    <li class="list-category__item">Culinary</li>
-                    <li class="list-category__item">Up In The Sky</li>
-                    <li class="list-category__item">Education</li> -->
                 </ul>
             </div>
             <div class="advertising">
@@ -66,9 +54,8 @@
         <div class="main-content__grid">
             <div class="best-deal">
                 <div class="best-deal__image">
-                    <img src="../../../../assets/bestvouchers/best-deal.jpg" class="d-none d-xl-block">
-                    <img src="../../../../assets/bestvouchers/best-deal-mobile.jpg" class="d-xl-none">
-
+                    <img src="../../../../assets/bestvouchers/best-deal.jpg">
+                    <img class="mobile-image" src="../../../../assets/bestvouchers/best-deal-mobile.jpg">
                 </div>
                 <div class="best-deal__vouchers">
                     <div class="best-deal__nested-image">
@@ -77,7 +64,6 @@
                         </div>
                         <img src="../../../../assets/bestvouchers/best-deal-2.jpg">
                     </div>
-
                     <div class="best-deal__nested-price">
                         <span class="best-deal__nested-new-price">$48.00</span>
                         <span class="best-deal__nested-old-price">$60.00</span>
@@ -98,27 +84,11 @@
                         </div>
                     </div>
                     <div class="products__tabs">
-                        <div (click)="changeActiveMenu(category)" [ngClass]="{'active-tab': category.id == +initIdCategory}" class="products__tab" *ngFor="let category of categoryList">
+                        <div (click)="changeActiveMenu(category)" 
+                            [ngClass]="{'active-tab': category.id == +initIdCategory}" 
+                            class="products__tab" *ngFor="let category of categoryList">
                             {{category.name}}
                         </div>
-                        <!-- <div class="products__tab">
-                            Culinary
-                        </div>
-                        <div class="products__tab">
-                            Education
-                        </div>
-                        <div class="products__tab">
-                            Workshops
-                        </div>
-                        <div class="products__tab">
-                            Active and fit
-                        </div>
-                        <div class="products__tab">
-                            Up in the sky
-                        </div>
-                        <div class="products__tab">
-                            Beauty and SPA
-                        </div> -->
                     </div>
                 </div>
                 <div [@apperCategory]="hiddenItems ? 'hidden' : 'appear'" class="products__list" *ngIf="listVendersInitialCategory.length">

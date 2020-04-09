@@ -11,7 +11,7 @@
                 <span class="product-card__price">
                     {{ product.priceWithTax.min | formatPrice }}
                 </span>
-                <button class="product-card__button">
+                <button class="product-card__button" [routerLink]="['/product', product.slug]">
                     Check
                 </button>
             </div>
