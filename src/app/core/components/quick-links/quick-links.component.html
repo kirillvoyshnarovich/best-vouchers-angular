@@ -1,5 +1,5 @@
 <div class="quick-links">
-    <ng-container [ngSwitch]="mode">
+    <div *ngIf="mode" [ngSwitch]="mode">
         <div *ngSwitchCase="'term'" class="terms-and-services">
             <div [innerHTML]="termAndConditions"></div>
         </div>
@@ -124,5 +124,5 @@
                 </div>
             </div>
         </div>
-    </ng-container>
+    </div>
 </div>

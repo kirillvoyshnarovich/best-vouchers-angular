@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 
 import { ProductDetailComponent } from './core/components/product-detail/product-detail.component';
 import { ProductListComponent } from './core/components/product-list/product-list.component';
-
+import { QuickLinksComponent } from './core/components/quick-links/quick-links.component';
 export const routes: Route[] = [
     {
         path: 'category/:collectionId',
@@ -19,27 +19,28 @@ export const routes: Route[] = [
     },
     {
         path: 'terms-and-services',
-        loadChildren: () => import('./core/components/quick-links/quick-links.module').then(m => m.QuickLinksModule),
+        component: QuickLinksComponent,
+        pathMatch: 'full'
     },
     {
         path: 'check-your-order',
-        loadChildren: () => import('./core/components/quick-links/quick-links.module').then(m => m.QuickLinksModule),
+        component: QuickLinksComponent,
     },
     {
         path: 'privacy-policy',
-        loadChildren: () => import('./core/components/quick-links/quick-links.module').then(m => m.QuickLinksModule),
+        component: QuickLinksComponent,
     },
     {
         path: 'return-policy',
-        loadChildren: () => import('./core/components/quick-links/quick-links.module').then(m => m.QuickLinksModule),
+        component: QuickLinksComponent,
     },
     {
         path: 'delivery',
-        loadChildren: () => import('./core/components/quick-links/quick-links.module').then(m => m.QuickLinksModule),
+        component: QuickLinksComponent,
     },
     {
         path: 'contact',
-        loadChildren: () => import('./core/components/quick-links/quick-links.module').then(m => m.QuickLinksModule),
+        component: QuickLinksComponent,
     },
     {
         path: 'account',

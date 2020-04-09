@@ -1,7 +1,5 @@
-@import "bootstrap";
 @import "~@angular/cdk/overlay-prebuilt";
 
-@import "variables";
 
 @font-face {
     font-family: "Open Sans";
@@ -10,19 +8,25 @@
 
 // overwrite default style
 * {
-    transition: all 0.3s linear;
+    // transition: all 0.3s linear;
     box-sizing: border-box;
 }
 
 button {
     outline: none;
-
+    border-radius: 5px;
+    background: none;
+    border: none;
     &:hover {
         outline: none;
     }
 
     &:focus {
         outline: none;
+    }
+
+    &:hover {
+        cursor: pointer;
     }
 }
 
@@ -39,6 +43,9 @@ input {
 }
 
 ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
     li {
         outline: none;
 
@@ -51,7 +58,45 @@ ul {
         }
     }
 }
+
+ol {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+select {
+    outline: none;
+}
 // overwrite default style
+
+// common style
+.bv-button {
+    background: #fa4157;
+    padding: 0 20px;
+    line-height: 48px;
+    height: 48px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 5px;
+    font-size: 1.7rem;
+    color: #fff;
+    
+    &:hover {
+        background-color: #e80621;
+    }
+}
+// common style
+
 
 
 html {
@@ -62,11 +107,11 @@ html {
 .loading-placeholder {
     position: relative;
     overflow: hidden;
-    background-color: $gray-100;
+    // background-color: $gray-100;
     &::after {
         content: "";
         display: block;
-        background-color: $gray-200;
+        // background-color: $gray-200;
         opacity: 0.3;
         position: absolute;
         top: 0;
@@ -92,7 +137,7 @@ img[data-zoom] {
 }
 
 .vsf-zoom-zoom-pane {
-    box-shadow: $box-shadow-lg;
+    // box-shadow: $box-shadow-lg;
 }
 
 .bv-container {
@@ -100,7 +145,6 @@ img[data-zoom] {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 0 15px;
 }
 
 .bv-wrapper {

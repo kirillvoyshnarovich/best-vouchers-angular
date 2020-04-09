@@ -225,7 +225,7 @@ export class ProductListComponent implements OnInit {
                 collectionId: this.collectionId,
                 facetValueIds: [],
                 take: perPage,
-                skip: this.currentPage - 1 * perPage,
+                skip: perPage * (this.currentPage - 1),
             },
         }).subscribe((response) => {
             this.products = response['search'].items;

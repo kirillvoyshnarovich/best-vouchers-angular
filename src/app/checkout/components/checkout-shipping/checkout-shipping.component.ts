@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, mergeMap, switchMap, take } from 'rxjs/operators';
-
 import { Address, CreateAddressInput, GetAvailableCountries, GetCustomerAddresses, GetEligibleShippingMethods, GetShippingAddress, SetCustomerForOrder, SetShippingAddress, SetShippingMethod, TransitionToArrangingPayment } from '../../../common/generated-types';
 import { GET_AVAILABLE_COUNTRIES, GET_CUSTOMER_ADDRESSES } from '../../../common/graphql/documents.graphql';
 import { notNullOrUndefined } from '../../../common/utils/not-null-or-undefined';
@@ -10,8 +9,7 @@ import { DataService } from '../../../core/providers/data/data.service';
 import { ModalService } from '../../../core/providers/modal/modal.service';
 import { StateService } from '../../../core/providers/state/state.service';
 import { AddressFormComponent } from '../../../shared/components/address-form/address-form.component';
-import { AddressModalComponent } from '../../../shared/components/address-modal/address-modal.component';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
     GET_ELIGIBLE_SHIPPING_METHODS,
     GET_SHIPPING_ADDRESS,
@@ -20,17 +18,18 @@ import {
     SET_SHIPPING_METHOD,
     TRANSITION_TO_ARRANGING_PAYMENT,
 } from './checkout-shipping.graphql';
-
+import { Location } from '@angular/common';
+import { TermsConditionsModalComponent } from '../../../shared/components/terms-conditions-modal/terms-conditions-modal.component';
 export type AddressFormValue = Pick<Address.Fragment, Exclude<keyof Address.Fragment, 'country'>> & { countryCode: string; };
 
 @Component({
     selector: 'vsf-checkout-shipping',
     templateUrl: './checkout-shipping.component.html',
     styleUrls: ['./checkout-shipping.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutShippingComponent implements OnInit {
-    @ViewChild('addressForm') addressForm: AddressFormComponent;
+    // @ViewChild('addressForm') addressForm: AddressFormComponent;
 
     customerAddresses$: Observable<Address.Fragment[]>;
     availableCountries$: Observable<GetAvailableCountries.AvailableCountries[]>;
@@ -43,21 +42,84 @@ export class CheckoutShippingComponent implements OnInit {
     lastName = '';
     emailAddress = '';
 
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private changeDetector: ChangeDetectorRef,
-                private modalService: ModalService,
-                private route: ActivatedRoute,
-                private router: Router) { }
+    // my property
+    order:any = null;
+    collapsedMenu = false;
+    displayTooltip = false;
+    availableCountries:any = [];
+    addressForm: FormGroup;
+    currentProcess: any = false;
+    activeStage: number = 0;
+
+    openedItem = 0;
+    constructor(
+        private dataService: DataService,
+        private stateService: StateService,
+        private changeDetector: ChangeDetectorRef,
+        private modalService: ModalService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private location: Location
+    ) { 
+
+        // for first init
+        let url = this.location.path().split('/');
+        this.currentProcess = url[url.length - 1];
+        // for first init
+        
+        this.router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd) {
+                const url = this.router.url.split('/');
+                this.currentProcess = url[url.length - 1];
+                switch(this.currentProcess){
+                    case 'shipping' : this.activeStage = 3;
+                        break;
+                    case 'payment' : this.activeStage = 3;
+                        break;
+                    default: this.activeStage = 0;
+                }
+            }
+        })
+
+        this.route.data
+        .subscribe((response) => {
+            if(response.activeOrder) {
+                response.activeOrder.subscribe((data: any) => {
+                    this.order = data;
+                    console.log('order', this.order);
+                })
+            }
+        })
+
+        this.addressForm = this.formBuilder.group({
+                firstName: ['', Validators.required],
+                lastName: ['', Validators.required],
+                emailAddress: ['', Validators.required],
+                fullName: '',
+                streetLine1: ['', Validators.required],
+                streetLine2: '',
+                streetLine3: '',
+                city: ['', Validators.required],
+                province: '',
+                postalCode: ['', Validators.required],
+                countryCode: ['', Validators.required],
+                phoneNumber: '',
+        });
+
+        this.step = 'selectAddress';
+    }
 
     ngOnInit() {
         this.signedIn$ = this.stateService.select(state => state.signedIn);
         this.customerAddresses$ = this.dataService.query<GetCustomerAddresses.Query>(GET_CUSTOMER_ADDRESSES).pipe(
             map(data => data.activeCustomer ? data.activeCustomer.addresses || [] : []),
         );
-        this.availableCountries$ = this.dataService.query<GetAvailableCountries.Query>(GET_AVAILABLE_COUNTRIES).pipe(
-            map(data => data.availableCountries),
-        );
+        this.dataService.query<GetAvailableCountries.Query>(GET_AVAILABLE_COUNTRIES)
+        .subscribe((response) => {
+            this.availableCountries = response.availableCountries;
+        })
+
         this.shippingAddress$ = this.dataService.query<GetShippingAddress.Query>(GET_SHIPPING_ADDRESS).pipe(
             map(data => data.activeOrder && data.activeOrder.shippingAddress),
         );
@@ -85,26 +147,18 @@ export class CheckoutShippingComponent implements OnInit {
     }
 
     createAddress() {
-        this.modalService.fromComponent(AddressModalComponent, {
-            locals: {
-                title: 'Create new address',
-            },
-            closable: true,
-        }).pipe(
-            switchMap(() => this.dataService.query<GetCustomerAddresses.Query>(GET_CUSTOMER_ADDRESSES, null, 'network-only')),
-        )
-            .subscribe();
+
     }
 
     editAddress(address: Address.Fragment) {
-        this.addressForm.addressForm.patchValue({ ...address, countryCode: address.country.code });
+        // this.addressForm.addressForm.patchValue({ ...address, countryCode: address.country.code });
         this.step = 'editAddress';
     }
 
     setCustomerDetails() {
-        this.addressForm.addressForm.patchValue({
-            fullName: `${this.firstName} ${this.lastName}`,
-        });
+        // this.addressForm.addressForm.patchValue({
+        //     fullName: `${this.firstName} ${this.lastName}`,
+        // });
         this.step = 'editAddress';
     }
 
@@ -136,12 +190,13 @@ export class CheckoutShippingComponent implements OnInit {
     }
 
     private setCustomerForOrder() {
-        if (this.emailAddress) {
+        if (this.addressForm.get('emailAddress')) {
+
             return this.dataService.mutate<SetCustomerForOrder.Mutation, SetCustomerForOrder.Variables>(SET_CUSTOMER_FOR_ORDER, {
                 input: {
-                    emailAddress: this.emailAddress,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
+                    emailAddress: this.addressForm.get('emailAddress')?.value,
+                    firstName: this.addressForm.get('firstName')?.value,
+                    lastName: this.addressForm.get('lastName')?.value,
                 },
             });
         }
@@ -165,5 +220,30 @@ export class CheckoutShippingComponent implements OnInit {
 
     private isFormValue(input: AddressFormValue | Address.Fragment): input is AddressFormValue {
         return typeof (input as any).countryCode === 'string';
+    }
+
+    collapseMenu() {
+        this.collapsedMenu = !this.collapsedMenu;
+    }
+
+    viewTolltip() {
+        this.displayTooltip = !this.displayTooltip;
+    }
+
+    handleChange(event: any, id: number) {
+        var target = event.target;
+        this.openedItem = 0;
+        
+        if (target.checked) {
+            this.openedItem = id;
+        }
+    }
+
+    openModalAggrement() {
+        this.modalService.fromComponent(TermsConditionsModalComponent, {
+            closable: true,
+        }).pipe(
+      
+        ).subscribe();
     }
 }

@@ -8,6 +8,7 @@ import { DataService } from '../../../core/providers/data/data.service';
 import { StateService } from '../../../core/providers/state/state.service';
 
 import { TRANSITION_TO_ADDING_ITEMS } from './checkout-process.graphql';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'vsf-checkout-process',
@@ -21,32 +22,65 @@ export class CheckoutProcessComponent implements OnInit {
     activeStage$: Observable<number>;
     signedIn$: Observable<boolean>;
 
-    data:any = null;
+    currentProcess: any = false;
+    activeStage: number = 0;
+    // data:any = null;
 
-    constructor(private dataService: DataService,
+    constructor(
+        private dataService: DataService,
                 private stateService: StateService,
                 private route: ActivatedRoute,
-                private router: Router) { }
+                private router: Router,
+                private location: Location
+                ) { }
 
     ngOnInit() {
+        // for first init
+        let url = this.location.path().split('/');
+        this.currentProcess = url[url.length - 1];
+        // for first init
+        
+        switch(this.currentProcess){
+            case 'shipping' : this.activeStage = 2;
+                break;
+            case 'payment' : this.activeStage = 3;
+                break;
+            default: this.activeStage = 0;
+        }
+        
+        this.router.events.subscribe((event) => {
+            if(event instanceof NavigationEnd) {
+                const url = this.router.url.split('/');
+                this.currentProcess = url[url.length - 1];
+
+                switch(this.currentProcess){
+                    case 'shipping' : this.activeStage = 2;
+                        break;
+                    case 'payment' : this.activeStage = 3;
+                        break;
+                    default: this.activeStage = 0;
+                }
+            }
+        })
+
         // this.signedIn$ = this.stateService.select(state => state.signedIn);
         // this.cart$ = this.route.data.pipe(switchMap(data => data.activeOrder as Observable<GetOrderForCheckout.ActiveOrder>));
 
-        this.route.data.pipe(switchMap(data => data.activeOrder as Observable<GetOrderForCheckout.ActiveOrder>))
-        .subscribe((response) => {
-            this.data = response;
+        // this.route.data.pipe(switchMap(data => data.activeOrder as Observable<GetOrderForCheckout.ActiveOrder>))
+        // .subscribe((response) => {
+        //     this.data = response;
 
-        })
+        // })
 
-        this.route.data.pipe(switchMap(data => data.activeOrder))
-        .subscribe((response) => {
+        // this.route.data.pipe(switchMap(data => data.activeOrder))
+        // .subscribe((response) => {
 
-        })
+        // })
 
-        this.route.data
-        .subscribe((response) => {
+        // this.route.data
+        // .subscribe((response) => {
 
-        })
+        // })
 
         // this.nextStates$ = this.dataService.query<GetNextOrderStates.Query>(GET_NEXT_ORDER_STATES).pipe(
         //     map(data => data.nextOrderStates),
