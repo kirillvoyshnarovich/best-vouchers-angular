@@ -103,7 +103,7 @@ export class QuickLinksComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dataService: DataService,
-    private location: Location
+    // private location: Location
   ) {
 
     const url = this.router.url;
