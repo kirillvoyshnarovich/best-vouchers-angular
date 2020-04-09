@@ -47,7 +47,6 @@ export class MiniCartComponent implements OnInit {
     this.dataService.query<GetOrderForCheckout.Query>(GET_ORDER_FOR_CHECKOUT).pipe(
       map(data => data.activeOrder),
     ).subscribe((response) => {
-      console.log('mini-CART in dataService', response);
       this.data = response;
     })
 

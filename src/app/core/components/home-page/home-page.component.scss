@@ -43,7 +43,6 @@
         text-transform: capitalize;
         padding: 0 40px;
         height: 48px;
-        border-radius: 5px;
         font-family: 'Open Sans',sans-serif;
         font-size: 2rem;
         margin-top: 10px;
@@ -173,8 +172,7 @@
         &__ul {
             padding: 0px;
             border: 1px solid #dfdfdf;
-            // height: auto;
-            transition: max-height 0.2 linear;
+            transition: max-height 0.2s linear;
             max-height: 1000px;
             transition: all 0.2s linear;
         }
@@ -246,6 +244,10 @@
                     }
                 }
             }
+
+            .mobile-image {
+                display: none;
+            }
         }
 
         &__vouchers {}
@@ -265,7 +267,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 10;
+            z-index: 3;
             width: 100%;
             background: rgba(255,255,255,.8);
             color: #333;
@@ -383,7 +385,7 @@
         &__row {
             display: flex;
             width: 100%;
-            transition: transform 0.2s linear;
+            transition: transform 0.3s linear;
             vsf-product-card {
                 width: 33.3%;
                 padding-left: 15px;

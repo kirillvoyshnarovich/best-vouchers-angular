@@ -9,8 +9,8 @@ import { StateService } from '../../core/providers/state/state.service';
 import { CheckoutConfirmationComponent } from '../components/checkout-confirmation/checkout-confirmation.component';
 import { CheckoutPaymentComponent } from '../components/checkout-payment/checkout-payment.component';
 import { CheckoutShippingComponent } from '../components/checkout-shipping/checkout-shipping.component';
-
 import { GET_ORDER_FOR_CHECKOUT } from './checkout-resolver.graphql';
+import { CheckoutSignInComponent } from '../components/checkout-sign-in/checkout-sign-in.component';
 
 @Injectable({ providedIn: 'root' })
 export class CheckoutGuard implements CanActivate {
@@ -27,8 +27,21 @@ export class CheckoutGuard implements CanActivate {
         return combineLatest(orderState$, signedIn$).pipe(
             map(([orderState, signedIn]) => {
                 const component = route.component;
-                
-                 if (component === CheckoutShippingComponent) {
+                if (component === CheckoutSignInComponent) {
+                    if (signedIn) {
+                        this.router.navigate(['/checkout', 'shipping']);
+                        return false;
+                    } else {
+                        if (orderState === 'AddingItems') {
+                            return true;
+                        } else if (orderState === 'ArrangingPayment') {
+                            this.router.navigate(['/checkout', 'payment']);
+                            return false;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (component === CheckoutShippingComponent) {
                     if (orderState === 'AddingItems') {
                         return true;
                     } else if (orderState === 'ArrangingPayment') {
@@ -37,16 +50,18 @@ export class CheckoutGuard implements CanActivate {
                     } else {
                         return false;
                     }
-                } else if (component === CheckoutPaymentComponent) {
-                    if (orderState === 'ArrangingPayment') {
-                        return true;
-                    } else if (orderState === 'AddingItems') {
-                        this.router.navigate(['/checkout']);
-                        return false;
-                    } else {
-                        return false;
-                    }
-                } else if (component === CheckoutConfirmationComponent) {
+                } else 
+                // if (component === CheckoutPaymentComponent) {
+                //     if (orderState === 'ArrangingPayment') {
+                //         return true;
+                //     } else if (orderState === 'AddingItems') {
+                //         this.router.navigate(['/checkout']);
+                //         return false;
+                //     } else {
+                //         return false;
+                //     }
+                // } else 
+                if (component === CheckoutConfirmationComponent) {
                     return true;
                 }
 

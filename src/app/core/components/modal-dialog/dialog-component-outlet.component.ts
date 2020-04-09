@@ -26,7 +26,6 @@ export class DialogComponentOutletComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log('resolveComponentFactory', this.component);
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.component);
         const componentRef = this.viewContainerRef.createComponent(factory);
         this.create.emit(componentRef.instance);

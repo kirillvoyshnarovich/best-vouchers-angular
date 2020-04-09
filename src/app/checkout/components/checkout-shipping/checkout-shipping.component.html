@@ -1,5 +1,5 @@
-<div class="accordion">
-    <div class="card" *ngIf="(signedIn$ | async) && (customerAddresses$ | async)?.length">
+<div class="checkout-shipping">
+    <!-- <div *ngIf="(signedIn$ | async) && (customerAddresses$ | async)?.length">
         <div class="card-header">
             <button class="btn btn-light" (click)="step = 'selectAddress'">Select Address</button>
         </div>
@@ -17,75 +17,213 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card" *ngIf="!(signedIn$ | async)">
-        <div class="card-header">
-            <button class="btn btn-light" (click)="step = 'customerDetails'">Customer Details</button>
-        </div>
-        <div class="card-body collapse" [class.show]="step === 'customerDetails'">
-            <form #customerForm="ngForm">
-                <div class="d-lg-flex">
-                    <input class="form-control"
-                           placeholder="First Name"
-                           name="firstName"
-                           [(ngModel)]="firstName"
-                           required>
-                    <input class="form-control"
-                           placeholder="Last Name"
-                           name="lastName"
-                           [(ngModel)]="lastName"
-                           required>
+    </div> -->
 
-                    <input class="form-control"
-                           placeholder="Email Address"
-                           name="emailAddress"
-                           [(ngModel)]="emailAddress"
-                           required>
+    <div class="shipping" *ngIf="currentProcess === 'shipping'">
+        <div class="shipping__form" *ngIf="!(signedIn$ | async) || (customerAddresses$ | async)?.length === 0">
+            <div class="shipping__header">
+                Shipping Address
+            </div>
+            <!-- [class.show]="step === 'editAddress'" -->
+            <form class="form" [formGroup]="addressForm">
+                <!-- <div class="form-group row">
+                    <label for="fullName" class="col-sm-3 col-form-label">Full name</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" formControlName="fullName" id="fullName">
+                    </div>
+                </div> -->
+                <div class="form__group">
+                    <!-- <h4 class="header">Customer Details</h4> -->
+                    <div class="form__field">
+                        <label for="company" class="form__label">Email Address<i>*</i></label>
+                        <input class="form__input" formControlName="emailAddress" id="emailAddress">
+                        <span class="info" (click)="viewTolltip()">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            <div class="info__tooltip" [ngClass]="{'display': displayTooltip}">We'll send your order confirmation here.</div>
+                        </span>
+                    </div>
+                    <div class="form__field">
+                        <label for="company" class="form__label">First Name<i>*</i></label>
+                        <input class="form__input" formControlName="firstName" id="firstName">
+                    </div>
+                    <div class="form__field">
+                        <label for="company" class="form__label">Last Name<i>*</i></label>
+                        <input class="form__input" formControlName="lastName" id="lastName">
+                    </div>
+                </div>
+    
+                <div class="form__group">
+                    <h4 class="header">Street Address</h4>
+                    <div class="form__field">
+                            <label for="streetLine1" class="form__label">Street Line 1</label>
+                            <input class="form__input" formControlName="streetLine1" id="streetLine1">
+                    </div>
+                    <div class="form__field">
+                            <label for="streetLine2" class="form__label">Street Line 2</label>
+                            <input class="form__input"lass="form-control" formControlName="streetLine2" id="streetLine2">
+                    </div>
+                    <div class="form__field street-field">
+                            <label for="streetLine3" class="form__label">Street Line 3</label>
+                            <input class="form__input"lass="form-control" formControlName="streetLine3" id="streetLine2">
+                    </div>
+                </div>
+    
+                <div class="form__group">
+                    <!-- <h4 class="header">Street Address</h4> -->
+                    <div class="form__field">
+                        <label for="city" class="form__label">City<i>*</i></label>
+                        <input class="form__input" formControlName="city" id="city">
+                    </div>
+                    <div class="form__field">
+                        <label for="province" class="form__label">State/Province</label>
+                        <input class="form__input" formControlName="province" id="province">
+                    </div>
+                    <div class="form__field">
+                        <label for="postalCode" class="form__label">Zip/Post code</label>
+                        <input class="form__input" formControlName="postalCode" id="postalCode">
+                    </div>
+                    <div class="form__field">
+                        <label for="countryCode" class="form__label">Country<i>*</i></label>
+                        <select class="form__input" formControlName="countryCode" id="countryCode">
+                            <option *ngFor="let country of availableCountries" [ngValue]="country.code">
+                                {{ country.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form__field">
+                        <label for="phoneNumber" class="form__label">Phone number<i>*</i></label>
+                        <input class="form__input"formControlName="phoneNumber" id="phoneNumber">
+                    </div>
                 </div>
             </form>
-
-            <button class="btn btn-secondary mt-3"
-                    [disabled]="customerForm.invalid"
-                    (click)="setCustomerDetails()">Next</button>
+                <!-- <button class="btn btn-secondary mt-3"
+                        [disabled]="addressForm.addressForm.invalid"
+                        (click)="setShippingAddress(addressForm.addressForm.value)">Send to this address</button> -->
         </div>
-
-    </div>
-    <div class="card" *ngIf="!(signedIn$ | async) || (customerAddresses$ | async)?.length === 0">
-        <div class="card-header">
-            <button class="btn btn-light"
-                    [disabled]="step === 'customerDetails'"
-                    (click)="step = 'editAddress'">Shipping Address</button>
-        </div>
-        <div class="card-body collapse" [class.show]="step === 'editAddress'">
-            <vsf-address-form #addressForm
-                              [address]="shippingAddress$ | async"
-                              [availableCountries]="availableCountries$ | async"></vsf-address-form>
-            <button class="btn btn-secondary mt-3"
-                    [disabled]="addressForm.addressForm.invalid"
-                    (click)="setShippingAddress(addressForm.addressForm.value)">Send to this address</button>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <button class="btn btn-light"
-                    [disabled]="step !== 'selectMethod' || (eligibleShippingMethods$ | async)?.length === 0"
-                    (click)="step = 'selectMethod'">Shipping Method</button>
-        </div>
-        <div class="card-body collapse" [class.show]="step === 'selectMethod'">
-            <div class="form-check" *ngFor="let method of eligibleShippingMethods$ | async">
-                <input class="form-check-input"
-                       type="radio"
-                       [(ngModel)]="shippingMethodId"
-                       [value]="method.id"
-                       [id]="method.id">
-                <label class="form-check-label shipping-method" [for]="method.id">
-                    <div class="description">{{ method.description }}</div>
-                    <div class="price">{{ method.price / 100 | currency }}</div>
-                </label>
+        <div class="shipping__methods">
+            <div class="shipping__header">
+                Shipping Method
             </div>
-            <button class="btn btn-secondary mt-3"
-                    [disabled]="!shippingMethodId"
-                    (click)="proceedToPayment()">Proceed to payment</button>
+            <!-- [class.show]="step === 'selectMethod'" -->
+            <div class="methods-table">
+                <div class="methods-table__header">
+                    <div class="methods-table__cell">Select Method</div>
+                    <div class="methods-table__cell">Price</div>
+                    <div class="methods-table__cell">Shipping</div>
+                    <div class="methods-table__cell">Type of delivery</div>
+                </div>
+                <div class="methods-table__row" *ngFor="let method of eligibleShippingMethods$ | async">
+                    <div class="methods-table__cell">
+                        <input class="form-check-input"
+                        type="radio"
+                        [(ngModel)]="shippingMethodId"
+                        [value]="method.id"
+                        [id]="method.id">
+                    </div>
+                    <div class="methods-table__cell"><div class="price">{{ method.price / 100 | currency }}</div></div>
+                    <div class="methods-table__cell">{{method.description}}</div>
+                    <div class="methods-table__cell">Type of delivery</div>
+                </div>
+                <!-- <button class="btn btn-secondary mt-3"
+                        [disabled]="!shippingMethodId"
+                        (click)="proceedToPayment()">Proceed to payment</button> -->
+            </div>
+        </div>
+        <div class="shipping__control">
+            <button [routerLink]="['../payment']">Next</button>
         </div>
     </div>
+
+    <div class="payments" *ngIf="currentProcess === 'payment'">
+        <div class="payments-methods">
+            <ul class="payments-methods__list">
+                <form>
+                    <li class="methods-item">
+                        <div class="methods-item__header">
+                            <div class="methods-item__control">
+                                <input type="radio" name="name-methods" (change)="handleChange($event, 1)">
+                            </div>
+                            <div class="methods-item__picture">
+                                <img src="../../../../assets/bestvouchers/paypal.png">
+                            </div>
+                            <div class="methods-item__info">
+                                PayPal Express Checkout What is PayPal?
+                            </div>
+                        </div>
+                        <div class="methods-item__body" [ngClass]="{'collapsed': openedItem === 1}">
+                            <div class="methods-item__accept">
+                                <input class="methods-item__checkbox" type="checkbox" >
+                                <p class="methods-item__agreement" (click)="openModalAggrement()">
+                                   <span class="text">I accept the Terms and Conditions of thebestvouchers.com</span>
+                                   <span class="asterics">*</span>
+                                </p>
+                            </div>
+                            <div class="payment-wrapper">
+                                <vsf-paypal-control></vsf-paypal-control>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="methods-item">
+                        <div class="methods-item__header">
+                            <div class="methods-item__control">
+                                <input type="radio" name="name-methods" (change)="handleChange($event, 2)">
+                            </div>
+                            <div class="methods-item__info">
+                                Cash on Delivery
+                            </div>
+                        </div>
+                        <div class="methods-item__body" [ngClass]="{'collapsed': openedItem === 2}">
+                            <div class="methods-item__accept">
+                                <input class="methods-item__checkbox" type="checkbox">
+                                <p class="methods-item__agreement" (click)="openModalAggrement()">
+                                    <span class="text">I accept the Terms and Conditions of thebestvouchers.com</span>
+                                    <span class="asterics">*</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </form>
+            </ul>
+        </div>
+    </div>
+
+    <div class="order">
+        <div class="order__header">Order Summary</div>
+        <div class="order__summary-info">
+            <p class="subtotal">
+                <span class="subtotal__type">Subtotal</span>
+                <span class="subtotal__value">$379.80</span>
+            </p>
+            <p class="ship">
+                <span class="ship__type">Free Shipping - Free Shipping</span>
+                <span class="ship__value">$0.00</span>
+            </p>
+            <p class="common-total">
+                <span class="common-total__type">Order Total</span>
+                <span class="common-total__value">$379.80</span>
+            </p>
+        </div>
+        <div class="order__list-caption" (click)="collapseMenu()">
+            <span>Any items in Cart</span> 
+            <i class="fa fa-caret-down" aria-hidden="true" [ngClass]="{'rotate': collapsedMenu}"></i>
+        </div>
+        <ul class="order__list" [ngClass]="{'collapsed': collapsedMenu}">
+            <li class="list-item" *ngFor="let line of order.lines">
+                <div class="list-item__img">
+                    <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
+                </div>
+                <div class="list-item__info">
+                    <div class="list-item__description">{{line.productVariant?.name}}</div>
+                    <div class="list-item__quantity">
+                        <span>Qty:</span>
+                        <span>{{line.quantity}}</span>
+                    </div>
+                </div>
+                <div class="list-item__price">
+                    {{ line.unitPriceWithTax | formatPrice }}
+                </div>
+            </li>
+        </ul>
+    </div>
+
 </div>

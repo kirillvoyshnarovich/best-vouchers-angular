@@ -1,48 +1,59 @@
-@import "variables";
-
-:host {
+.stages {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    max-width: 600px;
-    margin: 0 auto $spacer * 2;
-}
-
-.stage {
-    display: flex;
-    align-items: center;
-
-    .number {
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 30px 0;
+    justify-content: flex-start;
+    .stage-wrapper {
         display: flex;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        background-color: $light;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.2s;
-    }
-
-    &.active {
-        .number {
-            background-color: $success;
-            color: white;
+        flex-direction: column;
+        .stage {
+            width: 250px;
+            height: 30px;
+            position: relative;
+            .stage__line {
+                background: #e4e4e4;
+                top: 19px;
+                height: 7px;
+                left: 0;
+                position: absolute;
+                width: 100%;
+            }
+        
+            .stage__circle {
+                background: #e4e4e4;
+                height: 38px;
+                margin-left: -19px;
+                width: 38px;
+                border-radius: 50%;
+                left: 50%;
+                position: absolute;
+                top: 0;
+            }
+        
+            .nested {
+                background: #fff;
+                height: 26px;
+                margin-left: -13px;
+                top: 6px;
+                width: 26px;
+                color: #333;
+                font-weight: 600;
+                font-size: 1.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
+            .active {
+                background: #ff5501 !important;
+            }
         }
 
-        .label {
-            color: $gray-900;
+        .name {
+            width: 100%;
+            text-align: center;
+            padding-top: 15px;
         }
     }
-
-    .label {
-        margin-left: $spacer / 2;
-        color: $gray-600;
-    }
-}
-
-.line {
-    flex: 1;
-    height: 0;
-    border-bottom: 1px solid $gray-300;
-    margin: 0 $spacer / 2;
 }

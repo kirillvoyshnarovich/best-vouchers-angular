@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-
+import { Observable } from 'rxjs';
 import { Cart, GetActiveOrder } from '../../../common/generated-types';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map, startWith, switchMap } from 'rxjs/operators';
+import { GetOrderForCheckout, GetNextOrderStates, TransitionToAddingItems } from '../../../common/generated-types';
 
 @Component({
     selector: 'vsf-cart-contents',
@@ -8,9 +11,18 @@ import { Cart, GetActiveOrder } from '../../../common/generated-types';
     styleUrls: ['./cart-contents.component.scss']
 })
 export class CartContentsComponent implements OnInit {
-    @Input() cart: GetActiveOrder.ActiveOrder;
+    // @Input() cart: GetActiveOrder.ActiveOrder;
     @Input() canAdjustQuantities = false;
     @Output() setQuantity = new EventEmitter<{ itemId: string; quantity: number; }>();
+
+    cart:any | Observable<any> = null;
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
+
+    }
 
     increment(item: Cart.Lines) {
         this.setQuantity.emit({ itemId: item.id, quantity: item.quantity + 1 });
@@ -24,12 +36,28 @@ export class CartContentsComponent implements OnInit {
         return line.id;
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void {        
+        // dat
+        // .subscribe((response) => {
 
+        // })
+
+        // this.route.data.pipe(switchMap(data => data.activeOrder))
+        // .subscribe((response) => {
+
+        // })
+
+        this.route.data
+        .subscribe((response) => {
+            if(response.activeOrder) {
+                response.activeOrder.subscribe((data: any) => {
+                    this.cart = data;
+                })
+            }
+        })
     }
 
     changeQuatity(item: Cart.Lines): void {
-        console.log('changeQuatity', item);
         this.setQuantity.emit({ itemId: item.id, quantity: item.quantity });
     }
 

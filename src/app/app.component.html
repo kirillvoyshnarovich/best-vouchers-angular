@@ -7,14 +7,11 @@
                     <div class="header__toggle">
                         <i class="fa fa-globe" aria-hidden="true"></i>
                         <span>Language: {{currentLang}}</span>
-                        <div class="header__list-wrapper">
-                            <span></span>
-                            <ul class="header__list">
-                                <li class="header__list-item" *ngFor="let lang of listlang" (click)="chooseLang(lang)">
-                                    {{lang}}
-                                </li>
-                            </ul>
-                        </div>
+                        <ul class="header__list">
+                            <li class="header__list-item" *ngFor="let lang of listlang" (click)="chooseLang(lang)">
+                                {{lang}}
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -26,11 +23,10 @@
                             <img src="../assets/bestvouchers/logo_1.png" class="logo" alt="best vouchers logo">
                         </a>
                     </div>
-                    <div class="header__control" (mouseover)="viewMiniCart()">
-                        <!-- (toggle)="openCartDrawer()" -->
+                    <div class="header__control">
                         <vsf-cart-toggle [routerLink]="['/checkout']"></vsf-cart-toggle>
                         <span>My cart</span>
-                        <vsf-mini-cart (mouseout)="hiddenMiniCart()" [ngClass]="{'display-flex': showMiniCart}"></vsf-mini-cart>
+                        <vsf-mini-cart></vsf-mini-cart>
                     </div>  
                     <div class="header__support">
                         <i class="fa fa-whatsapp" aria-hidden="true"></i>
@@ -48,8 +44,6 @@
                         <i class="fa fa-shopping-bag" aria-hidden="true" !!!></i>
                     </div> -->
                     <!-- <div class="flex-grow-1 d-none d-sm-block"></div> !!!-->
-
-                    <!-- <vsf-account-link class="mr-2"></vsf-account-link> !!!-->
                 </div>
             </div>
 
@@ -121,13 +115,13 @@
                             </div>
                             <div class="footer__column">
                                 <ul class="footer__links">
-                                    <li><a [routerLink]="['/terms-and-services']">Terms and Services</a></li>
-                                    <li><a [routerLink]="['/check-your-order']">Check your order</a></li>
-                                    <li><a [routerLink]="['/privacy-policy']">Privacy Policy</a></li>
-                                    <li><a [routerLink]="['/return-policy']">Return Policy</a></li>
-                                    <li><a [routerLink]="['/delivery']">Delivery</a></li>
-                                    <li><a [routerLink]="['/contact']">Contact Us</a></li>
-                                </ul>
+                                    <li><a [routerLink]="['./terms-and-services']">Terms and Services</a></li>
+                                    <li><a [routerLink]="['./check-your-order']">Check your order</a></li>
+                                    <li><a [routerLink]="['./privacy-policy']">Privacy Policy</a></li>
+                                    <li><a [routerLink]="['./return-policy']">Return Policy</a></li>
+                                    <li><a [routerLink]="['./delivery']">Delivery</a></li>
+                                    <li><a [routerLink]="['./contact']">Contact Us</a></li>
+                                </ul> 
                             </div>
                         </div>
                     </div>

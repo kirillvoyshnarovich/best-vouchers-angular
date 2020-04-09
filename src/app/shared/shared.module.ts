@@ -13,10 +13,8 @@ import { NotificationComponent } from '../core/components/notification/notificat
 
 import { AddressCardComponent } from './components/address-card/address-card.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
-import { AddressModalComponent } from './components/address-modal/address-modal.component';
 import { CartContentsComponent } from './components/cart-contents/cart-contents.component';
 import { CenteredCardComponent } from './components/centered-card/centered-card.component';
-import { CollectionCardComponent } from './components/collection-card/collection-card.component';
 import { DropdownContentDirective } from './components/dropdown/dropdown-content.directive';
 import { DropdownTriggerDirective } from './components/dropdown/dropdown-trigger.directive';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
@@ -26,6 +24,9 @@ import { CollectionUrlPipe } from './pipes/collection-url.pipe';
 import { FormatPricePipe } from './pipes/format-price.pipe';
 import { ProductUrlPipe } from './pipes/product-url.pipe';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { TermsConditionsModalComponent } from './components/terms-conditions-modal/terms-conditions-modal.component';
+import { PaypalControlComponent } from './components/paypal-control/paypal-control.component';
+
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
     AddressCardComponent,
@@ -39,14 +40,14 @@ const SHARED_DECLARATIONS = [
     DialogTitleDirective,
     DialogComponentOutletComponent,
     ModalDialogComponent,
-    AddressModalComponent,
-    CollectionCardComponent,
     NotificationComponent,
     FormatPricePipe,
     CollectionUrlPipe,
     ProductUrlPipe,
     AssetPreviewPipe,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    TermsConditionsModalComponent,
+    PaypalControlComponent
 ];
 
 const IMPORTS = [

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../../core/providers/data/data.service';
 import { BreakingChangeType } from 'graphql';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -96,34 +96,37 @@ export class QuickLinksComponent implements OnInit {
     },
   ];
 
-  constructor(
+  subscruption:any = null;
+
+  
+  constructor (
     private route: ActivatedRoute,
     private router: Router,
     private dataService: DataService,
+    private location: Location
   ) {
-    this.router.events.subscribe((event) => {
-      if(event instanceof NavigationEnd && event.url) {
-        const url = event.url;
-        switch(url){
-          case '/check-your-order': this.mode = 'check';
-            break;
-          case '/terms-and-services': this.mode = 'term';
-            break;
-          case '/privacy-policy': this.mode = 'private';
-            break;
-          case '/return-policy': this.mode = 'return';
-            break;
-          case '/delivery': this.mode = 'delivery';
-            break;
-          case '/contact': this.mode = 'contact';
-            break;
-          default: this.mode = null;
-            break;
-        }
-      }
-    });
 
-   }
+    const url = this.router.url;
+    // location.replaceState(url);
+    if(url) {
+      switch(url){
+        case '/check-your-order': this.mode = 'check'
+          break;
+        case '/terms-and-services': this.mode = 'term'
+          break;
+        case '/privacy-policy': this.mode = 'private'
+          break;
+        case '/return-policy': this.mode = 'return'
+          break;
+        case '/delivery': this.mode = 'delivery'
+          break;
+        case '/contact': this.mode = 'contact'
+          break;
+        default: this.mode = null;
+          break;
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -139,5 +142,4 @@ export class QuickLinksComponent implements OnInit {
       console.log('formData', formData);
     }
   }
-
 }
