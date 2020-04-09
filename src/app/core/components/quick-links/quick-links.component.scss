@@ -2,8 +2,14 @@
 
     .container-q-l {
         max-width: 1200px;
-        width: 1200px;
+        width: 100%;
         margin: 0 auto;
+
+        @media only screen and (max-width: 991px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
     }
 
     .return-policy {
@@ -11,10 +17,25 @@
 
         &__header {
             background-image: url('../../../../assets/bestvouchers/return_policy.jpg');
+            background-size: cover;
             min-height: 500px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding: 0 15px;
+
+            @media only screen and (max-width: 1199px) {
+                min-height: 390px;
+            }
+            @media only screen and (max-width: 991px) {
+                min-height: 380px;
+            }
+            @media only screen and (max-width: 767px) {
+                min-height: 300px;
+            }
+            @media only screen and (max-width: 575px) {
+                min-height: 280px;
+            }
         }
 
         &__caption {
@@ -29,9 +50,14 @@
             font-size: 1.5rem;
             color: #fff;
             max-width: 40%;
+
+            @media only screen and (max-width: 767px) {
+                max-width: 100%;
+            }
         }
 
         &__body {
+            padding: 0 15px;
 
             .container-q-l {
                 display: flex;
@@ -44,8 +70,20 @@
                 align-items: center;
                 justify-content: center;
 
+                @media only screen and (max-width: 991px) {
+                    margin-bottom: 15px;
+                }
+
+                @media only screen and (max-width: 575px) {
+                    width: 100%;
+                }
+
                 img {
                     height: auto;
+
+                    @media only screen and (max-width: 575px) {
+                        max-width: 100%;
+                    }
                 }
             }
 
@@ -54,6 +92,11 @@
                 line-height: 23px;
                 font-size: 1.5rem;
                 color: #212529;
+
+                @media only screen and (max-width: 991px) {
+                    width: 100%;
+                }
+
 
                 p {
                     max-width: 100%;
@@ -67,10 +110,25 @@
 
         &__header {
             background-image: url('../../../../assets/bestvouchers/deliever.jpg');
+            background-size: cover;
             min-height: 500px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding: 0 15px;
+
+            @media only screen and (max-width: 1199px) {
+                min-height: 390px;
+            }
+            @media only screen and (max-width: 991px) {
+                min-height: 380px;
+            }
+            @media only screen and (max-width: 767px) {
+                min-height: 300px;
+            }
+            @media only screen and (max-width: 575px) {
+                min-height: 280px;
+            }
         }
 
         &__caption {
@@ -85,9 +143,14 @@
             font-size: 1.5rem;
             color: #fff;
             max-width: 40%;
+
+            @media only screen and (max-width: 767px) {
+                max-width: 100%;
+            }
         }
 
         &__body {
+            padding: 0 15px;
 
             .container-q-l {
                 display: flex;
@@ -100,8 +163,17 @@
                 align-items: center;
                 justify-content: center;
 
+                @media only screen and (max-width: 991px) {
+                    margin-bottom: 15px;
+                }
+
+                @media only screen and (max-width: 575px) {
+                    width: 100%;
+                }
+
                 img {
                     height: auto;
+                    max-width: 100%;
                 }
             }
 
@@ -110,6 +182,10 @@
                 line-height: 23px;
                 font-size: 1.5rem;
                 color: #212529;
+
+                @media only screen and (max-width: 991px) {
+                    width: 100%;
+                }
 
                 p {
                     max-width: 100%;
@@ -123,10 +199,25 @@
 
         &__header {
             background-image: url('../../../../assets/bestvouchers/contact.jpg');
+            background-size: cover;
             min-height: 500px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding: 0 15px;
+
+            @media only screen and (max-width: 1199px) {
+                min-height: 390px;
+            }
+            @media only screen and (max-width: 991px) {
+                min-height: 380px;
+            }
+            @media only screen and (max-width: 767px) {
+                min-height: 300px;
+            }
+            @media only screen and (max-width: 575px) {
+                min-height: 280px;
+            }
         }
 
         &__caption {
@@ -141,10 +232,15 @@
             font-size: 1.5rem;
             color: #fff;
             max-width: 40%;
+
+            @media only screen and (max-width: 767px) {
+                max-width: 100%;
+            }
         }
 
         &__body {
             color: #212529;
+            padding: 0 15px;
 
             .container-q-l {
                 display: flex;
@@ -159,8 +255,14 @@
                 justify-content: center;
                 padding-right: 40px;
 
-                p {
+                @media only screen and (max-width: 991px) {
+                    width: 100%;
+                    text-align: center;
+                    padding-right: 0;
+                }
 
+
+                p {
                     font-size: 1.7rem;
                     font-weight: 700;
                 }
@@ -176,6 +278,11 @@
                     &:hover {
                         cursor: pointer;
                     }
+
+                    @media only screen and (max-width: 991px) {
+                        margin-top: 25px;
+                        margin-bottom: 35px;
+                    }
                 }
             }
 
@@ -183,6 +290,11 @@
                 width: 50%;
                 line-height: 23px;
                 font-size: 1.5rem;
+
+                @media only screen and (max-width: 991px) {
+                    width: 100%;
+                    text-align: center;
+                }
 
                 .list-location-header {
                     font-size: 1.7rem;
@@ -202,6 +314,10 @@
                     &__item {
                         width: 50%;
                         padding-top: 10px;
+
+                        @media only screen and (max-width: 575px) {
+                            width: 100%;
+                        }
                     }
 
                     &__name {
@@ -222,6 +338,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 0 15px;
         }
 
         &__header {
@@ -244,6 +361,11 @@
             width: 40%;
             display: flex;
             flex-direction: column;
+            margin-bottom: 60px;
+
+            @media only screen and (max-width: 575px) {
+                width: 80%;
+            }
 
             .form-input {
                 padding-top: 15px;
@@ -251,6 +373,11 @@
                 label {
                     font-size: 1.2rem;
 
+                }
+
+                .validation{
+                    color: red;
+                    font-size: 1.5rem;
                 }
 
                 input {
@@ -269,6 +396,14 @@
                         border: 1px solid #d7d7d7;
                         box-shadow: 0 1px 5px rgba(0,0,0,0.1);
                     }
+
+                    &.ng-invalid.ng-touched{
+                        border: 1px solid red;
+                    }
+
+                    &.ng-valid.ng-touched{
+                        border: 1px solid green;
+                    }
                 }
             }
 
@@ -282,13 +417,120 @@
                 color: #fff;
                 border: 0;
                 font-size: 1.7rem;
-                align-self: flex-end;
+                align-self: center;
                 margin-top: 30px;
+                cursor: pointer;
 
                 &:hover {
                     background-color: #e80621;
                 }
+                &:disabled,
+                &[disabled]{
+                    background-color: #cccccc;
+                    color: #666666;
+                    cursor: not-allowed;
+                }
             }
         }
     }
+
+    .privacy-policy{
+        max-width: 1200px;
+        padding: 0 15px;
+        margin: 0 auto;
+        font-family: 'Open Sans',sans-serif;
+        margin-bottom: 40px;
+
+        h1{
+            font-size: 30px;
+            margin: 40px 0;
+            text-align: center;
+            color: #595e6f;
+            font-family: 'Open Sans',sans-serif;
+            font-weight: bold;
+        }
+
+        h2{
+            text-align: center;
+            font-weight: bold;
+            color: #595e6f;
+            line-height: 1.1;
+            font-size: 2.6rem;
+            margin-top: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Open Sans',sans-serif;
+        }
+
+        p{
+            font-size: 14px;
+            color: #666666;
+        }
+
+        ul>li, ol>li {
+            margin-bottom: 10px;
+        }
+
+        li{
+            font-size: 14px;
+            color: #666666; 
+        }
+
+        ol, ul {
+            @media only screen and (max-width: 575px) {
+                padding-inline-start: 20px;
+            }
+        }
+    }
+
+    .terms-and-services{
+        max-width: 1200px;
+        padding: 0 15px;
+        margin: 0 auto;
+        font-family: 'Open Sans',sans-serif;
+        margin-bottom: 40px;
+
+        h2{
+            font-weight: bold;
+            color: #595e6f;
+            line-height: 1.1;
+            font-size: 2.6rem;
+            margin-top: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Open Sans',sans-serif;
+        }
+
+        h3{
+            font-weight: bold;
+            color: #595e6f;
+            font-family: 'Open Sans',sans-serif;
+            line-height: 1.1;
+            font-size: 1.8rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        p{
+            font-size: 14px;
+            color: #666666;
+        }
+
+        ol {
+
+            @media only screen and (max-width: 575px) {
+                padding-inline-start: 20px;
+            }
+            
+            li {
+                font-family: 'Open Sans',sans-serif;
+                line-height: 1.428571429;
+                font-size: 14px;
+                font-style: normal;
+                color: #666;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+
 }
