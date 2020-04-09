@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faGlobe, faShoppingBag, faGlobeEurope  } from '@fortawesome/free-solid-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const STATE_KEY = makeStateKey<any>('apollo.state');
 
@@ -27,7 +28,9 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
         SharedModule,
         ServiceWorkerModule.register('/storefront/ngsw-worker.js', {enabled: environment.production, registrationStrategy: 'registerWithDelay:5000'}),
         FontAwesomeModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     bootstrap: [AppComponent],
 })
