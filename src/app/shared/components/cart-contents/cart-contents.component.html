@@ -1,50 +1,62 @@
-<h1 class="header-card">Shopping Cart</h1>
-<div class="item-card">
-    <div class="items">
-        <div class="items__header">
-            <div class="items__cell header-item">Item</div>
-            <div class="items__cell header-empty"></div>
-            <div class="items__cell header-price">Price</div>
-            <div class="items__cell header-qty">Qty</div>
-            <div class="items__cell header-subtotal">Subtotal</div>
-        </div>
-        <ng-container *ngFor="let line of cart?.lines; trackBy: trackByFn">
-            <div class="item">
-                <div class="item__picture body-item">
-                    <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
+<div class="cart">
+    <h1 class="card__header">Shopping Cart</h1>
+    <div class="cart__body">
+        <ng-container *ngIf="cart?.lines.length">
+            <div class="items">
+                <div class="items__header">
+                    <div class="items__cell header-item">Item</div>
+                    <div class="items__cell header-empty"></div>
+                    <div class="items__cell header-price">Price</div>
+                    <div class="items__cell header-qty">Qty</div>
+                    <div class="items__cell header-subtotal">Subtotal</div>
                 </div>
-                <div class="item__name body-empty">
-                    <div>{{ line.productVariant?.name }}</div>
-                </div>
-                <div class="item__price body-price">
-                    {{ line.unitPriceWithTax | formatPrice }}
-                </div>
-                <div class="item__qty body-qty">
-                    <input type="number" [(ngModel)]="line.quantity" (change)="changeQuatity(line)">
-                </div>
-                <div class="item__subtotal body-subtotal">
-                    <span class="item__subtotal-value">{{ line.totalPrice | formatPrice }}</span>
-                    <button class="item__subtotal-remove">
-                        Remove item
+                <ng-container *ngFor="let line of cart?.lines; trackBy: trackByFn">
+                    <div class="item">
+                        <div class="item__picture body-item">
+                            <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
+                        </div>
+                        <div class="item__name body-empty">
+                            <div>{{ line.productVariant?.name }}</div>
+                        </div>
+                        <div class="item__price body-price">
+                            {{ line.unitPriceWithTax | formatPrice }}
+                        </div>
+                        <div class="item__qty body-qty">
+                            <input type="number" [(ngModel)]="line.quantity" (change)="setQuantity(line)">
+                        </div>
+                        <div class="item__subtotal body-subtotal">
+                            <span class="item__subtotal-value">{{ line.totalPrice | formatPrice }}</span>
+                            <button class="item__subtotal-remove" (click)="removeLine(line)">
+                                Remove item
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="items__control">
+                    <button class="items__continue">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        Continur shopping
+                    </button>
+                    <button class="items__update">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                        Update Shopping Cart
                     </button>
                 </div>
             </div>
+            <div class="payment-wrapper">
+                <vsf-paypal-control></vsf-paypal-control>
+                <button class="proceed-checkout" [routerLink]="['../shipping']">
+                    Proceed To Checkout
+                </button>
+            </div>
         </ng-container>
-        <div class="items__control">
-            <button class="items__continue">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                Continur shopping
-            </button>
-            <button class="items__update">
-                <i class="fa fa-refresh" aria-hidden="true"></i>
-                Update Shopping Cart
-            </button>
-        </div>
-    </div>
-    <div class="payment-wrapper">
-        <vsf-paypal-control></vsf-paypal-control>
-        <button class="proceed-checkout" [routerLink]="['../shipping']">
-            Proceed To Checkout
-        </button>
+
+        <ng-container *ngIf="!cart?.lines.length">
+            <div class="empty-cart">
+                <div class="empty-cart__message">You don’t have any products in your shopping cart.</div>
+                <a class="empty-cart__link" routerLink="/">Continue shopping.</a>
+            </div>
+        </ng-container>
     </div>
 </div>
+

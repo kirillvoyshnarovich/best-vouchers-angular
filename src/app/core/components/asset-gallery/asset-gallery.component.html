@@ -3,7 +3,6 @@
         <img *ngIf="selectedAsset" [src]="selectedAsset | assetPreview:540"
              #mainPreview
              class="img-fluid main-preview"
-             height="500"
              (click)="openImage(selectedAsset.id)">
     </div>
     <div class="alt-images" *ngIf="1 < assets.length">

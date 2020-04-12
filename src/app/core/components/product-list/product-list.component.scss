@@ -18,6 +18,7 @@
         display: flex;
         width: 75%;
         flex-direction: column;
+        position: relative;
     }
 
     &__sidebar {
@@ -31,6 +32,8 @@
     grid-template-columns: repeat(auto-fill, 32%);
     grid-row-gap: 10px;
     justify-content: space-around;
+    position: relative;
+    min-height: 50vh;
 }
 
 .page-control {

@@ -1,9 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cart, GetActiveOrder } from '../../../common/generated-types';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map, startWith, switchMap } from 'rxjs/operators';
-import { GetOrderForCheckout, GetNextOrderStates, TransitionToAddingItems } from '../../../common/generated-types';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import { 
+        GetOrderForCheckout, 
+        GetNextOrderStates, 
+        TransitionToAddingItems, 
+        RemoveItemFromCart, 
+        AdjustItemQuantity,
+        Cart,
+        GetActiveOrder
+    } from '../../../common/generated-types';
+
+import { DataService } from '../../../core/providers/data/data.service';
+import { ADJUST_ITEM_QUANTITY, REMOVE_ITEM_FROM_CART } from './cart-contents.graphql';
 
 @Component({
     selector: 'vsf-cart-contents',
@@ -13,23 +23,15 @@ import { GetOrderForCheckout, GetNextOrderStates, TransitionToAddingItems } from
 export class CartContentsComponent implements OnInit {
     // @Input() cart: GetActiveOrder.ActiveOrder;
     @Input() canAdjustQuantities = false;
-    @Output() setQuantity = new EventEmitter<{ itemId: string; quantity: number; }>();
 
     cart:any | Observable<any> = null;
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private dataService: DataService
     ) {
 
-    }
-
-    increment(item: Cart.Lines) {
-        this.setQuantity.emit({ itemId: item.id, quantity: item.quantity + 1 });
-    }
-
-    decrement(item: Cart.Lines) {
-        this.setQuantity.emit({ itemId: item.id, quantity: item.quantity - 1 });
     }
 
     trackByFn(index: number, line: { id: string; }) {
@@ -37,43 +39,51 @@ export class CartContentsComponent implements OnInit {
     }
 
     ngOnInit(): void {        
-        // dat
-        // .subscribe((response) => {
-
-        // })
-
-        // this.route.data.pipe(switchMap(data => data.activeOrder))
-        // .subscribe((response) => {
-
-        // })
-
-        this.route.data
-        .subscribe((response) => {
-            if(response.activeOrder) {
-                response.activeOrder.subscribe((data: any) => {
-                    this.cart = data;
-                })
-            }
+        this.route.data.pipe(switchMap(data => data.activeOrder))
+        .subscribe((response:any) => {
+            this.cart = response;
         })
+
+        // this.route.data
+        // .subscribe((response) => {
+        //     if(response.activeOrder) {
+        //         response.activeOrder.subscribe((data: any) => {
+        //             this.cart = data;
+        //         })
+        //     }
+        // })
     }
 
-    changeQuatity(item: Cart.Lines): void {
-        this.setQuantity.emit({ itemId: item.id, quantity: item.quantity });
+    setQuantity(item: Cart.Lines) {
+        if (0 < item.quantity) {
+            this.adjustItemQuantity(item.id, item.quantity);
+        } else {
+            this.removeItem(item.id);
+        }
     }
-
-    /**
-     * Filters out the Promotion adjustments for an OrderLine and aggregates the discount.
-     */
-    getLinePromotions(adjustments: Cart.Adjustments[]) {
-        const groupedPromotions = adjustments.filter(a => a.type === 'PROMOTION')
-            .reduce((groups, promotion) => {
-                if (!groups[promotion.description]) {
-                    groups[promotion.description] = promotion.amount;
-                } else {
-                    groups[promotion.description] += promotion.amount;
-                }
-                return groups;
-            }, {} as { [description: string]: number; });
-        return Object.entries(groupedPromotions).map(([key, value]) => ({ description: key, amount: value }));
+    
+    private adjustItemQuantity(id: string, qty: number) {
+      this.dataService.mutate<AdjustItemQuantity.Mutation, AdjustItemQuantity.Variables>(ADJUST_ITEM_QUANTITY, {
+          id,
+          qty,
+      }).pipe(
+          take(1),
+      ).subscribe();
+    }
+    
+    private removeItem(id: string) {
+      this.dataService.mutate<RemoveItemFromCart.Mutation, RemoveItemFromCart.Variables>(REMOVE_ITEM_FROM_CART, {
+          id,
+      }).pipe(
+          take(1),
+      ).subscribe();
+    }
+    
+    private removeLine(line: Cart.Lines) {
+        this.dataService.mutate<RemoveItemFromCart.Mutation, RemoveItemFromCart.Variables>(REMOVE_ITEM_FROM_CART, {
+          id: line.id
+        }).pipe(
+            take(1),
+        ).subscribe();
     }
 }

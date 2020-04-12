@@ -1442,6 +1442,20 @@ export namespace RemoveItemFromCart {
     export type RemoveOrderLine = Cart.Fragment;
 }
 
+export namespace RemoveCart {
+    export type Variables = {
+        id: string;
+    };
+
+    export type Mutation = {
+        __typename?: "Mutation";
+
+        removeOrderLine: Maybe<RemoveOrderLine>;
+    };
+
+    export type RemoveOrderLine = Cart.Fragment;
+}
+
 export namespace GetCartTotals {
     export type Variables = {};
 
@@ -1515,6 +1529,7 @@ export namespace GetProductDetail {
         priceWithTax: number;
 
         sku: string;
+
     };
 
     export type Options = {
@@ -1838,9 +1853,11 @@ export namespace Cart {
         productVariant: ProductVariant;
 
         adjustments: Adjustments[];
+
     };
 
     export type FeaturedAsset = Asset.Fragment;
+
 
     export type ProductVariant = {
         __typename?: "ProductVariant";
@@ -1962,3 +1979,34 @@ export namespace Address {
         name: string;
     };
 }
+
+
+// ---------------------------
+// id ="46"
+export namespace tetsRequest {
+    export type Variables = {
+        id: string;
+    };
+
+
+    export type Product = {
+        __typename?: "Product";
+
+        id: string;
+
+        name: string;
+
+        description: string;
+
+        slug: string;
+    };
+
+    
+    export type Query = {
+        __typename?: "Query";
+
+        product: Maybe<Product>;
+    };
+
+}
+// ---------------------------

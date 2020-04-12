@@ -97,7 +97,6 @@ export class HomePageComponent implements OnInit {
         this.dataService.query(GET_COLLECTIONS, {
             options: {},
         }).subscribe((response) => {
-            console.log('getCollectin', response);
             this.categoryList = response['collections'].items;
         })
         // .pipe(
@@ -190,7 +189,6 @@ export class HomePageComponent implements OnInit {
             },
         }).subscribe((response) => {
             this.listVendersInitialCategory = response['search'].items;
-            console.log('listVendersInitialCategory', this.listVendersInitialCategory);
             this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length/2) - 3;
 
             // later check !!!
