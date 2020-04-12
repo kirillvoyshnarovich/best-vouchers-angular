@@ -1,15 +1,4 @@
-<!-- <div class="masthead" [class.search-mode]="searchTerm$ | async">
-    <div class="masthead-bg" [style.background-image]="mastheadBackground$ | async"></div>
-    <div class="container position-relative">
-
-        <h1 class="display-1 collection-name">{{ (collection$ | async)?.name }}</h1>
-        <h1 class="display-4 text-muted" *ngIf="searchTerm$ | async as term">
-             Results for <span class="text-dark">"{{ term }}"</span>
-        </h1>
-    </div>
-
-</div> -->
-<vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs$ | async"></vsf-collection-breadcrumbs>
+<vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs"></vsf-collection-breadcrumbs>
 
 <div class="container-p-l">
     <div class="content">
@@ -17,40 +6,41 @@
             <img src="../../../../assets/bestvouchers/baner.jpg">
         </div>
         <div class="content__grid">
-            <!-- *ngIf="(totalResults$ | async) !== 0; else noResults" -->
-            <!-- <ng-container> -->
-                <div class="product-list">
-                    <!-- *ngIf="(totalResults$ | async) !== null" -->
-                    <ng-container *ngIf="products.length">
-                        <vsf-product-card *ngFor="let product of products"
-                                          [product]="product"></vsf-product-card>
-                    </ng-container>
-                    <!-- <ng-template #placeholders>
-                        <vsf-product-card *ngFor="let product of placeholderProducts"
-                                          [product]="product"></vsf-product-card>
-                    </ng-template> -->
+            <div class="product-list">
+                <ng-container *ngIf="products.length">
+                    <vsf-product-card *ngFor="let product of products"
+                                      [product]="product"></vsf-product-card>
+                </ng-container>
+                <!-- SPINNER -->
+                <div class="lds-spinner" *ngIf="load">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
-                <div class="page-control">
-                    <div class="page-control__button" (click)="choosePage(+currentPage-1)">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    </div>
-                    <div class="page-control__list">
-                        <span (click)="choosePage(page)" *ngFor="let page of pageList" class="page-control__item" [ngClass]="{'ative-page': currentPage == page}" >
-                            {{page}}
-                        </span>
-                    </div>
-                    <div class="page-control__button" (click)="choosePage(+currentPage+1)">
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                    </div>
+                <!-- SPINNER -->
+            </div>
+            <div class="page-control">
+                <div class="page-control__button" (click)="choosePage(+currentPage-1)">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </div>
-            <!-- </ng-container> -->
+                <div class="page-control__list">
+                    <span (click)="choosePage(page)" *ngFor="let page of pageList" class="page-control__item" [ngClass]="{'ative-page': currentPage == page}" >
+                        {{page}}
+                    </span>
+                </div>
+                <div class="page-control__button" (click)="choosePage(+currentPage+1)">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-<!-- <ng-template #noResults>
-    <div class="no-results col-12">
-        <p class="h1">No results</p>
-        <fa-icon icon="sad-cry" size="10x"></fa-icon>
-    </div>
-</ng-template> -->

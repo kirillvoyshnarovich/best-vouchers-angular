@@ -1,15 +1,20 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import { GetOrderForCheckout, GetNextOrderStates, TransitionToAddingItems } from '../../../common/generated-types';
+import { Component, OnInit, Injector } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, take } from 'rxjs/operators';
 import { DataService } from '../../../core/providers/data/data.service';
+
+import { 
+  AdjustItemQuantity, 
+  RemoveItemFromCart,
+  Cart, 
+  GetOrderForCheckout,
+  tetsRequest
+} from '../../../common/generated-types';
+
+import { ADJUST_ITEM_QUANTITY, REMOVE_ITEM_FROM_CART, TEST_FRAGMENT } from './mini-cart.graphql';
 import { GET_ORDER_FOR_CHECKOUT } from '../../../checkout/providers/checkout-resolver.graphql';
-import { Cart } from '../../../common/generated-types';
-import { GetActiveOrder, AdjustItemQuantity, RemoveItemFromCart } from '../../../common/generated-types';
-import { ADJUST_ITEM_QUANTITY, GET_ACTIVE_ORDER, REMOVE_ITEM_FROM_CART } from './cart-drawer.graphql';
+
 import { NotificationService } from '../../../core/providers/notification/notification.service';
-import { Injectable, Injector } from '@angular/core';
 import { ModalService } from '../../../core/providers/modal/modal.service';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
@@ -20,7 +25,7 @@ import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/
 })
 export class MiniCartComponent implements OnInit {
 
-  data: any = null;
+  order: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,29 +36,21 @@ export class MiniCartComponent implements OnInit {
     private modalService: ModalService
   ) { }
 
-
-  
-  // increment(item: Cart.Lines) {
-  //   this.setQuantity.emit({ itemId: item.id, quantity: item.quantity + 1 });
-  // }
-
-  // decrement(item: Cart.Lines) {
-  //   this.setQuantity.emit({ itemId: item.id, quantity: item.quantity - 1 });
-  // }
-
-
   ngOnInit(): void {
-
     this.dataService.query<GetOrderForCheckout.Query>(GET_ORDER_FOR_CHECKOUT).pipe(
       map(data => data.activeOrder),
     ).subscribe((response) => {
-      this.data = response;
+      console.log('response', response);
+      this.order = response;
     })
 
-    // this.route.data.pipe(switchMap(data => data.activeOrder as Observable<GetOrderForCheckout.ActiveOrder>))
-    // .subscribe((response) => {
-    //     this.data = response;
-    // })
+    this.dataService.query<tetsRequest.Query, tetsRequest.Variables>(TEST_FRAGMENT, {
+      id: '46'
+    }).pipe(
+      map(data => data)
+    ).subscribe((response) => {
+      console.log('response TESt FRAGMENT', response);
+    });
   }
 
   setQuantity(item: Cart.Lines) {
@@ -81,12 +78,18 @@ export class MiniCartComponent implements OnInit {
     ).subscribe();
   }
 
-  removeItemCart() {
+  private removeLine(line: Cart.Lines) {
     this.modalService.fromComponent(ConfirmModalComponent, {
-      closable: true,
-    }).pipe(
-
-    ).subscribe();
+      closable: true
+    }).subscribe((result) => {
+      if(result) {
+        this.dataService.mutate<RemoveItemFromCart.Mutation, RemoveItemFromCart.Variables>(REMOVE_ITEM_FROM_CART, {
+          id: line.id
+        }).pipe(
+            take(1),
+        ).subscribe();
+      }
+    });
   }
 
   private displayErrorNotification(message: string): void {

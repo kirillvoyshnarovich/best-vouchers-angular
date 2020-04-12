@@ -26,8 +26,6 @@ export class SliderComponent implements OnInit {
     });
   }
 
-
-  // for slider in below
   toggleBestSelerSlider(next: any): void {
     if(next && this.stepTranslateBestSellerSlider < this.amountBestSellerSlider) {
       this.stepTranslateBestSellerSlider += 1;
@@ -38,8 +36,6 @@ export class SliderComponent implements OnInit {
       this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
     }
   }
-  // for slider in below
-
 }
 
 const GET_TOP_SELLERS = gql`

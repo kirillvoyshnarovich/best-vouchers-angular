@@ -16,8 +16,6 @@ export class ConfirmModalComponent implements Dialog<any>, OnInit {
   }
 
   closeModal(value: any) {
-
     this.resolveWith(value);
   }
-
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FetchPolicy, NetworkStatus } from 'apollo-client';
 import { DocumentNode } from 'graphql';
@@ -9,6 +9,8 @@ import { filter, map, tap } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class DataService {
+
+    loadData: EventEmitter<boolean> = new EventEmitter(true);
 
     private readonly context =  {
         headers: {},

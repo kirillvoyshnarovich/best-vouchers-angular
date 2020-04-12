@@ -2,36 +2,43 @@
     <div class="mini-cart__header">
         <strong>Cart Summary</strong>
     </div>
-    <ol class="mini-cart__list">
-        <li class="mini-cart__item" *ngFor="let line of data?.lines">
-            <div class="mini-cart__item-picture">
-                <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
-            </div>
-            <div class="mini-cart__item-info">
-                <div class="mini-cart__item-name">
-                    <a [routerLink]="['/']">{{line.productVariant.name}}</a>
+    <ng-container *ngIf="order?.lines.length">
+        <ol class="mini-cart__list">
+            <li class="mini-cart__item" *ngFor="let line of order?.lines">
+                <div class="mini-cart__item-picture">
+                    <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
                 </div>
-                <div class="mini-cart__item-price">{{line.totalPrice | formatPrice }}</div>
-                <div class="mini-cart__item-qty">
-                    <input type="number" [(ngModel)]="line.quantity" (change)="setQuantity(line)">
-                    <!-- {{line.quantity}} -->
+                <div class="mini-cart__item-info">
+                    <div class="mini-cart__item-name">
+                        <a [routerLink]="['/']">{{line.productVariant.name}}</a>
+                    </div>
+                    <div class="mini-cart__item-price">{{line.totalPrice | formatPrice }}</div>
+                    <div class="mini-cart__item-qty">
+                        <input type="number" [(ngModel)]="line.quantity" (change)="setQuantity(line)">
+                    </div>
                 </div>
+                <div class="mini-cart__item-control">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    <i class="fa fa-trash" aria-hidden="true" (click)="removeLine(line)"></i>
+                </div>
+            </li>
+        </ol>
+        <div class="mini-cart__control">
+            <div class="mini-cart__control-header">Fast Payments</div>
+            <div class="payment-wrapper">
+                <vsf-paypal-control></vsf-paypal-control>
             </div>
-            <div class="mini-cart__item-control">
-                <i class="fa fa-cog" aria-hidden="true"></i>
-                <i class="fa fa-trash" aria-hidden="true" (click)="removeItemCart()"></i>
+            <div class="mini-cart__control-go-to">
+                <button>
+                    Go to Cart
+                </button>
             </div>
-        </li>
-    </ol>
-    <div class="mini-cart__control">
-        <div class="mini-cart__control-header">Fast Payments</div>
-        <div class="payment-wrapper">
-            <vsf-paypal-control></vsf-paypal-control>
         </div>
-        <div class="mini-cart__control-go-to">
-            <button>
-                Go to Cart
-            </button>
+    </ng-container>
+
+    <ng-container *ngIf="!order?.lines.length">
+        <div class="mini-cart__empty">
+            The cart is empty
         </div>
-    </div>
+    </ng-container>
 </div> 

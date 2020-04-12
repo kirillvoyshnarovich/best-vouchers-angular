@@ -28,3 +28,12 @@ export const REMOVE_ITEM_FROM_CART = gql`
     }
     ${CART_FRAGMENT}
 `;
+
+export const REMOVE_CART = gql`
+    mutation RemoveCart($id: ID!) {
+        removeOrderLine(orderLineId: $id){
+            ...Cart
+        }
+    }
+    ${CART_FRAGMENT}
+`

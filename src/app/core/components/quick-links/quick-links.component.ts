@@ -137,9 +137,7 @@ export class QuickLinksComponent implements OnInit {
 
   submit() {
     if (this.form.valid){
-      console.log('Form', this.form);
       const formData = {...this.form.value};
-      console.log('formData', formData);
     }
   }
 }

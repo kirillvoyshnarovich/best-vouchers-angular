@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DataService } from '../../providers/data/data.service';
 
 @Component({
     selector: 'vsf-layout',
@@ -7,6 +8,13 @@ import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core'
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {
-    @HostListener('scroll') scroll() {
+
+    public load: boolean = true;
+    constructor(
+        private dataService: DataService
+    ) {
+        this.dataService.loadData.subscribe((event: boolean) => {
+            this.load = event;
+        })
     }
 }

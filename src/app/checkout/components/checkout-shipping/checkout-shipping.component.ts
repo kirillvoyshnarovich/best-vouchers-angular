@@ -87,7 +87,6 @@ export class CheckoutShippingComponent implements OnInit {
             if(response.activeOrder) {
                 response.activeOrder.subscribe((data: any) => {
                     this.order = data;
-                    console.log('order', this.order);
                 })
             }
         })
