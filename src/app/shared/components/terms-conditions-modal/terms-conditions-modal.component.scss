@@ -4,9 +4,10 @@
     font-weight: 400;
     font-size: 1.3rem;
     max-width: 800px;
-    max-height: 80vh;
+    max-height: 80%;
     overflow: auto;
     padding: 0px 20px;
+    max-height: 80vh;
 
     ul {
         padding-left: 10px;
@@ -15,7 +16,7 @@
     &__header {
         font-size: 2.6rem;
         font-weight: 800 !important;
-        padding-top: 30px;
+        padding-top: 0px;
         margin-bottom: 20px;
     }
 
@@ -124,3 +125,11 @@
     }
 }
 
+@media only screen and (max-width: 500px) {
+    .terms-conditions {  
+        max-height: 70vh;  
+        &__header {
+            font-size: 2rem;
+        }
+    }
+}

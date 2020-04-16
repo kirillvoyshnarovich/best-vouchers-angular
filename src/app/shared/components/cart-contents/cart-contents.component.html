@@ -16,17 +16,29 @@
                             <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
                         </div>
                         <div class="item__name body-empty">
+                            <div class="item-label">Item</div>
                             <div>{{ line.productVariant?.name }}</div>
                         </div>
                         <div class="item__price body-price">
-                            {{ line.unitPriceWithTax | formatPrice }}
+                            <div class="item-label">Price</div>
+                            <div>{{ line.unitPriceWithTax | formatPrice }}</div>
                         </div>
                         <div class="item__qty body-qty">
+                            <div class="item-label">Qty</div>
                             <input type="number" [(ngModel)]="line.quantity" (change)="setQuantity(line)">
                         </div>
                         <div class="item__subtotal body-subtotal">
+                            <div class="item-label">Subtotal</div>
                             <span class="item__subtotal-value">{{ line.totalPrice | formatPrice }}</span>
                             <button class="item__subtotal-remove" (click)="removeLine(line)">
+                                Remove item
+                            </button>
+                            <button class="item__subtotal-trash" (click)="removeLine(line)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="item__control">
+                            <button class="item__control-remove" (click)="removeLine(line)">
                                 Remove item
                             </button>
                         </div>

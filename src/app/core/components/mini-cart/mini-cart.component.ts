@@ -40,7 +40,7 @@ export class MiniCartComponent implements OnInit {
     this.dataService.query<GetOrderForCheckout.Query>(GET_ORDER_FOR_CHECKOUT).pipe(
       map(data => data.activeOrder),
     ).subscribe((response) => {
-      console.log('response', response);
+      console.log('getOrderForCheck', response);
       this.order = response;
     })
 
@@ -49,7 +49,7 @@ export class MiniCartComponent implements OnInit {
     }).pipe(
       map(data => data)
     ).subscribe((response) => {
-      console.log('response TESt FRAGMENT', response);
+     console.log('from test Request', response);
     });
   }
 
@@ -90,10 +90,5 @@ export class MiniCartComponent implements OnInit {
         ).subscribe();
       }
     });
-  }
-
-  private displayErrorNotification(message: string): void {
-    const notificationService = this.injector.get<NotificationService>(NotificationService);
-    notificationService.error(message).subscribe();
   }
 }

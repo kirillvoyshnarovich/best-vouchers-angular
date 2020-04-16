@@ -1,6 +1,10 @@
 
 .container-c-p {
-    width: 1200px;
-    max-width: 1200px;
     margin: 0 auto;
+
+    vsf-checkout-stage-indicator {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }

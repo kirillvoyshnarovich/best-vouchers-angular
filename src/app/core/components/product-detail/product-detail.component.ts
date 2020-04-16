@@ -64,7 +64,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             filter(notNullOrUndefined),
             withLatestFrom(lastCollectionId$),
         ).subscribe(([product, lastCollectionId]) => {
-            console.log('products in DETAILS', product);
+
             this.product = product;
             if (this.product.featuredAsset) {
                 this.selectedAsset = this.product.featuredAsset;

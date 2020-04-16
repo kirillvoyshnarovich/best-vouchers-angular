@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { distinctUntilChanged, map, shareReplay, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { GetCollection, SearchProducts } from '../../../common/generated-types';
 import { getRouteArrayParam } from '../../../common/utils/get-route-array-param';
 import { DataService } from '../../providers/data/data.service';
@@ -16,7 +16,13 @@ import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
 export class ProductListComponent implements OnInit {
 
     breadcrumbs: GetCollection.Breadcrumbs[] = [];
+
+    // for pagination
     pageList: number[] = [];
+    startSlice: number = 0;
+    endSlice: number = 4;
+    // for pagination
+
     amoutPage: number = 0;
     countItems: number = 0;
     perPage: number = 12;
@@ -25,6 +31,8 @@ export class ProductListComponent implements OnInit {
     products:any = [];
     currentPage = 1;
     load: boolean = true;
+
+    rowModeView = false;
 
     constructor(private dataService: DataService,
                 private route: ActivatedRoute,
@@ -40,17 +48,12 @@ export class ProductListComponent implements OnInit {
                     const parts = id.split('_');
                     return parts[parts.length - 1];
                 }
-            }),
-            tap(collectionId => {
-
-                this.collectionId = collectionId;
-                this.stateService.setState('lastCollectionId', collectionId || null);
-                this.getItems();
-                this.getBreadCrumbs();
-            }),
-            shareReplay(1),
-        ).subscribe((response) => {
-            
+            })
+        ).subscribe((collectionId) => {
+            this.collectionId = collectionId;
+            this.stateService.setState('lastCollectionId', collectionId || null);
+            this.getItems();
+            this.getBreadCrumbs();
         });
     }
 
@@ -98,5 +101,9 @@ export class ProductListComponent implements OnInit {
         for(let i = 0; i < this.amoutPage; i++) {
             this.pageList.push(i+1);
         }
+    }
+
+    changeModeView(rowMode: boolean) {
+        this.rowModeView = rowMode;
     }
 }

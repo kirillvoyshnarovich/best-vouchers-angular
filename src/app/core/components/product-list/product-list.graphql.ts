@@ -26,17 +26,6 @@ export const SEARCH_PRODUCTS = gql`
                 }
             }
             totalItems
-            facetValues {
-                count
-                facetValue {
-                    id
-                    name
-                    facet {
-                        id
-                        name
-                    }
-                }
-            }
         }
     }
 `;

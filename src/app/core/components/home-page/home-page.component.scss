@@ -60,6 +60,7 @@
 
     @media only screen and (max-width: 767px) {
         margin-top: 30px;
+        margin-bottom: 20px;
     }
 
     &__list {
@@ -74,13 +75,17 @@
     }
 
     &__item {
-        width: 30%;
+        width: 32%;
         display: flex;
         @media only screen and (max-width: 767px) {
-            width: 100%;
+            width: 70%;
             flex-direction: column;
             align-items: center;
             margin-bottom: 40px;
+        }
+
+        @media only screen and (max-width: 400px) {
+            width: 100%;
         }
     }
 
@@ -124,12 +129,11 @@
     flex-wrap: wrap;
     padding: 0 15px;
     &__sidebar {
-        width: 25%;
-        padding-right: 30px;
-
         @media only screen and (max-width: 991px) {
             display: none;
         }
+        width: 25%;
+        padding-right: 30px;
 
         .advertising {
             img {
@@ -147,6 +151,7 @@
     }
 
     .list-category {
+
         &__control {
             line-height: 27px;
             color: #fff;
@@ -159,6 +164,10 @@
             padding: 16px 15px;
             border-radius: 5px 5px 0 0;
             display: flex;
+
+            @media only screen and (max-width: 1130px) {
+                font-size: 1.9rem;
+            }
 
             &:hover {
                 cursor: pointer;
@@ -216,8 +225,12 @@
         margin-bottom: 35px;
         width: 100%;
 
+        @media only screen and (max-width: 991px) {
+            display: none;
+        }
+
         @media only screen and (max-width: 1199px) {
-            justify-content: center;
+            // justify-content: center;
         }
         @media only screen and (max-width: 575px) {
             flex-direction: column;
@@ -250,7 +263,9 @@
             }
         }
 
-        &__vouchers {}
+        &__vouchers {
+            max-height: 100%;
+        }
 
         &__nested-image {
             position: relative;
@@ -258,7 +273,8 @@
             img {
                 max-width: 100%;
                 width: 100%;
-                height: 180px;
+                height: auto;
+                display: block;
             }
         }
 
@@ -278,9 +294,9 @@
         }
 
         &__nested-price {
-            height: 45px;
+            height: 27px;
             background-color: #fa4157;
-            padding: 5px;
+            padding: 0px;
             display: flex;
             align-items: center;
             justify-content: space-around;
@@ -301,6 +317,10 @@
     .products {
         width: 100%;
 
+        @media only screen and (max-width: 700px) {
+            margin-top: 30px;
+        }
+
         &__bar {
             display: flex;
             flex-direction: column;
@@ -313,19 +333,32 @@
             width: 100%;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
+            align-items: center;
+
+            @media only screen and (max-width: 350px) {
+                flex-direction: column;
+                align-items: flex-end;
+
+            }
         }
 
         &__title {
             text-transform: uppercase;
             font-size: 2.2rem;
             font-weight: 700;
-
+            @media only screen and (max-width: 350px) {
+                order: 1;
+            }
             @media only screen and (max-width: 575px) {
                 font-size: 1.6rem;
             }
         }
 
         &__control {
+            @media only screen and (max-width: 350px) {
+                order: 0;
+            }
+
             &-button {
                 border: 2px solid #eee;
                 height: 34px;
@@ -355,9 +388,14 @@
 
         &__tabs {
             display: flex;
-            flex-wrap: wrap;
-            padding-top: 10px;
+            flex-wrap: nowrap;
+            padding: 10px 0;
             max-width: 100%;
+            overflow: auto;
+
+            div{
+
+            }
         }
 
         &__tab {
@@ -373,6 +411,10 @@
                 color: #fa4157;
                 cursor: pointer;
             }
+
+            &:last-child {
+                border-right: 0px solid #eee;
+            }
         }
 
         &__list {
@@ -380,6 +422,10 @@
             flex-wrap: wrap;
             overflow: hidden;
             min-height: 615px;
+
+            @media only screen and (max-width: 480px) {
+                min-height: auto;
+            }
         }
 
         &__row {
@@ -410,28 +456,40 @@
     .advertising {
         margin-top: 40px;
 
+        @media only screen and (max-width: 991px) {
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        @media only screen and (max-width: 950px) {
+            margin: 0 auto;
+            padding: 30px 0px;
+        }
+
         &__row {
             display: flex;
             justify-content: space-between;
 
             &:first-child {
                 margin: 0px;
-                @media only screen and (max-width: 767px) {
+                @media only screen and (max-width: 600px) {
                     flex-direction: column;
                 }
             }
 
             margin-top: 25px;
 
-            @media only screen and (max-width: 767px) {
-                margin-top: 0;
+            &:last-child {
+                @media only screen and (max-width: 600px) {
+                    margin-top: 0px;
+                }
             }
         }   
 
         &__small-box {
             width: 48%;
 
-            @media only screen and (max-width: 767px) {
+            @media only screen and (max-width: 600px) {
                 width: 100%;
                 margin-bottom: 25px;
                 text-align: center;
@@ -440,6 +498,10 @@
             img {
                 max-width: 100%;
                 height: auto;
+                
+                @media only screen and (max-width: 600px) {
+                    width: 100%;
+                }
             }
         }  
 
@@ -449,6 +511,141 @@
             img {
                 max-width: 100%;
                 height: auto;
+            }
+        }
+    }
+
+    .advertising__mobile {
+        display: flex;
+        width: 100%;
+        display: none;
+        justify-content: center;
+        
+        @media only screen and (max-width: 991px) {
+            display: flex;
+        }
+
+        @media only screen and (max-width: 750px) {
+            justify-content: space-between;
+        }
+
+        @media only screen and (max-width: 580px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &-column {
+            width: 40%;
+            @media only screen and (max-width: 750px) {
+                width: 50%;
+            }
+
+            @media only screen and (max-width: 540px) {
+                width: 70%;
+            }
+
+            @media only screen and (max-width: 400px) {
+                width: 90%;
+            }
+
+            &:first-child {
+
+            }
+
+            &:last-child {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
+
+        .advertising-mobile {
+            img {
+                max-width: 100%;
+                height: auto;
+
+                @media only screen and (max-width: 580px) {
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+
+        .best-deal-mobile {
+            display: flex;
+            // margin-bottom: 35px;
+            width: 100%;
+            &__image {
+
+                img{
+                    max-width: 100%;
+                }
+    
+                .mobile-image {
+                    display: none;
+                }
+            }
+    
+            &__vouchers {
+                max-height: 100%;
+                display: none; /// < --- 
+            }
+    
+            &__nested-image {
+                position: relative;
+    
+                img {
+                    max-width: 100%;
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                }
+            }
+    
+            // &__nested-name {
+            //     display: block;
+            //     position: absolute;
+            //     top: 0;
+            //     left: 0;
+            //     z-index: 3;
+            //     width: 100%;
+            //     background: rgba(255,255,255,.8);
+            //     color: #333;
+            //     padding: 5px 5px;
+            //     text-align: center;
+            //     font-weight: bold;
+            //     font-size: 15px;
+            // }
+    
+            // &__nested-price {
+            //     height: 27px;
+            //     background-color: #fa4157;
+            //     padding: 0px;
+            //     display: flex;
+            //     align-items: center;
+            //     justify-content: space-around;
+            //     position: absolute;
+            //     bottom: 0px;
+            //     width: 100%;
+            // }
+    
+            // &__nested-new-price {
+            //     color: #fff;
+            //     font-size: 22px;
+            // }
+    
+            // &__nested-old-price {
+            //     color: #161147;
+            //     font-size: 18px;
+            //     text-decoration: line-through;
+            // }
+        }
+
+        .paypal-mobile {
+            img {
+                max-width: 100%;
+                height: auto;
+                width: auto;
             }
         }
     }

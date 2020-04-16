@@ -1,6 +1,5 @@
 @import "~@angular/cdk/overlay-prebuilt";
 
-
 @font-face {
     font-family: "Open Sans";
     src: url("../assets/bestvouchers/fonts/Open_Sans/OpenSans-Regular.ttf");
@@ -97,8 +96,6 @@ select {
 }
 // common style
 
-
-
 html {
     font-family: 'Open Sans', sans-serif !important;
     font-size: 10px;
@@ -137,14 +134,12 @@ img[data-zoom] {
 }
 
 .vsf-zoom-zoom-pane {
-    // box-shadow: $box-shadow-lg;
+  // box-shadow: $box-shadow-lg;
 }
 
 .bv-container {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .bv-wrapper {
@@ -235,3 +230,11 @@ img[data-zoom] {
     }
   }
 // common spinner
+
+// common adaptive 
+
+@media only screen and (max-width: 1250px) {
+  .bv-container  {
+    max-width: 95vw;
+  }
+}

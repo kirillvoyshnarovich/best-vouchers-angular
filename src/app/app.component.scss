@@ -1,15 +1,9 @@
-// red - #e44f4f
 .header {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     color: #fff;
-
-    &__wrapper {
-        max-width: 1200px;
-        width: 100%;
-    }
 
     &__lang {
         width: 100%;
@@ -43,11 +37,24 @@
         @media only screen and (max-width: 767px) {
             flex-basis: 100%;
             max-width: 100%;
-            margin: 0 0 10px;
+            margin: 0 0 20px;
         }
 
         max-width: 25%;
         img {
+
+            @media only screen and (max-width: 767px) {
+                max-width: 80%;
+                display: block;
+                margin: 0 auto;
+            }
+
+            @media only screen and (max-width: 500px) {
+                max-width: 90%;
+                display: block;
+                margin: 0 auto;
+            }
+
             width: 100%;
         }
     }
@@ -60,13 +67,26 @@
         margin: 0 auto;
         position: relative;
 
+        @media only screen and (max-width: 767px) {
+            width: 15%;
+        }
+
+        @media only screen and (max-width: 550px) {
+            width: 50%;
+            justify-content: center;
+        }
+
+        @media only screen and (max-width: 400px) {
+            width: 35%;
+        }
+
         span {
             margin-left: 10px;
             @media only screen and (max-width: 991px) {
                 display: none;
             }
-    
         }
+
 
         &:hover {
             cursor: pointer;
@@ -91,10 +111,18 @@
         margin-right: auto;
 
         @media only screen and (max-width: 767px) {
+            width: 33%;
             margin-top: 5px;
             margin-bottom: 10px;
         }
 
+        @media only screen and (max-width: 550px) {
+            width: 50%;
+        }
+
+        @media only screen and (max-width: 400px) {
+            width: 65%;
+        }
 
         &-info {
             display: flex;
@@ -111,11 +139,17 @@
     }
 
     &__use-gift {
-        margin-right: auto;
         
         @media only screen and (max-width: 767px) {
+            flex-basis: 33%;
+            text-align: right;
+        }
+
+        @media only screen and (max-width: 550px) {
             flex-basis: 100%;
-            text-align: center;
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         button {
@@ -138,17 +172,13 @@
         display: flex;
         align-items: center;
         height: 28px;
-        padding-right: 10px;
+        // padding-right: 10px;
         &:hover {
             cursor: pointer;
             .header__list {
                 display: block;
             }
         }
-    }
-
-    &__list-wrapper {
-
     }
 
     &__list {
@@ -188,12 +218,14 @@
     }
 
     .lang-container {
+        display: flex;
         justify-content: flex-end;
         align-items: center;
         position: relative;
     }
 
     .header-container {
+        display: flex;
         justify-content: space-around;
         align-items: center;
         height: 50px;        
@@ -221,6 +253,15 @@
 .footer {
     color: #fff;
 
+    .footer-container {
+        display: flex;
+        justify-content: center;
+
+        @media only screen and (max-width: 575px) {
+            padding-left: 5px;
+        }
+    }
+
     &__info {
         background: #2f2c57;
         padding: 40px 0;
@@ -237,6 +278,10 @@
         padding: 25px 0 20px;
         font-style: italic;
         font-size: 1.5rem;
+
+        @media only screen and (max-width: 575px) {
+            font-size: 1.3rem;
+        }
 
         .bv-container {
             margin: 0 auto;
@@ -283,7 +328,7 @@
 
         &:first-of-type {
             flex-basis: 50%;
-            @media only screen and (max-width: 991px) {
+            @media only screen and (max-width: 1000px) {
                 flex-basis: 40%;
             }
 
@@ -322,11 +367,11 @@
 
         .footer__column {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             flex-direction: row;
             width: 100%;
     
-            @media only screen and (max-width: 991px) {
+            @media only screen and (max-width: 1000px) {
                 flex-direction: column;
             }
         }
@@ -347,8 +392,8 @@
         &:first-child {
             margin: 0px;
 
-            @media only screen and (max-width: 991px) {
-                margin-bottom: 10px;
+            @media only screen and (max-width: 1000px) {
+                margin-bottom: 30px;
             }
         }
 
@@ -391,6 +436,10 @@
 
     &__links {
         padding: 0 0 0 10px;
+        @media only screen and (max-width: 575px) {
+            padding: 0 0 0 4px;
+        }
+
         li {
             font-size: 1.4rem;
             color: #fff;
@@ -432,7 +481,24 @@
         }
     }
 
-    // .phone-block {
-    //     margin-left: 40px;
-    // }
+    .phone-block {
+        margin-left: 30px;
+
+        @media only screen and (max-width: 1000px) {
+            margin-left: 0px;
+        }
+    }
+}
+
+// adaptive
+@media only screen and (max-width: 1050px) {
+    .header {
+        &__control {
+            &:hover {    
+                vsf-mini-cart {
+                    display: none;
+                }
+            }
+        }
+    }
 }

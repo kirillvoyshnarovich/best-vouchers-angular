@@ -71,6 +71,36 @@
                     </div>
                 </div>
             </div>
+            <div class="advertising__mobile">
+                <div class="advertising__mobile-column">
+                    <div class="advertising-mobile">
+                        <img src="../../../../assets/bestvouchers/baner.jpg">
+                    </div>
+                </div>
+                <div class="advertising__mobile-column">
+                    <div class="best-deal-mobile">
+                        <div class="best-deal-mobile__image">
+                            <!-- <img src="../../../../assets/bestvouchers/best-deal.jpg"> -->
+                            <img src="../../../../assets/bestvouchers/best-deal-mobile.jpg">
+                        </div>
+                        <div class="best-deal-mobile__vouchers">
+                            <div class="best-deal-mobile__nested-image">
+                                <div class="best-deal-mobile__nested-name">
+                                    Romantic flight by plane for two
+                                </div>
+                                <img src="../../../../assets/bestvouchers/best-deal-2.jpg">
+                                <div class="best-deal-mobile__nested-price">
+                                    <span class="best-deal-mobile__nested-new-price">$48.00</span>
+                                    <span class="best-deal-mobile__nested-old-price">$60.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="paypal-mobile">
+                        <img src="../../../../assets/bestvouchers/paypal.jpeg">
+                    </div>
+                </div>
+            </div>
             <div class="products">
                 <div class="products__bar">
                     <div class="products__most-popular">
@@ -95,12 +125,12 @@
                 <div [@apperCategory]="hiddenItems ? 'hidden' : 'appear'" class="products__list" *ngIf="listVendersInitialCategory.length">
                     <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
                         <ng-container *ngFor="let product of listVendersInitialCategory; let even = even">
-                            <vsf-product-card *ngIf="even" [product]="product" [mode]="'tab'"></vsf-product-card>
+                            <vsf-product-card *ngIf="even" [product]="product" [mode]="false"></vsf-product-card>
                         </ng-container>
                     </div>
                     <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
                         <ng-container *ngFor="let product of listVendersInitialCategory; let odd = odd">
-                            <vsf-product-card *ngIf="odd"  [product]="product" [mode]="'tab'"></vsf-product-card>
+                            <vsf-product-card *ngIf="odd"  [product]="product" [mode]="false"></vsf-product-card>
                         </ng-container>
                     </div>
                 </div>

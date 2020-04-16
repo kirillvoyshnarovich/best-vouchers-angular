@@ -1,5 +1,7 @@
 <div class="wrapper-card">
-    <div [ngClass]="{'card-tabs': mode === 'tab'}" class="product-card">
+    <!-- [ngClass]="{'card-tabs': mode === 'tab'}" -->
+    <!-- [ngClass]="{'product-card_row': mode}" -->
+    <div [ngClass]="{'product-card_row': mode}" class="product-card card-tabs">
         <ng-template [ngIf]="product">
             <a [routerLink]="['/product', product.slug]" class="product-card__image-wrapper">
                 <img class="product-card__product-image" [src]="product.productAsset | assetPreview:200:200">
@@ -11,6 +13,9 @@
                 <span class="product-card__price">
                     {{ product.priceWithTax.min | formatPrice }}
                 </span>
+                <div class="product-card__description">
+                    {{product.description}}
+                </div>
                 <button class="product-card__button" [routerLink]="['/product', product.slug]">
                     Check
                 </button>

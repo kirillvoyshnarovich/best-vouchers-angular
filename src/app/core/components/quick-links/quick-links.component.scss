@@ -1,8 +1,6 @@
 .quick-links {
 
     .container-q-l {
-        max-width: 1200px;
-        width: 100%;
         margin: 0 auto;
 
         @media only screen and (max-width: 991px) {
@@ -435,7 +433,6 @@
     }
 
     .privacy-policy{
-        max-width: 1200px;
         padding: 0 15px;
         margin: 0 auto;
         font-family: 'Open Sans',sans-serif;
@@ -482,8 +479,7 @@
         }
     }
 
-    .terms-and-services{
-        max-width: 1200px;
+    .terms-and-services {
         padding: 0 15px;
         margin: 0 auto;
         font-family: 'Open Sans',sans-serif;

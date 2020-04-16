@@ -1,6 +1,4 @@
 .container-p-d {
-    width: 1200px;
-    max-width: 1200px;
     margin: 0 auto;
 
     vsf-asset-gallery {
@@ -145,6 +143,62 @@
                 padding: 5px 0px;
                 font-size: 1.4rem;
             }
+        }
+    }
+}
+
+//adaptive
+
+@media only screen and (max-width: 800px) {
+    .product {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+        font-family: 'Open Sans', sans-serif;
+    
+        &__image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    
+        &__main {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    
+        &__info {
+            width: 100%;
+            padding: 50px 0 0 0px;
+        }
+
+        vsf-asset-gallery {
+            border: 0px;
+            padding: 0px;
+            max-width: 80%;
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .product {
+        &__info {
+            .qty {
+                flex-direction: column;
+                align-items: flex-start;
+
+                &__control {
+                    margin-top: 15px;
+                }
+
+                &__add {
+                    margin-top: 15px;
+                }
+            }
+        }
+        vsf-asset-gallery {
+            max-width: 100%;
         }
     }
 }
