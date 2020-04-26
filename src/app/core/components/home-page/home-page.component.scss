@@ -91,9 +91,9 @@
 
     &__left {
         width: 20%;
-        i {
+        fa-icon {
             color: #ff4357;
-            font-size: 4.6rem;
+            font-size: 4rem;
         }
     }
 
@@ -372,7 +372,7 @@
                     margin-right: 5px;
                 }
 
-                i {
+                fa-icon {
                     font-size: 2.5rem;
                     color: #eee;
                 }
@@ -432,7 +432,7 @@
             display: flex;
             width: 100%;
             transition: transform 0.3s linear;
-            vsf-product-card {
+            bv-product-card {
                 width: 33.3%;
                 padding-left: 15px;
                 padding-top: 15px;
@@ -443,7 +443,7 @@
                 }
             }
 
-            vsf-product-card:first-child {
+            bv-product-card:first-child {
                 padding-left: 0px !important;
             }
         }

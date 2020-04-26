@@ -24,7 +24,7 @@ export const slideInAnimation =
   ]);
 
 @Component({
-    selector: 'vsf-home-page',
+    selector: 'bv-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     // changeDetection: ChangeDetectionStrategy.OnPush,

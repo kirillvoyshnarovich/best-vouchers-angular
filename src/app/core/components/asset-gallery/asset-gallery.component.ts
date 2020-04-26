@@ -6,7 +6,7 @@ import { Asset } from '../../../common/generated-types';
 
 export type AssetWithDimensions = Pick<Asset.Fragment, 'id' | 'preview' | 'width' | 'height'>;
 @Component({
-    selector: 'vsf-asset-gallery',
+    selector: 'bv-asset-gallery',
     templateUrl: './asset-gallery.component.html',
     styleUrls: ['./asset-gallery.component.scss'],
 })

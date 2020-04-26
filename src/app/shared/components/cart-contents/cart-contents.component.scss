@@ -20,10 +20,11 @@
                 
                 .header-item {
                     width: 15%;
+                    text-align: left;
                 }
         
                 .header-empty {
-                    width: 35%;
+                    width: 30%;
                 }
         
                 .header-price {
@@ -35,12 +36,13 @@
                 }
         
                 .header-subtotal {
-                    width: 15%;
+                    width: 20%;
+                    text-align: right;
                 }
             }
         
             &__cell {
-                font-weight: 700;
+                font-weight: 600;
             }
         
             &__control {
@@ -59,10 +61,13 @@
                 border-radius: 5px;
                 font-size: 1.7rem;
                 font-family: 'Open Sans',sans-serif;
-        
                 color: #fa4157;
                 background: #fff;
                 border: 1px solid #fa4157;
+
+                fa-icon {
+                    margin-right: 15px;
+                }
             }
         
             &__update {
@@ -134,7 +139,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-end;
         
                 &-value {
         
@@ -218,7 +223,7 @@
             }
         
             .body-empty {
-                width: 35%;
+                width: 30%;
             }
         
             .body-price {
@@ -230,7 +235,7 @@
             }
         
             .body-subtotal {
-                width: 15%;
+                width: 20%;
             }
         }
     

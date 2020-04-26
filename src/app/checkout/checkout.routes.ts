@@ -17,11 +17,11 @@ export const routes: Routes = [
         children: [
             {
                 path: 'cart',
-                component: CartContentsComponent,
-                canActivate: [CheckoutGuard],
-                resolve: {
-                    activeOrder: CheckoutResolver,
-                },
+                // component: CartContentsComponent,
+                // canActivate: [CheckoutGuard],
+                // resolve: {
+                //     activeOrder: CheckoutResolver,
+                // },
             },
             {
                 path: 'shipping',
@@ -33,7 +33,7 @@ export const routes: Routes = [
             },
             {
                 path: 'payment',
-                component: CheckoutShippingComponent,
+                component: CheckoutPaymentComponent,
                 canActivate: [CheckoutGuard],
                 resolve: {
                     activeOrder: CheckoutResolver,

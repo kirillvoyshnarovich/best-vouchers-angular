@@ -36,6 +36,14 @@ export const GET_COLLECTION = gql`
             id
             name
             description
+            translations {
+                id
+                createdAt
+                updatedAt
+                languageCode
+                name
+                description
+            }
             featuredAsset {
                 ...Asset
             }

@@ -4,7 +4,9 @@
             <div class="stage__line" [class.active]="activeStage === 1"></div>
             <div class="stage__circle" [class.active]="activeStage === 1">
                 <div class="stage__circle nested" *ngIf="activeStage !== 1">1</div>
-                <div class="stage__circle nested" *ngIf="activeStage === 1"><i class="fa fa-check" aria-hidden="true"></i></div>
+                <div class="stage__circle nested" *ngIf="activeStage === 1">
+                    <fa-icon icon="check"></fa-icon>
+                </div>
             </div>
         </div>
         <div class="name">Order</div>
@@ -14,7 +16,9 @@
             <div class="stage__line" [class.active]="activeStage === 2"></div>
             <div class="stage__circle" [class.active]="activeStage === 2">
                 <div class="stage__circle nested" *ngIf="activeStage !== 2">2</div>
-                <div class="stage__circle nested" *ngIf="activeStage === 2"><i class="fa fa-check" aria-hidden="true"></i></div>
+                <div class="stage__circle nested" *ngIf="activeStage === 2">
+                    <fa-icon icon="check"></fa-icon>
+                </div>
             </div>
         </div>
         <div class="name">Shipping</div>
@@ -24,7 +28,9 @@
             <div class="stage__line" [class.active]="activeStage === 3"></div>
             <div class="stage__circle" [class.active]="activeStage === 3">
                 <div class="stage__circle nested" *ngIf="activeStage !== 3">3</div>
-                <div class="stage__circle nested" *ngIf="activeStage === 3"><i class="fa fa-check" aria-hidden="true"></i></div>
+                <div class="stage__circle nested" *ngIf="activeStage === 3">
+                    <fa-icon icon="check"></fa-icon>
+                </div>
             </div>
         </div>
         <div class="name">Review & Payments</div>    

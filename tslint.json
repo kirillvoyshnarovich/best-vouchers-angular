@@ -72,6 +72,12 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "no-floating-promises": false
+    "no-floating-promises": false,
+    "directive-selector": [  
+      true, "attribute", "bv", "kebab-case"  
+    ],  
+    "component-selector": [  
+        true, "element", "bv", "kebab-case"  
+    ]  
   }
 }

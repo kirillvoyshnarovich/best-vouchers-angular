@@ -3,7 +3,7 @@ import { DataService } from '../../providers/data/data.service';
 import gql from 'graphql-tag';
 
 @Component({
-  selector: 'vsf-slider',
+  selector: 'bv-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })

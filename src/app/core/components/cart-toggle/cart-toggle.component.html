@@ -2,8 +2,7 @@
     <button class="toggle-button"
             (click)="toggle.emit()"
             title="cart">
-        <!-- <fa-icon icon="shopping-bag" class="mr-1"></fa-icon> !!!-->
-        <i class="fa fa-shopping-bag" aria-hidden="true" ></i>
+        <fa-icon icon="shopping-bag"></fa-icon>
         <span class="badge qty-indicator"
               [class.empty]="cart.quantity === 0"
               [class.cart-changed]="cartChangeIndication$ | async">{{ cart.quantity }}</span>

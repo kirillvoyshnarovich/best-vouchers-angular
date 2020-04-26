@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Dialog } from '../../../core/providers/modal/modal-types';
 
 @Component({
-  selector: 'vsf-confirm-modal',
+  selector: 'bv-confirm-modal',
   templateUrl: './confirm-modal.component.html',
   styleUrls: ['./confirm-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default

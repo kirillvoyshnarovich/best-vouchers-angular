@@ -1,0 +1,42 @@
+<div class="order">
+    <div class="order__header">{{'app.shipping_address.order_summary' | translate}}</div>
+    <div class="order__info">
+        <p class="subtotal" *ngIf="order.subTotal">
+            <span class="subtotal__type">{{'app.shipping_address.subtotal' | translate}}</span>
+            <span class="subtotal__value">{{order.subTotal | formatPrice}}</span>
+        </p>
+        <p class="ship" *ngIf="order.shippingMethod">
+            <span class="ship__type">{{'app.shipping_address.shipping' | translate}}</span>
+            <span class="ship__name">{{order.shippingMethod.description}}</span>
+            <span class="ship__value">{{order.shipping | formatPrice}}</span>
+        </p>
+        <p class="common-total" *ngIf="order.total">
+            <span class="common-total__type">{{'app.shipping_address.order_total' | translate}}</span>
+            <span class="common-total__value">{{order.total | formatPrice}}</span>
+        </p>
+    </div>
+    <div class="order__list-caption" (click)="collapse()">
+        <span class="order__list-caption-counter">
+            <span class="amount">{{order.lines.length}}</span> 
+            {{'app.shipping_address.any_items' | translate}}
+        </span> 
+        <fa-icon icon="caret-down" [ngClass]="{'rotate': collapsedMenu}"></fa-icon>
+    </div>
+    <ul class="order__list" [ngClass]="{'collapsed': collapsedMenu}">
+        <li class="list-item" *ngFor="let line of order.lines">
+            <div class="list-item__img">
+                <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
+            </div>
+            <div class="list-item__info">
+                <div class="list-item__description">{{line.productVariant?.name}}</div>
+                <div class="list-item__quantity">
+                    <span>{{'app.shipping_address.qty' | translate}}:</span>
+                    <span>{{line.quantity}}</span>
+                </div>
+            </div>
+            <div class="list-item__price">
+                {{ line.unitPriceWithTax | formatPrice }}
+            </div>
+        </li>
+    </ul>
+</div>

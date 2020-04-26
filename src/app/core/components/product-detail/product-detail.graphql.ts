@@ -8,6 +8,13 @@ export const GET_PRODUCT_DETAIL = gql`
             id
             name
             description
+            translations {
+                id
+                languageCode
+                name
+                slug
+                description
+            }
             variants {
                 id
                 name

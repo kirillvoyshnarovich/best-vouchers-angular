@@ -5,9 +5,9 @@
     <h3 class="cart-title">Cart</h3>
 </div>
 <div *ngIf="!(isEmpty$ | async); else empty" class="cart-drawer-contents">
-    <vsf-cart-contents [cart]="cart$ | async"
+    <bv-cart-contents [cart]="cart$ | async"
                        [canAdjustQuantities]="true"
-                       (setQuantity)="setQuantity($event)"></vsf-cart-contents>
+                       (setQuantity)="setQuantity($event)"></bv-cart-contents>
     <div class="checkout-button">
         <a class="btn btn-block btn-primary"
            color="primary"

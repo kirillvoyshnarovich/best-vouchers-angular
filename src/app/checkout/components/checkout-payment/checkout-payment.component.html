@@ -1,4 +1,4 @@
-<form class="payment-form mb-5" #paymentForm="ngForm" (submit)="completeOrder()">
+<!-- <form class="payment-form mb-5" #paymentForm="ngForm" (submit)="completeOrder()">
     <div class="input-group mb-3">
         <div class="input-group-prepend">
         <span class="input-group-text">
@@ -32,4 +32,58 @@
 
     <button class="btn btn-primary btn-lg"
             [disabled]="paymentForm.pristine || paymentForm.invalid">Complete order</button>
-</form>
+</form> -->
+
+<div class="payments">
+    <div class="payments-methods">
+        <ul class="payments-methods__list">
+            <form>
+                <li class="methods-item">
+                    <div class="methods-item__header">
+                        <div class="methods-item__control">
+                            <input type="radio" name="name-methods" (change)="handleChange($event, 1)">
+                        </div>
+                        <div class="methods-item__picture">
+                            <img src="../../../../assets/bestvouchers/paypal.png">
+                        </div>
+                        <div class="methods-item__info">
+                            {{'app.shipping_address.paypal_info' | translate}}
+                        </div>
+                    </div>
+                    <div class="methods-item__body" [ngClass]="{'collapsed': openedItem === 1}">
+                        <div class="methods-item__accept">
+                            <input class="methods-item__checkbox" type="checkbox" >
+                            <p class="methods-item__agreement" (click)="openModalAggrement()">
+                               <span class="text">{{'app.shipping_address.agreement' | translate}}</span>
+                               <span class="asterics">*</span>
+                            </p>
+                        </div>
+                        <div class="payment-wrapper">
+                            <bv-paypal-control></bv-paypal-control>
+                        </div>
+                    </div>
+                </li>
+                <li class="methods-item">
+                    <div class="methods-item__header">
+                        <div class="methods-item__control">
+                            <input type="radio" name="name-methods" (change)="handleChange($event, 2)">
+                        </div>
+                        <div class="methods-item__info">
+                            {{'app.shipping_address.cash_delivery' | translate}}
+                        </div>
+                    </div>
+                    <div class="methods-item__body" [ngClass]="{'collapsed': openedItem === 2}">
+                        <div class="methods-item__accept">
+                            <input class="methods-item__checkbox" type="checkbox">
+                            <p class="methods-item__agreement" (click)="openModalAggrement()">
+                                <span class="text">{{'app.shipping_address.agreement' | translate}}</span>
+                                <span class="asterics">*</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </form>
+            <!-- <button (click)="addItemStateMutation()">TEST</button> -->
+        </ul>
+    </div>
+</div>

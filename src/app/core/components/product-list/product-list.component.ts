@@ -9,7 +9,7 @@ import { StateService } from '../../providers/state/state.service';
 import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
 
 @Component({
-    selector: 'vsf-product-list',
+    selector: 'bv-product-list',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss']
 })
@@ -83,6 +83,7 @@ export class ProductListComponent implements OnInit {
             id: this.collectionId,
         }).subscribe((response) => {
             if(response['collection']) {
+
                 this.breadcrumbs = response['collection'].breadcrumbs;
             }
         })

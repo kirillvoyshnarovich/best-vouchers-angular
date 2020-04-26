@@ -91,7 +91,7 @@
         &:hover {
             cursor: pointer;
 
-            vsf-mini-cart {
+            bv-mini-cart {
                 display: flex;
             }
         }
@@ -109,7 +109,7 @@
         font-size: 4rem;
         display: flex;
         margin-right: auto;
-
+        align-items: center;
         @media only screen and (max-width: 767px) {
             width: 33%;
             margin-top: 5px;
@@ -172,7 +172,11 @@
         display: flex;
         align-items: center;
         height: 28px;
-        // padding-right: 10px;
+
+        span {
+            margin-left: 10px;
+        }
+
         &:hover {
             cursor: pointer;
             .header__list {
@@ -495,7 +499,7 @@
     .header {
         &__control {
             &:hover {    
-                vsf-mini-cart {
+                bv-mini-cart {
                     display: none;
                 }
             }

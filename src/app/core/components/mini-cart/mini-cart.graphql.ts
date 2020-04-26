@@ -38,8 +38,8 @@ export const REMOVE_CART = gql`
     ${CART_FRAGMENT}
 `
 
-export const TEST_FRAGMENT = gql`
-    query tetsRequest($id: ID!) {
+export const GET_SLAG_PRODUCT = gql`
+    query SlugProduct($id: ID!) {
         product(id: $id) {
             id
             slug

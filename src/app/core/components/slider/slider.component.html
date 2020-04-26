@@ -1,20 +1,20 @@
 <div class="slider">
     <div class="bv-container slider__wrapper">
         <div class="slider__header">
-            <div class="slider__title">Bestsellers</div>
+            <div class="slider__title">{{'app.slider.title' | translate}}</div>
             <div class="slider__control">
                 <button class="slider__control-button" (click)="toggleSlider(false)">
-                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                    <fa-icon icon="caret-left"></fa-icon>
                 </button>
                 <button class="slider__control-button" (click)="toggleSlider(true)">
-                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    <fa-icon icon="caret-right"></fa-icon>
                 </button>
             </div>
         </div>
         <div class="slider__body">
             <div class="slider__container" [ngStyle]="{'transform': offsetDomElement}">
                 <ng-container *ngIf="topSellers.length">
-                    <vsf-product-card *ngFor="let product of topSellers" [product]="product" [mode]="false"></vsf-product-card>
+                    <bv-product-card *ngFor="let product of topSellers" [product]="product" [mode]="false"></bv-product-card>
                 </ng-container>
             </div>
         </div>

@@ -1,17 +1,17 @@
-<vsf-collection-breadcrumbs 
+<bv-collection-breadcrumbs 
     [breadcrumbs]="breadcrumbs" 
     *ngIf="product" class="mb-2" 
     [linkLast]="true">
-</vsf-collection-breadcrumbs>
+</bv-collection-breadcrumbs>
 <div class="bv-container container-p-d">
     <div class="product">
         <div class="product__main" *ngIf="product">
             <h1 class="product__caption">{{ product?.name }}</h1>
             <div class="product__image">
-                <vsf-asset-gallery 
+                <bv-asset-gallery 
                     [assets]="product?.assets"
                     [selectedAssetId]="product?.featuredAsset?.id">
-                </vsf-asset-gallery>
+                </bv-asset-gallery>
             </div>
             <div class="product__info" #zoomPreviewArea>
                 <!-- <div class="sku">
@@ -21,7 +21,7 @@
                     {{ selectedVariant?.priceWithTax | formatPrice }}
                 </div>
                 <div class="qty">
-                    <span class="qty__label">Qty</span>
+                    <span class="qty__label">{{'app.product_detail.qty' | translate}}</span>
                     <input 
                         type="number" 
                         min="0" 
@@ -30,7 +30,7 @@
                         [(ngModel)]="qty"
                         class="qty__control">
                     <button [disabled]="qty === 0" class="qty__add" (click)="addToCart(selectedVariant, qty)">
-                        Add To Cart
+                        {{'app.product_detail.add' | translate}}
                     </button>
                 </div>
                 <div class="description" [innerHTML]="product?.description">
@@ -39,11 +39,11 @@
         </div>
         <div class="product__additional">
             <div class="product__table">
-                <div class="table-header">Details</div>
+                <div class="table-header">{{'app.product_detail.title' | translate}}</div>
                 <div class="table-body">
                     <div class="table-description">A 30-minute theoretical introduction and 15 minutes of drifting practice on the track.</div>
                     <div class="table-list">
-                        <div class="table-list__header">Available locations</div>
+                        <div class="table-list__header">{{'app.product_detail.available_location' | translate}}</div>
                         <ul class="table-list__ul">
                             <li class="table-list__ul-item" *ngFor="let location of listLocation">{{location}}</li>
                         </ul>
@@ -53,5 +53,5 @@
         </div>
     </div>
     
-    <vsf-slider></vsf-slider> 
+    <bv-slider></bv-slider> 
 </div>

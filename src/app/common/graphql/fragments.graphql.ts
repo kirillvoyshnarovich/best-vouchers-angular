@@ -26,53 +26,7 @@ export const CART_FRAGMENT = gql`
                 ...Asset
             }
             unitPrice
-            unitPriceWithTax
-            quantity
-            totalPrice
-            productVariant {
-                id
-                name
-            }
-            adjustments {
-                amount
-                description
-                adjustmentSource
-                type
-            }
-        }
-        subTotal
-        subTotalBeforeTax
-        totalBeforeTax
-        shipping
-        shippingMethod {
-            id
-            code
-            description
-        }
-        total
-        adjustments {
-            amount
-            description
-            adjustmentSource
-            type
-        }
-    }
-    ${ASSET_FRAGMENT}
-`;
-
-export const MIN_CART_FRAGMENT = gql`
-    fragment Cart on Order {
-        id
-        code
-        state
-        active
-        lines {
-            id
-            featuredAsset {
-                ...Asset
-            }
-            unitPrice
-            unitPriceWithTax
+            unitPriceWithTax 
             quantity
             totalPrice
             productVariant {

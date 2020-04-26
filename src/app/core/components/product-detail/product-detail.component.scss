@@ -1,7 +1,7 @@
 .container-p-d {
     margin: 0 auto;
 
-    vsf-asset-gallery {
+    bv-asset-gallery {
         display: flex ;
         padding: 20px;
         border: 1px solid #d1d1d1;
@@ -173,7 +173,7 @@
             padding: 50px 0 0 0px;
         }
 
-        vsf-asset-gallery {
+        bv-asset-gallery {
             border: 0px;
             padding: 0px;
             max-width: 80%;
@@ -197,7 +197,7 @@
                 }
             }
         }
-        vsf-asset-gallery {
+        bv-asset-gallery {
             max-width: 100%;
         }
     }

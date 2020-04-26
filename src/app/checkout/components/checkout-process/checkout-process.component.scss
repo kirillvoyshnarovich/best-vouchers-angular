@@ -2,9 +2,62 @@
 .container-c-p {
     margin: 0 auto;
 
-    vsf-checkout-stage-indicator {
+    .wrapper-process {
+        width: 100%;
+        display: flex;
+
+        &__stage {
+            width: 65%;
+        }
+
+        &__order {
+            width: 35%;
+        }
+    }
+
+    bv-checkout-stage-indicator {
         width: 100%;
         display: flex;
         justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+
+    .container-c-p {
+        .wrapper-process {
+            flex-direction: column;
+            align-items: center;
+            &__stage {
+                width: 80%;
+                order: 1;
+            }
+    
+            &__order {
+                width: 80%;
+                order: 0;
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 700px) {
+
+    .container-c-p {
+        .wrapper-process {
+            flex-direction: column;
+            align-items: center;
+            &__stage {
+                width: 100%;
+                order: 1;
+            }
+    
+            &__order {
+                width: 100%;
+                order: 0;
+            }
+        }
+
     }
 }

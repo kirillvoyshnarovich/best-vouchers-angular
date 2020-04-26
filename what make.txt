@@ -1,0 +1,3 @@
+„то нужно сделать по bestVauchers
+1) расшарить на запрос search перевод дл€ текущего €зыка;
+2) сделать запрос дл€ shop-api на availableCountries
