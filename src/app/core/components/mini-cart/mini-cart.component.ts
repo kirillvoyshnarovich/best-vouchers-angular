@@ -1,5 +1,4 @@
-import { Component, OnInit, Injector } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 import { DataService } from '../../../core/providers/data/data.service';
 
@@ -14,7 +13,6 @@ import {
 import { ADJUST_ITEM_QUANTITY, REMOVE_ITEM_FROM_CART, GET_SLAG_PRODUCT } from './mini-cart.graphql';
 import { GET_ORDER_FOR_CHECKOUT } from '../../../checkout/providers/checkout-resolver.graphql';
 
-import { NotificationService } from '../../../core/providers/notification/notification.service';
 import { ModalService } from '../../../core/providers/modal/modal.service';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
@@ -28,11 +26,7 @@ export class MiniCartComponent implements OnInit {
   order: any = null;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private dataService: DataService,
-    private notificationService: NotificationService,
-    private injector: Injector,
     private modalService: ModalService
   ) { }
 

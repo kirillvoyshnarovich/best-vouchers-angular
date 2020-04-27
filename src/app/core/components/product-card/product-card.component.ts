@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { SearchProducts } from '../../../common/generated-types';
 
@@ -6,7 +6,6 @@ import { SearchProducts } from '../../../common/generated-types';
     selector: 'bv-product-card',
     templateUrl: './product-card.component.html',
     styleUrls: ['./product-card.component.scss'],
-    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent {
 
