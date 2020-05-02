@@ -14,39 +14,95 @@ export class AppComponent implements OnInit {
     mobileNavVisible$: Observable<boolean>;
     isHomePage$: Observable<boolean>;
     listlang = [
-        'English',
-        'Polski',
-        'Ελληνικά',
-        'Český',
-        'Português',
-        'Magyar',
-        'Français',
-        'Български',
-        'Hrvatski',
-        'Italiano',
-        'Slovenský',
-        'Slovenščina',
-        'Eesti',
-        'Deutsch',
-        'Lietuvių',
-        'Español',
-        'Latviešu',
-        'Turkish',
-        'Indonesia',
-        'Română'
+        {
+            name: 'English',
+            code: 'en'
+        },
+        {
+            name: 'Polski',
+            code: 'pl'
+        },
+        {
+            name: 'Ελληνικά',
+            code: 'el'
+        },
+        {
+            name: 'Český',
+            code: 'cs'
+        },
+        {
+            name: 'Português',
+            code: 'pt'
+        },
+        {
+            name: 'Magyar',
+            code: 'hu'
+        },
+        {
+            name: 'Français',
+            code: 'fr'
+        },
+        {
+            name: 'Български',
+            code: 'bg'
+        },
+        {
+            name: 'Hrvatski',
+            code: 'hr'
+        },
+        {
+            name: 'Italiano',
+            code: 'it'
+        },
+        {
+            name: 'Slovenský',
+            code: 'sl'
+        },
+        {
+            name: 'Slovenščina',
+            code: 'sk'
+        },
+        {
+            name: 'Eesti',
+            code: 'et'
+        },
+        {
+            name: 'Deutsch',
+            code: 'nl'
+        },
+        {
+            name: 'Lietuvių',
+            code: 'lt'
+        },
+        {
+            name: 'Español',
+            code: 'es' 
+        },
+        {
+            name: 'Latviešu',
+            code: 'lv'
+        },
+        {
+            name: 'Turkish',
+            code: 'tr'
+        },
+        {
+            name: 'Indonesia',
+            code: 'id'
+        },
+        {
+            name: 'Română',
+            code: 'ro'
+        },
     ];
     currentLang: any = null;
 
     showMiniCart = false;
 
-    // @HostListener('scroll') scroll() {
-    // }
-
-    // @HostListener("window:scroll", ['$event']) onWindowScroll(event: any) {
-    // }
-
     constructor(private router: Router,
                 private stateService: StateService) {
+
+        this.stateService.setLanguage('en');
     }
 
     ngOnInit(): void {
@@ -55,7 +111,7 @@ export class AppComponent implements OnInit {
         this.isHomePage$ = this.router.events.pipe(
             filter<any>(event => event instanceof RouterEvent),
             map((event: RouterEvent) => event.url === '/'),
-        );
+        )
         this.currentLang = this.listlang[0];
     }
 
@@ -67,8 +123,9 @@ export class AppComponent implements OnInit {
         this.stateService.setState('cartDrawerOpen', false);
     }
 
-    chooseLang(lang: void) {
+    chooseLang(lang: {code: string}) {
         this.currentLang = lang;
+        this.stateService.setLanguage(lang.code);
     }
 
     viewMiniCart(): void {

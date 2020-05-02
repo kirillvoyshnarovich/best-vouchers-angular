@@ -69,3 +69,12 @@ export const TRANSITION_TO_ARRANGING_PAYMENT = gql`
     }
     ${CART_FRAGMENT}
 `;
+
+export const TRANSITION_TO_ADD_ITEM = gql`
+    mutation TransitionToArrangingPayment {
+        transitionOrderToState(state: "AddingItems") {
+            ...Cart
+        }
+    }
+    ${CART_FRAGMENT}
+`;

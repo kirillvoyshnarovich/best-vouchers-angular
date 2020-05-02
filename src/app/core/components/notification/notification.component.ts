@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Output } from
 import { NOTIFICATION_OPTIONS, NotificationOptions } from '../../providers/notification/notification-types';
 
 @Component({
-    selector: 'vsf-notification',
+    selector: 'bv-notification',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

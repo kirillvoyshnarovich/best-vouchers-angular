@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, startWith, switchMap } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { GetOrderForCheckout, GetNextOrderStates, TransitionToAddingItems } from '../../../common/generated-types';
 import { DataService } from '../../../core/providers/data/data.service';
@@ -10,13 +10,15 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { TRANSITION_TO_ADDING_ITEMS } from './checkout-process.graphql';
 import { Location } from '@angular/common';
 
+
 @Component({
-    selector: 'vsf-checkout-process',
+    selector: 'bv-checkout-process',
     templateUrl: './checkout-process.component.html',
     styleUrls: ['./checkout-process.component.scss']
 })
 export class CheckoutProcessComponent implements OnInit {
 
+    isCartPage: boolean = false;
     cart$: Observable<GetOrderForCheckout.ActiveOrder | null | undefined>;
     nextStates$: Observable<string[]>;
     activeStage$: Observable<number>;
@@ -38,27 +40,25 @@ export class CheckoutProcessComponent implements OnInit {
         // for first init
         let url = this.location.path().split('/');
         this.currentProcess = url[url.length - 1];
-        // for first init
-        
         switch(this.currentProcess){
-            case 'shipping' : this.activeStage = 2;
+            case 'shipping' : this.activeStage = 2, this.isCartPage = false;
                 break;
-            case 'payment' : this.activeStage = 3;
+            case 'payment' : this.activeStage = 3, this.isCartPage = false;
                 break;
-            default: this.activeStage = 0;
+            default: this.activeStage = 0, this.isCartPage = true;;
         }
-        
+        // for first init
+
         this.router.events.subscribe((event) => {
             if(event instanceof NavigationEnd) {
                 const url = this.router.url.split('/');
                 this.currentProcess = url[url.length - 1];
-
                 switch(this.currentProcess){
-                    case 'shipping' : this.activeStage = 2;
+                    case 'shipping' : this.activeStage = 2, this.isCartPage = false;
                         break;
-                    case 'payment' : this.activeStage = 3;
+                    case 'payment' : this.activeStage = 3, this.isCartPage = false;
                         break;
-                    default: this.activeStage = 0;
+                    default: this.activeStage = 0, this.isCartPage = true;
                 }
             }
         })

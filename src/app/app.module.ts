@@ -9,11 +9,61 @@ import { HomePageComponent } from './core/components/home-page/home-page.compone
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faGlobe, faShoppingBag, faGlobeEurope  } from '@fortawesome/free-solid-svg-icons';
+import { 
+    faGlobe, 
+    faShoppingBag, 
+    faGlobeEurope, 
+    faCheck,
+    faTruck,
+    faHistory,
+    faLock,
+    faOutdent,
+    faCaretLeft,
+    faCaretRight,
+    faCog,
+    faTrash,
+    faChevronLeft,
+    faChevronRight,
+    faQuestionCircle,
+    faCaretDown,
+    faPhone,
+    faEnvelope,
+    faSyncAlt
+} from '@fortawesome/free-solid-svg-icons';
+
+import {
+    faFacebook,
+    faWhatsapp,
+    faFacebookF,
+    faInstagram,
+    faTwitter,
+    faYoutube,
+} from '@fortawesome/free-brands-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 const STATE_KEY = makeStateKey<any>('apollo.state');
+
+class CustomTranslateLoader implements TranslateLoader {
+    constructor(
+        private http: HttpClient,
+        private prefix: string = '../assets/bestvouchers/i18n/',
+        private suffix: string = '.json',
+    ) {
+        
+    }
+
+    public getTranslation(lang: string): Observable<any> {
+        return this.http
+            .get(`${this.prefix}${lang}${this.suffix}`);
+    }
+}
 
 @NgModule({
     declarations: [
@@ -31,6 +81,13 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: CustomTranslateLoader,
+                deps: [HttpClient],
+            }
+        })
     ],
     bootstrap: [AppComponent],
 })
@@ -41,7 +98,30 @@ export class AppModule {
         private readonly transferState: TransferState,
         private library: FaIconLibrary
     ) {
-        this.library.addIcons(faGlobe, faShoppingBag, faGlobeEurope);
+        this.library.addIcons(
+            faGlobe, 
+            faShoppingBag, 
+            faGlobeEurope, 
+            faCheck,
+            faTruck,
+            faHistory,
+            faLock,
+            faOutdent,
+            faCaretLeft,
+            faCaretRight,
+            faCog,
+            faTrash,
+            faChevronLeft,
+            faChevronRight,
+            faQuestionCircle,
+            faCaretDown,
+            faPhone,
+            faFacebook,
+            faEnvelope,
+            faWhatsapp,
+            faFacebookF,
+            faSyncAlt
+        );
         const isBrowser = this.transferState.hasKey<any>(STATE_KEY);
 
         if (isBrowser) {

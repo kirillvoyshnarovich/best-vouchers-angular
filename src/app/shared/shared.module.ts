@@ -11,14 +11,11 @@ import { DialogTitleDirective } from '../core/components/modal-dialog/dialog-tit
 import { ModalDialogComponent } from '../core/components/modal-dialog/modal-dialog.component';
 import { NotificationComponent } from '../core/components/notification/notification.component';
 
-import { AddressCardComponent } from './components/address-card/address-card.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { CartContentsComponent } from './components/cart-contents/cart-contents.component';
-import { CenteredCardComponent } from './components/centered-card/centered-card.component';
 import { DropdownContentDirective } from './components/dropdown/dropdown-content.directive';
 import { DropdownTriggerDirective } from './components/dropdown/dropdown-trigger.directive';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AssetPreviewPipe } from './pipes/asset-preview.pipe';
 import { CollectionUrlPipe } from './pipes/collection-url.pipe';
 import { FormatPricePipe } from './pipes/format-price.pipe';
@@ -26,13 +23,11 @@ import { ProductUrlPipe } from './pipes/product-url.pipe';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { TermsConditionsModalComponent } from './components/terms-conditions-modal/terms-conditions-modal.component';
 import { PaypalControlComponent } from './components/paypal-control/paypal-control.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
-    AddressCardComponent,
-    SignInComponent,
     AddressFormComponent,
-    CenteredCardComponent,
     DropdownComponent,
     DropdownTriggerDirective,
     DropdownContentDirective,
@@ -57,6 +52,7 @@ const IMPORTS = [
     ReactiveFormsModule,
     OverlayModule,
     RouterModule,
+    TranslateModule
 ];
 
 @NgModule({

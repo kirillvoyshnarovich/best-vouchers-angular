@@ -1,14 +1,14 @@
 <div class="cart">
-    <h1 class="card__header">Shopping Cart</h1>
+    <h1 class="card__header">{{'app.cart.title' | translate}}</h1>
     <div class="cart__body">
         <ng-container *ngIf="cart?.lines.length">
             <div class="items">
                 <div class="items__header">
-                    <div class="items__cell header-item">Item</div>
+                    <div class="items__cell header-item">{{'app.cart.caption_item' | translate}}</div>
                     <div class="items__cell header-empty"></div>
-                    <div class="items__cell header-price">Price</div>
-                    <div class="items__cell header-qty">Qty</div>
-                    <div class="items__cell header-subtotal">Subtotal</div>
+                    <div class="items__cell header-price">{{'app.cart.caption_price' | translate}}</div>
+                    <div class="items__cell header-qty">{{'app.cart.caption_qty' | translate}}</div>
+                    <div class="items__cell header-subtotal">{{'app.cart.caption_subtotal' | translate}}</div>
                 </div>
                 <ng-container *ngFor="let line of cart?.lines; trackBy: trackByFn">
                     <div class="item">
@@ -16,45 +16,57 @@
                             <img [src]="line.featuredAsset?.preview + '?preset=tiny'">
                         </div>
                         <div class="item__name body-empty">
+                            <div class="item-label">{{'app.cart.caption_item' | translate}}</div>
                             <div>{{ line.productVariant?.name }}</div>
                         </div>
                         <div class="item__price body-price">
-                            {{ line.unitPriceWithTax | formatPrice }}
+                            <div class="item-label">{{'app.cart.caption_price' | translate}}</div>
+                            <div>{{ line.unitPriceWithTax | formatPrice }}</div>
                         </div>
                         <div class="item__qty body-qty">
+                            <div class="item-label">{{'app.cart.caption_qty' | translate}}</div>
                             <input type="number" [(ngModel)]="line.quantity" (change)="setQuantity(line)">
                         </div>
                         <div class="item__subtotal body-subtotal">
+                            <div class="item-label">{{'app.cart.caption_subtotal' | translate}}</div>
                             <span class="item__subtotal-value">{{ line.totalPrice | formatPrice }}</span>
                             <button class="item__subtotal-remove" (click)="removeLine(line)">
-                                Remove item
+                                {{'app.cart.remove_item' | translate}}
+                            </button>
+                            <button class="item__subtotal-trash" (click)="removeLine(line)">
+                                <fa-icon icon="trash"></fa-icon>
+                            </button>
+                        </div>
+                        <div class="item__control">
+                            <button class="item__control-remove" (click)="removeLine(line)">
+                                {{'app.cart.remove_item' | translate}}
                             </button>
                         </div>
                     </div>
                 </ng-container>
                 <div class="items__control">
                     <button class="items__continue">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                        Continur shopping
+                        <fa-icon icon="chevron-left"></fa-icon>
+                        {{'app.cart.continur_shopping' | translate}}
                     </button>
                     <button class="items__update">
-                        <i class="fa fa-refresh" aria-hidden="true"></i>
-                        Update Shopping Cart
+                        <fa-icon icon="sync-alt"></fa-icon>
+                        {{'app.cart.update_shopping' | translate}}
                     </button>
                 </div>
             </div>
             <div class="payment-wrapper">
-                <vsf-paypal-control></vsf-paypal-control>
-                <button class="proceed-checkout" [routerLink]="['../shipping']">
-                    Proceed To Checkout
+                <bv-paypal-control></bv-paypal-control>
+                <button class="proceed-checkout" [routerLink]="['./shipping']">
+                    {{'app.cart.proceed_checkout' | translate}}
                 </button>
             </div>
         </ng-container>
 
         <ng-container *ngIf="!cart?.lines.length">
             <div class="empty-cart">
-                <div class="empty-cart__message">You don’t have any products in your shopping cart.</div>
-                <a class="empty-cart__link" routerLink="/">Continue shopping.</a>
+                <div class="empty-cart__message">{{'app.cart.empty_cart' | translate}}</div>
+                <a class="empty-cart__link" routerLink="/">{{'app.cart.continur_shopping' | translate}}</a>
             </div>
         </ng-container>
     </div>

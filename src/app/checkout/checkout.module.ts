@@ -8,16 +8,17 @@ import { CheckoutConfirmationComponent } from './components/checkout-confirmatio
 import { CheckoutPaymentComponent } from './components/checkout-payment/checkout-payment.component';
 import { CheckoutProcessComponent } from './components/checkout-process/checkout-process.component';
 import { CheckoutShippingComponent } from './components/checkout-shipping/checkout-shipping.component';
-import { CheckoutSignInComponent } from './components/checkout-sign-in/checkout-sign-in.component';
 import { CheckoutStageIndicatorComponent } from './components/checkout-stage-indicator/checkout-stage-indicator.component';
+import { CheckoutOrderComponent } from './components/checkout-order/checkout-order.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const DECLARATIONS = [
     CheckoutConfirmationComponent,
     CheckoutPaymentComponent,
     CheckoutShippingComponent,
     CheckoutProcessComponent,
-    CheckoutSignInComponent,
-    CheckoutStageIndicatorComponent
+    CheckoutStageIndicatorComponent,
+    CheckoutOrderComponent
 ];
 
 @NgModule({
@@ -25,6 +26,7 @@ const DECLARATIONS = [
     imports: [
         SharedModule,
         RouterModule.forChild(routes),
+        TranslateModule
     ],
 })
 export class CheckoutModule {

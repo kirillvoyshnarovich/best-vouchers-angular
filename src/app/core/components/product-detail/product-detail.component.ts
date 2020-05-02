@@ -11,7 +11,7 @@ import { StateService } from '../../providers/state/state.service';
 import { ADD_TO_CART, GET_PRODUCT_DETAIL } from './product-detail.graphql';
 
 @Component({
-    selector: 'vsf-product-detail',
+    selector: 'bv-product-detail',
     templateUrl: './product-detail.component.html',
     styleUrls: ['./product-detail.component.scss'],
 })
@@ -64,7 +64,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             filter(notNullOrUndefined),
             withLatestFrom(lastCollectionId$),
         ).subscribe(([product, lastCollectionId]) => {
-            console.log('products in DETAILS', product);
+
             this.product = product;
             if (this.product.featuredAsset) {
                 this.selectedAsset = this.product.featuredAsset;
@@ -86,6 +86,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             variantId: variant.id,
             qty,
         }).subscribe((data) => {
+
             this.stateService.setState('activeOrderId', data.addItemToOrder ? data.addItemToOrder.id : null);
         });
     }

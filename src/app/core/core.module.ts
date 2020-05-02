@@ -20,11 +20,11 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
 import { SliderComponent } from './components/slider/slider.component';
 import { MiniCartComponent } from './components/mini-cart/mini-cart.component';
 import { QuickLinksComponent } from './components/quick-links/quick-links.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -55,6 +55,7 @@ let providedCacheState: any | undefined;
         HttpLinkModule,
         SharedModule,
         BrowserModule,
+        TranslateModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
@@ -70,10 +71,6 @@ let providedCacheState: any | undefined;
     ],
 })
 export class CoreModule {
-    constructor(library: FaIconLibrary) {
-        buildIconLibrary(library);
-    }
-
     extractState() {
         return apolloCache.extract();
     }

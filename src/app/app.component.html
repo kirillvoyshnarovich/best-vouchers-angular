@@ -1,15 +1,15 @@
-<vsf-layout>
+<bv-layout>
 
-    <vsf-layout-header>
+    <bv-layout-header>
         <div class="header">
             <div class="header__lang">
                 <div class="bv-container lang-container">
                     <div class="header__toggle">
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                        <span>Language: {{currentLang}}</span>
+                        <fa-icon icon="globe"></fa-icon>
+                        <span>{{'app.header.lang' | translate}}: {{currentLang.name}}</span>
                         <ul class="header__list">
                             <li class="header__list-item" *ngFor="let lang of listlang" (click)="chooseLang(lang)">
-                                {{lang}}
+                                {{lang.name}}
                             </li>
                         </ul>
                     </div>
@@ -24,60 +24,55 @@
                         </a>
                     </div>
                     <div class="header__control">
-                        <vsf-cart-toggle [routerLink]="['/checkout']"></vsf-cart-toggle>
-                        <span>My cart</span>
-                        <vsf-mini-cart></vsf-mini-cart>
+                        <bv-cart-toggle [routerLink]="['/checkout']"></bv-cart-toggle>
+                        <span>{{'app.header.cart' | translate}}</span>
+                        <bv-mini-cart></bv-mini-cart>
                     </div>  
                     <div class="header__support">
-                        <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                        <fa-icon [icon]="['fab', 'whatsapp']"></fa-icon>
                         <div class="header__support-info">
-                            <span class="text">Support</span>
+                            <span class="text">{{'app.header.support' | translate}}</span>
                             <span class="phone">(+44) 752 066 07 48</span>
                         </div>
                     </div>
                     <div class="header__use-gift">
                         <button [routerLink]="['/check-your-order']">
-                            Use a gift card
+                            {{'app.header.gift' | translate}}
                         </button>
                     </div>
-                    <!-- <div class="shopping-carf">
-                        <i class="fa fa-shopping-bag" aria-hidden="true" !!!></i>
-                    </div> -->
-                    <!-- <div class="flex-grow-1 d-none d-sm-block"></div> !!!-->
                 </div>
             </div>
-
         </div>
-    </vsf-layout-header>
+    </bv-layout-header>
 
-    <vsf-cart-drawer [visible]="cartDrawerVisible$ | async" (close)="closeCartDrawer()"></vsf-cart-drawer>
+    <!-- <bv-cart-drawer [visible]="cartDrawerVisible$ | async" (close)="closeCartDrawer()"></bv-cart-drawer> -->
     
     <div class="contents">
-        <vsf-home-page *ngIf="isHomePage$ | async; else main"></vsf-home-page>
+        <bv-home-page *ngIf="isHomePage$ | async; else main"></bv-home-page>
         <ng-template #main>
                 <router-outlet></router-outlet>
         </ng-template>
     </div>
 
-    <vsf-layout-footer>
+    <bv-layout-footer>
         <div class="footer">
             <div class="footer__info">
-                <div class="bv-container">
+                <div class="bv-container footer-container">
                     <div class="footer__row">
                         <div class="footer__section">
                             <div class="footer__section-wrapperTop">
-                                <span class="footer__section-name">Contact us</span>
+                                <span class="footer__section-name">{{'app.footer.contact' | translate}}</span>
                                 <span class=" footer__line"></span>
                             </div>
                             <div class="footer__column">
                                 <div class="footer__block-info">
                                     <div class="right">
                                         <span>
-                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                            <fa-icon icon="envelope"></fa-icon>
                                         </span>
                                     </div>
                                     <div class="left">
-                                        <span>Email</span>
+                                        <span>{{'app.footer.email' | translate}}</span>
                                         <span>contact@thebestvouchers.com</span>
                                     </div>
                                 </div>
@@ -85,11 +80,11 @@
                                 <div class="footer__block-info phone-block">
                                     <div class="right">
                                         <span>
-                                            <i class="fa fa-phone" aria-hidden="true"></i>
+                                            <fa-icon icon="phone" flip="horizontal"></fa-icon>
                                         </span>
                                     </div>
                                     <div class="left">
-                                        <span>Phone</span>
+                                        <span>{{'app.slider.title' | translate}}</span>
                                         <span>(+44) 752 066 07 48</span>
                                     </div>
                                 </div>
@@ -97,30 +92,30 @@
                         </div>
                         <div class="footer__section">
                             <div class="footer__section-wrapperTop">
-                                <span class="footer__section-name">Follow us</span>
+                                <span class="footer__section-name">{{'app.footer.follow' | translate}}</span>
                                 <span class=" footer__line"></span>
                             </div>
                             <div class="footer__column">
                                 <div class="right">
                                     <span class="facebook">
-                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        <fa-icon [icon]="['fab', 'facebook-f']"></fa-icon>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div class="footer__section">
                             <div class="footer__section-wrapperTop">
-                                <span class="footer__section-name">Quick links</span>
+                                <span class="footer__section-name">{{'app.footer.quick_links' | translate}}</span>
                                 <span class=" footer__line"></span>
                             </div>
                             <div class="footer__column">
                                 <ul class="footer__links">
-                                    <li><a [routerLink]="['./terms-and-services']">Terms and Services</a></li>
-                                    <li><a [routerLink]="['./check-your-order']">Check your order</a></li>
-                                    <li><a [routerLink]="['./privacy-policy']">Privacy Policy</a></li>
-                                    <li><a [routerLink]="['./return-policy']">Return Policy</a></li>
-                                    <li><a [routerLink]="['./delivery']">Delivery</a></li>
-                                    <li><a [routerLink]="['./contact']">Contact Us</a></li>
+                                    <li><a [routerLink]="['./terms-and-services']">{{'app.footer.link_term_service' | translate}}</a></li>
+                                    <li><a [routerLink]="['./check-your-order']">{{'app.footer.link_check_order' | translate}}</a></li>
+                                    <li><a [routerLink]="['./privacy-policy']">{{'app.footer.link_privacy_policy' | translate}}</a></li>
+                                    <li><a [routerLink]="['./return-policy']">{{'app.footer.link_return_policy' | translate}}</a></li>
+                                    <li><a [routerLink]="['./delivery']">{{'app.footer.link_delivery' | translate}}</a></li>
+                                    <li><a [routerLink]="['./contact']">{{'app.footer.link_contact' | translate}}</a></li>
                                 </ul> 
                             </div>
                         </div>
@@ -128,11 +123,11 @@
                 </div>
             </div>
             <div class="footer__copyright">
-                <div class="bv-container">
-                    Copyright © 2020 TheBestVouchers.com All rights reserved.
+                <div class="bv-container ">
+                    {{'app.footer.copyright' | translate}}
                 </div>
             </div>
         </div>
-    </vsf-layout-footer>
+    </bv-layout-footer>
 
-</vsf-layout>
+</bv-layout>

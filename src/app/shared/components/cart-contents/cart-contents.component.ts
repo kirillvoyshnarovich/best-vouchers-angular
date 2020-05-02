@@ -15,8 +15,11 @@ import {
 import { DataService } from '../../../core/providers/data/data.service';
 import { ADJUST_ITEM_QUANTITY, REMOVE_ITEM_FROM_CART } from './cart-contents.graphql';
 
+
+import { GetOrderList, SortOrder } from '../../../common/generated-types';
+
 @Component({
-    selector: 'vsf-cart-contents',
+    selector: 'bv-cart-contents',
     templateUrl: './cart-contents.component.html',
     styleUrls: ['./cart-contents.component.scss']
 })
@@ -25,7 +28,7 @@ export class CartContentsComponent implements OnInit {
     @Input() canAdjustQuantities = false;
 
     cart:any | Observable<any> = null;
-
+    orders$: Observable<GetOrderList.Items[] | null>;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -44,14 +47,15 @@ export class CartContentsComponent implements OnInit {
             this.cart = response;
         })
 
-        // this.route.data
-        // .subscribe((response) => {
-        //     if(response.activeOrder) {
-        //         response.activeOrder.subscribe((data: any) => {
-        //             this.cart = data;
-        //         })
-        //     }
-        // })
+        this.route.data
+        .subscribe((response) => {
+            if(response.activeOrder) {
+                response.activeOrder.subscribe((data: any) => {
+
+                    this.cart = data;
+                })
+            }
+        })
     }
 
     setQuantity(item: Cart.Lines) {

@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { DataService } from '../../providers/data/data.service';
-import { GetCollection, SearchProducts } from '../../../common/generated-types';
-import { GET_COLLECTION, SEARCH_PRODUCTS } from '../product-list/product-list.graphql';
+import { SearchProducts } from '../../../common/generated-types';
+import { SEARCH_PRODUCTS } from '../product-list/product-list.graphql';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 
 export const slideInAnimation =
@@ -24,19 +23,18 @@ export const slideInAnimation =
   ]);
 
 @Component({
-    selector: 'vsf-home-page',
+    selector: 'bv-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
-    // changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [slideInAnimation]
 })
 export class HomePageComponent implements OnInit {
 
-    collections$: Observable<any[]>;
-    topSellers$: Observable<any[]>;
-    topSellersLoaded$: Observable<boolean>;
+    @HostListener('window:resize', ['$event.target']) onResize(target: any) {
+        this.calculateSizes();
+    }
+
     heroImage: SafeStyle;
-    readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
     constructor(private dataService: DataService, private sanitizer: DomSanitizer) { }
 
 
@@ -81,55 +79,21 @@ export class HomePageComponent implements OnInit {
     amountSlideInRow = 0;
 
     hiddenItems = true;
-    // offsetBestSellerSlider = 'translateX(0%)';
-    // stepTranslateBestSellerSlider: any = 0;
-    // amountBestSellerSlider = 0;
+    currentWidthWindow = 0;
+    stepInPercent = 0;
+    countSlideView = 0;
+
     ngOnInit() {
         this.heroImage = this.sanitizer.bypassSecurityTrustStyle(this.getHeroImageUrl());
-        // this.collections$ = this.dataService.query(GET_COLLECTIONS, {
-        //     options: {},
-        // }).pipe(
-        //     map(data => data.collections.items
-        //         .filter((collection: any) => collection.parent && collection.parent.name === '__root_collection__'),
-        //     ),
-        // );
+        this.calculateSizes()
 
         this.dataService.query(GET_COLLECTIONS, {
             options: {},
         }).subscribe((response) => {
             this.categoryList = response['collections'].items;
         })
-        // .pipe(
-        //     map(data => data.collections.items
-        //         .filter((collection: any) => collection.parent && collection.parent.name === '__root_collection__'),
-        //     ),
-        // );
-
-        // this.topSellers$ = 
 
         this.getCategory(this.initIdCategory);
-
-        // this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
-        //     input: {
-        //         term: '',
-        //         groupByProduct: true,
-        //         collectionId: this.initIdCategory,
-        //         facetValueIds: [],
-        //         take: perPage,
-        //         skip: this.currentPage * perPage,
-        //     },
-        // }).subscribe((response) => {
-        //     this.listVendersInitialCategory = response['search'].items;
-        //     this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length/2) - 3;
-        // });
-        // .pipe(
-        //     map(data => data.search.items),
-        //     shareReplay(1),
-        // );
-
-        // this.topSellersLoaded$ = this.topSellers$.pipe(
-        //     map(items => 0 < items.length),
-        // );
     }
 
     private getHeroImageUrl(): string {
@@ -149,34 +113,21 @@ export class HomePageComponent implements OnInit {
         this.getCategory(this.initIdCategory);
     }
 
-    // for slider in below
-    // toggleBestSelerSlider(next: any): void {
-    //     if(next && this.stepTranslateBestSellerSlider < this.amountBestSellerSlider) {
-    //         this.stepTranslateBestSellerSlider += 1;
-    //         this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
-    //     } else if(!next && this.stepTranslateBestSellerSlider <= this.amountBestSellerSlider && 
-    //         this.stepTranslateBestSellerSlider > 0) {
-
-    //         this.stepTranslateBestSellerSlider -= 1;
-    //         this.offsetBestSellerSlider = 'translate(-'+ 20*(this.stepTranslateBestSellerSlider)+'%)';
-    //     }
-    // }
     toggleMainSliderNext(next: any): void {
         if(next && this.stepTranslateMainSlider < this.amountSlideInRow) {
             this.stepTranslateMainSlider += 1;
-            this.offsetMainSlider = 'translate(-'+ 33.3*(this.stepTranslateMainSlider)+'%)';
+            this.offsetMainSlider = 'translate(-'+ this.stepInPercent*(this.stepTranslateMainSlider)+'%)';
         } else if(!next && this.stepTranslateMainSlider <= this.amountSlideInRow && 
             this.stepTranslateMainSlider > 0) {
 
             this.stepTranslateMainSlider -= 1;
-            this.offsetMainSlider = 'translate(-'+ 33.3*(this.stepTranslateMainSlider)+'%)';
+            this.offsetMainSlider = 'translate(-'+ this.stepInPercent*(this.stepTranslateMainSlider)+'%)';
         }
     }
     // for slider in below
 
 
     getCategory(id: any): void {
-
         let perPage = 24;
         this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
             input: {
@@ -200,6 +151,19 @@ export class HomePageComponent implements OnInit {
 
     getStateAnimation(state: string): any {
         return state;
+    }
+
+    // utility
+    calculateSizes(): void {
+        this.currentWidthWindow = window.innerWidth;
+    
+        if(this.currentWidthWindow > 767) {
+          this.stepInPercent = 33.3;
+          this.countSlideView = 5;
+        } else if(this.currentWidthWindow <= 767) {
+          this.stepInPercent = 50;
+          this.countSlideView = 4;
+        }
     }
 }
 

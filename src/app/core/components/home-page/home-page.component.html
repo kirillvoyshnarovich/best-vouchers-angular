@@ -14,9 +14,9 @@
         <div class="our-advantages__list">
             <div class="our-advantages__item" *ngFor="let item of ourAdvantagesList">
                 <div class="our-advantages__left">
-                    <i class="fa fa-truck" *ngIf="item.icon === 'trunk'"></i>
-                    <i class="fa fa-history" *ngIf="item.icon === 'history'"></i>
-                    <i class="fa fa-lock" *ngIf="item.icon === 'lock'"></i>
+                    <fa-icon icon="truck" *ngIf="item.icon === 'trunk'" flip="horizontal"></fa-icon>
+                    <fa-icon icon="history" *ngIf="item.icon === 'history'"></fa-icon>
+                    <fa-icon icon="lock" *ngIf="item.icon === 'lock'"></fa-icon>
                 </div>
                 <div class="our-advantages__rigth">
                     <h3 class="our-advantages__title">{{item.title}}</h3>
@@ -33,7 +33,7 @@
             <div class="list-category">
                 <div class="list-category__control" (click)="chnageCollapsed()">
                     <span class="list-category__icon">
-                        <i class="fa fa-outdent" aria-hidden="true"></i>
+                        <fa-icon icon="outdent"></fa-icon>
                     </span>
                     All Products
                 </div>
@@ -71,16 +71,46 @@
                     </div>
                 </div>
             </div>
+            <div class="advertising__mobile">
+                <div class="advertising__mobile-column">
+                    <div class="advertising-mobile">
+                        <img src="../../../../assets/bestvouchers/baner.jpg">
+                    </div>
+                </div>
+                <div class="advertising__mobile-column">
+                    <div class="best-deal-mobile">
+                        <div class="best-deal-mobile__image">
+                            <!-- <img src="../../../../assets/bestvouchers/best-deal.jpg"> -->
+                            <img src="../../../../assets/bestvouchers/best-deal-mobile.jpg">
+                        </div>
+                        <div class="best-deal-mobile__vouchers">
+                            <div class="best-deal-mobile__nested-image">
+                                <div class="best-deal-mobile__nested-name">
+                                    Romantic flight by plane for two
+                                </div>
+                                <img src="../../../../assets/bestvouchers/best-deal-2.jpg">
+                                <div class="best-deal-mobile__nested-price">
+                                    <span class="best-deal-mobile__nested-new-price">$48.00</span>
+                                    <span class="best-deal-mobile__nested-old-price">$60.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="paypal-mobile">
+                        <img src="../../../../assets/bestvouchers/paypal.jpeg">
+                    </div>
+                </div>
+            </div>
             <div class="products">
                 <div class="products__bar">
                     <div class="products__most-popular">
                         <h3 class="products__title">MOST POPULAR BY CATEGORY</h3>
                         <div class="products__control">
                             <button class="products__control-button" (click)="toggleMainSliderNext(false)">
-                                <i class="fa fa-caret-left" aria-hidden="true"></i>
+                                <fa-icon icon="caret-left"></fa-icon>
                             </button>
                             <button class="products__control-button" (click)="toggleMainSliderNext(true)">
-                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                <fa-icon icon="caret-right"></fa-icon>
                             </button>
                         </div>
                     </div>
@@ -95,12 +125,12 @@
                 <div [@apperCategory]="hiddenItems ? 'hidden' : 'appear'" class="products__list" *ngIf="listVendersInitialCategory.length">
                     <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
                         <ng-container *ngFor="let product of listVendersInitialCategory; let even = even">
-                            <vsf-product-card *ngIf="even" [product]="product" [mode]="'tab'"></vsf-product-card>
+                            <bv-product-card *ngIf="even" [product]="product" [mode]="false"></bv-product-card>
                         </ng-container>
                     </div>
                     <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
                         <ng-container *ngFor="let product of listVendersInitialCategory; let odd = odd">
-                            <vsf-product-card *ngIf="odd"  [product]="product" [mode]="'tab'"></vsf-product-card>
+                            <bv-product-card *ngIf="odd"  [product]="product" [mode]="false"></bv-product-card>
                         </ng-container>
                     </div>
                 </div>
@@ -123,5 +153,5 @@
         </div>
     </div>
 
-    <vsf-slider></vsf-slider> 
+    <bv-slider></bv-slider> 
 </div>

@@ -5,7 +5,7 @@ import { BreakingChangeType } from 'graphql';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'vsf-quick-links',
+  selector: 'bv-quick-links',
   templateUrl: './quick-links.component.html',
   styleUrls: ['./quick-links.component.scss'],
 })

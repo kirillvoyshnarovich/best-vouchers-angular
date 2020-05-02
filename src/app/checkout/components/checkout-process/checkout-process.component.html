@@ -1,5 +1,15 @@
-<div class="container-c-p">
-    <vsf-checkout-stage-indicator 
-        *ngIf="currentProcess !== 'cart'" [activeStage]="activeStage"></vsf-checkout-stage-indicator>
-    <router-outlet ></router-outlet>
+<div class="bv-container container-c-p">
+    <bv-cart-contents *ngIf="isCartPage; else process"></bv-cart-contents>
+    <ng-template #process>
+        <bv-checkout-stage-indicator [activeStage]="activeStage"></bv-checkout-stage-indicator>
+
+        <div class="wrapper-process">
+            <div class="wrapper-process__stage">
+                <router-outlet></router-outlet>
+            </div>
+            <div class="wrapper-process__order">
+                <bv-checkout-order></bv-checkout-order>
+            </div>
+        </div>
+    </ng-template>
 </div>

@@ -53,6 +53,14 @@ export class FormatPricePipe implements PipeTransform {
                 take(1),
                 map(data => data.activeChannel),
             ).toPromise();
+
+            
+            this.dataService.query<GetActiveChannel.Query>(GET_ACTIVE_CHANNEL).pipe(
+                take(1),
+                map(data => data.activeChannel),
+            ).subscribe((response) => {
+
+            })
         }
         return channelDataPromise;
     }

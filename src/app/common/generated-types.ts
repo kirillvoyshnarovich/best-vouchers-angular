@@ -1980,10 +1980,7 @@ export namespace Address {
     };
 }
 
-
-// ---------------------------
-// id ="46"
-export namespace tetsRequest {
+export namespace SlugProduct {
     export type Variables = {
         id: string;
     };
@@ -2009,4 +2006,3 @@ export namespace tetsRequest {
     };
 
 }
-// ---------------------------

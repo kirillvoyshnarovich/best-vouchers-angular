@@ -21,7 +21,7 @@ export type DropdownPosition = 'top' | 'right' | 'bottom' | 'left' | 'top-left' 
  *
  * @example
  * ```
- * <vsf-dropdown #dropdown [position]="['top']">
+ * <bv-dropdown #dropdown [position]="['top']">
  *
  *     <button vsfDropdownTrigger class="btn btn-secondary">Open it!</button>
  *
@@ -30,11 +30,11 @@ export type DropdownPosition = 'top' | 'right' | 'bottom' | 'left' | 'top-left' 
  *         <button class="btn" (click)="dropdown.close()">Close</button>
  *     </div>
  *
- * </vsf-dropdown>
+ * </bv-dropdown>
  * ```
  */
 @Component({
-    selector: 'vsf-dropdown',
+    selector: 'bv-dropdown',
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

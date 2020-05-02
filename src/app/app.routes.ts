@@ -43,10 +43,6 @@ export const routes: Route[] = [
         component: QuickLinksComponent,
     },
     {
-        path: 'account',
-        loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
-    },
-    {
         path: 'checkout',
         loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule),
     },

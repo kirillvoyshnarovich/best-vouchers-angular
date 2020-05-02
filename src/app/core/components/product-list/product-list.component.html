@@ -1,15 +1,15 @@
-<vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs"></vsf-collection-breadcrumbs>
+<bv-collection-breadcrumbs [breadcrumbs]="breadcrumbs"></bv-collection-breadcrumbs>
 
-<div class="container-p-l">
+<div class="bv-container container-p-l">
     <div class="content">
         <div class="content__sidebar">
             <img src="../../../../assets/bestvouchers/baner.jpg">
         </div>
         <div class="content__grid">
-            <div class="product-list">
+            <div [ngClass]="{'product-list_row': rowModeView}" class="product-list">
                 <ng-container *ngIf="products.length">
-                    <vsf-product-card *ngFor="let product of products"
-                                      [product]="product"></vsf-product-card>
+                    <bv-product-card *ngFor="let product of products"
+                                      [product]="product" [mode]="rowModeView"></bv-product-card>
                 </ng-container>
                 <!-- SPINNER -->
                 <div class="lds-spinner" *ngIf="load">
@@ -29,16 +29,29 @@
                 <!-- SPINNER -->
             </div>
             <div class="page-control">
-                <div class="page-control__button" (click)="choosePage(+currentPage-1)">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                <div class="control-page">
+                    <div class="page-control__button" (click)="choosePage(+currentPage-1)">
+                        <fa-icon icon="chevron-left"></fa-icon>
+                    </div>
+                    <div class="page-control__list">
+                        <span (click)="choosePage(page)" *ngFor="let page of pageList" class="page-control__item" [ngClass]="{'ative-page': currentPage == page}" >
+                            {{page}}
+                        </span>
+                    </div>
+                    <div class="page-control__button" (click)="choosePage(+currentPage+1)">
+                        <fa-icon icon="chevron-right"></fa-icon>
+                    </div>
                 </div>
-                <div class="page-control__list">
-                    <span (click)="choosePage(page)" *ngFor="let page of pageList" class="page-control__item" [ngClass]="{'ative-page': currentPage == page}" >
-                        {{page}}
-                    </span>
-                </div>
-                <div class="page-control__button" (click)="choosePage(+currentPage+1)">
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                <div class="control-view">
+                    <div class="control-view__wrapper">
+                        View as 
+                        <span class="control-view__button" 
+                        [ngClass]="{'active__mode': !rowModeView}" 
+                        (click)="changeModeView(false)">Grid</span>
+                        <span class="control-view__button" 
+                        [ngClass]="{'active__mode': rowModeView}" 
+                        (click)="changeModeView(true)">List</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,10 +1,13 @@
 .slider {
-    max-width: 1200px;
-    overflow: hidden;
-    margin-top: 40px;
-    margin-bottom: 50px;
-    padding: 0 15px;
+    display: block;
+    width: 100%;
 
+    &__wrapper {
+        overflow: hidden;
+        padding: 40px 0px 50px 0px;
+        margin: 0 auto;
+    }
+    
     &__header {
         width: 100%;
         display: flex;
@@ -18,8 +21,9 @@
         font-size: 2.6rem;
     }
 
-    &__wrapper  {
+    &__body  {
         overflow: hidden;
+        max-width: 100%;
     }
 
     &__control {
@@ -35,7 +39,7 @@
                 margin-right: 5px;
             }
 
-            i {
+            fa-icon {
                 font-size: 2.5rem;
                 color: #eee;
             }
@@ -52,16 +56,46 @@
     &__container {
         display: flex;
         width: 100%;
-        max-width: 1200px;
         transition: transform 0.4s linear;
-        vsf-product-card {
-            padding-left: 15px;
+
+        bv-product-card {
+            padding: 0 7px 0 7px;
             width: 20%;
             min-width: 20%;
         }
+    }
+}
 
-        vsf-product-card:first-child {
-            padding-left: 0px;
+// adaptive
+@media only screen and (max-width: 1100px) {
+    .slider {
+        &__container {
+            bv-product-card {
+                width: 25%;
+                min-width: 25%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .slider {
+        &__container {
+            bv-product-card {
+                width: 33.4%;
+                min-width: 33.4%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .slider {
+        &__container {
+            bv-product-card {
+                width: 50%;
+                min-width: 50%;
+            }
         }
     }
 }

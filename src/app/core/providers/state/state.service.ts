@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface AppState {
     signedIn: boolean;
@@ -27,8 +28,12 @@ export const initialState: AppState = {
 export class StateService {
     private state: AppState = initialState;
     private readonly stateSubject = new BehaviorSubject<AppState>(initialState);
-
-    constructor() {
+    private langState = {
+        currLang: 'en'
+    }
+    constructor(
+        private translateService: TranslateService
+    ) {
         if (typeof window !== 'undefined') {
             Object.defineProperty(window, 'appState', {
                 get: () => this.stateSubject.value,
@@ -46,5 +51,9 @@ export class StateService {
             map(selector),
             distinctUntilChanged(),
         );
+    }
+
+    setLanguage(language: any): void {
+        this.translateService.use(language);
     }
 }

@@ -1,6 +1,6 @@
 <div class="mini-cart">
     <div class="mini-cart__header">
-        <strong>Cart Summary</strong>
+        <strong>{{'app.min_cart.title' | translate}}</strong>
     </div>
     <ng-container *ngIf="order?.lines.length">
         <ol class="mini-cart__list">
@@ -18,19 +18,19 @@
                     </div>
                 </div>
                 <div class="mini-cart__item-control">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    <i class="fa fa-trash" aria-hidden="true" (click)="removeLine(line)"></i>
+                    <fa-icon icon="cog"></fa-icon>
+                    <fa-icon icon="trash" (click)="removeLine(line)"></fa-icon>
                 </div>
             </li>
         </ol>
         <div class="mini-cart__control">
-            <div class="mini-cart__control-header">Fast Payments</div>
+            <div class="mini-cart__control-header">{{'app.min_cart.payments' | translate}}</div>
             <div class="payment-wrapper">
-                <vsf-paypal-control></vsf-paypal-control>
+                <bv-paypal-control></bv-paypal-control>
             </div>
             <div class="mini-cart__control-go-to">
-                <button>
-                    Go to Cart
+                <button [routerLink]="['/checkout']">
+                    {{'app.min_cart.go' | translate}}
                 </button>
             </div>
         </div>
@@ -38,7 +38,7 @@
 
     <ng-container *ngIf="!order?.lines.length">
         <div class="mini-cart__empty">
-            The cart is empty
+            {{'app.min_cart.empty_cart' | translate}}
         </div>
     </ng-container>
 </div> 

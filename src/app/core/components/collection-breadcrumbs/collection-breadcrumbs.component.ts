@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GetCollection } from '../../../common/generated-types';
 
 @Component({
-    selector: 'vsf-collection-breadcrumbs',
+    selector: 'bv-collection-breadcrumbs',
     templateUrl: './collection-breadcrumbs.component.html',
     styleUrls: ['./collection-breadcrumbs.component.scss'],
 })
