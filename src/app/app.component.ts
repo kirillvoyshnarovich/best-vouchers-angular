@@ -97,6 +97,8 @@ export class AppComponent implements OnInit {
         },
     ];
 
+    listlang = [
+    ];
     currentLang: any = null;
 
     showMiniCart = false;
