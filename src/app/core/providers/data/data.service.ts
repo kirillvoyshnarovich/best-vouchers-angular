@@ -1,9 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { FetchPolicy, NetworkStatus } from 'apollo-client';
+import  { ApolloClient, FetchPolicy, NetworkStatus } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -11,14 +14,25 @@ import { filter, map, tap } from 'rxjs/operators';
 export class DataService {
 
     loadData: EventEmitter<boolean> = new EventEmitter(true);
+    client: any;
 
     private readonly context =  {
         headers: {},
     };
 
-    constructor(private apollo: Apollo) { }
+    constructor(private apollo: Apollo, private translate: TranslateService) {
+        this.client = this.apollo.getClient() as any;
+     }
 
     query<T = any, V = any>(query: DocumentNode, variables?: V, fetchPolicy?: FetchPolicy): Observable<T> {
+
+        const {apiHost, apiPort, shopApiPath} = environment;
+
+        if (this.client.link.options.uri.indexOf('?languageCode=' + this.translate.currentLang) === -1) {
+            const lang = this.translate.currentLang ? this.translate.currentLang : 'en';
+            this.client.link.options.uri = `${apiHost}:${apiPort}/${shopApiPath}?languageCode=${lang}`;
+        }
+
         return this.apollo.watchQuery<T, V>({
             query,
             variables,
