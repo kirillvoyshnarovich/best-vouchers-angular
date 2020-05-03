@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
     cartDrawerVisible$: Observable<boolean>;
     mobileNavVisible$: Observable<boolean>;
     isHomePage$: Observable<boolean>;
+
     listlang = [
         {
             name: 'English',
@@ -95,6 +96,7 @@ export class AppComponent implements OnInit {
             code: 'ro'
         },
     ];
+
     currentLang: any = null;
 
     showMiniCart = false;

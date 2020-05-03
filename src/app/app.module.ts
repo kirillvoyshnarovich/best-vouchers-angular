@@ -56,7 +56,7 @@ class CustomTranslateLoader implements TranslateLoader {
         private prefix: string = '../assets/bestvouchers/i18n/',
         private suffix: string = '.json',
     ) {
-        
+
     }
 
     public getTranslation(lang: string): Observable<any> {

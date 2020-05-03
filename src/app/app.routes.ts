@@ -20,7 +20,6 @@ export const routes: Route[] = [
     {
         path: 'terms-and-services',
         component: QuickLinksComponent,
-        pathMatch: 'full'
     },
     {
         path: 'check-your-order',
