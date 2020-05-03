@@ -88,7 +88,7 @@ class CustomTranslateLoader implements TranslateLoader {
         RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled', initialNavigation: 'enabled'}),
         CoreModule,
         SharedModule,
-        ServiceWorkerModule.register('/storefront/ngsw-worker.js', {enabled: environment.production, registrationStrategy: 'registerWithDelay:5000'}),
+        ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production, registrationStrategy: 'registerWithDelay:5000'}),
         FontAwesomeModule,
         BrowserAnimationsModule,
         FormsModule,

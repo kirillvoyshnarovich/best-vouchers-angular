@@ -38,7 +38,7 @@
                     All Products
                 </div>
                 <ul [ngClass]="{'collapse_ul': collapsedMenuCategory}" class="list-category__ul">
-                    <li class="list-category__item" *ngFor="let category of categoryList" [routerLink]="['/category', category.id]">
+                    <li class="list-category__item" *ngFor="let category of categoryList" [routerLink]="['/'+ translate.currentLang +'/category', category.id]">
                         <!-- | collectionUrl -->
                         {{category.name}}
                     </li>

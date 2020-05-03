@@ -12,7 +12,7 @@
         <a class="btn btn-block btn-primary"
            color="primary"
            (click)="close.emit()"
-           [routerLink]="['/checkout']">Check Out</a>
+           [routerLink]="['/' + translate.currentLang + '/checkout']">Check Out</a>
     </div>
 </div>
 <ng-template #empty>

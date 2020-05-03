@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { Router, RouterEvent, ActivationEnd, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { StateService } from './core/providers/state/state.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'sf-root',
@@ -106,12 +107,19 @@ export class AppComponent implements OnInit {
     showMiniCart = false;
 
     constructor(private router: Router,
+                private route: ActivatedRoute,
                 private stateService: StateService,
                 private http: HttpClient,
+                public translate: TranslateService
                 ) {
-
-        this.stateService.setLanguage('en');
-        this.chooseLang({code: "en", name: "English", id: ''})
+        this.router.events.pipe(
+                filter((event) => event instanceof ActivationEnd),
+            ).subscribe((event: any) => {
+               const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
+               this.stateService.setLanguage(lang);
+            });
+        
+       // this.chooseLang({code: "en", name: "English", id: ''})
         this.getAvailableLanguages();
     }
 
@@ -121,7 +129,7 @@ export class AppComponent implements OnInit {
         this.isHomePage$ = this.router.events.pipe(
             filter<any>(event => event instanceof RouterEvent),
             map((event: RouterEvent) => event.url === '/'),
-        )
+        );
     }
 
     openCartDrawer() {
@@ -135,6 +143,25 @@ export class AppComponent implements OnInit {
     chooseLang(lang: {code: string, id: string, name: string}) {
         this.currentLang = lang;
         this.stateService.setLanguage(lang.code);
+    }
+
+    setLang(lang: {code: string, id: string, name: string}) {
+        if (this.translate.currentLang !== lang.code) {
+            const currLang = this.translate.currentLang;
+            let url = this.router.url;
+            if (url === '/') {
+                url += lang.code;
+                this.router.navigate([url]);
+            } else if (url.startsWith('/' + currLang)) {
+                url = url.replace('/' + currLang, '/' + lang.code);
+                this.router.navigate([url]);
+            }
+            setTimeout(() => {
+                window.location.reload();
+            });
+        }
+       
+        console.log(this.router.url);
     }
 
     viewMiniCart(): void {
@@ -155,7 +182,14 @@ export class AppComponent implements OnInit {
     getAvailableLanguages(): void {
         this.http.get(`${environment.apiHost}:${environment.apiPort}/content-translation`)
         .subscribe((lang: any) => {
+            console.log(lang);
             this.listlang = lang['languages'];
+            if (this.translate.currentLang) {
+                const language = this.listlang.find((lang: any) => lang.code === this.translate.currentLang);
+                if (language) {
+                    this.chooseLang(language);
+                }
+            }
         })
     }
     // temporarily

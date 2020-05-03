@@ -109,21 +109,28 @@ export class QuickLinksComponent implements OnInit {
     const url = this.router.url;
     // location.replaceState(url);
     if(url) {
-      switch(url){
-        case '/check-your-order': this.mode = 'check'
-          break;
-        case '/terms-and-services': this.mode = 'term'
-          break;
-        case '/privacy-policy': this.mode = 'private'
-          break;
-        case '/return-policy': this.mode = 'return'
-          break;
-        case '/delivery': this.mode = 'delivery'
-          break;
-        case '/contact': this.mode = 'contact'
-          break;
-        default: this.mode = null;
-          break;
+      if (url.indexOf('/check-your-order') !== -1) {
+        this.mode = 'check';
+      }
+
+      if (url.indexOf('/terms-and-services') !== -1) {
+        this.mode = 'term';
+      }
+
+      if (url.indexOf('/privacy-policy') !== -1) {
+        this.mode = 'private';
+      }
+
+      if (url.indexOf('/return-policy') !== -1) {
+        this.mode = 'return';
+      }
+
+      if (url.indexOf('/delivery') !== -1) {
+        this.mode = 'delivery';
+      }
+
+      if (url.indexOf('/contact') !== -1) {
+        this.mode = 'contact';
       }
     }
   }

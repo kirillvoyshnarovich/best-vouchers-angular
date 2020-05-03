@@ -17,6 +17,7 @@ import { ADJUST_ITEM_QUANTITY, REMOVE_ITEM_FROM_CART } from './cart-contents.gra
 
 
 import { GetOrderList, SortOrder } from '../../../common/generated-types';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'bv-cart-contents',
@@ -32,7 +33,8 @@ export class CartContentsComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private dataService: DataService
+        private dataService: DataService,
+        private translate: TranslateService
     ) {
 
     }

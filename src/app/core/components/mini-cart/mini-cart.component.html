@@ -29,7 +29,7 @@
                 <bv-paypal-control></bv-paypal-control>
             </div>
             <div class="mini-cart__control-go-to">
-                <button [routerLink]="['/checkout']">
+                <button [routerLink]="['/' + translate.currentLang + '/checkout']">
                     {{'miniCart.go' | translate}}
                 </button>
             </div>

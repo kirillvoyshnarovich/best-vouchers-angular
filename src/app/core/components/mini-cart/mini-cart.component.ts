@@ -15,6 +15,7 @@ import { GET_ORDER_FOR_CHECKOUT } from '../../../checkout/providers/checkout-res
 
 import { ModalService } from '../../../core/providers/modal/modal.service';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'bv-mini-cart',
@@ -27,7 +28,8 @@ export class MiniCartComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {

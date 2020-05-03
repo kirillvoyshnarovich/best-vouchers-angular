@@ -8,6 +8,7 @@ import { DataService } from '../../providers/data/data.service';
 import { SearchProducts } from '../../../common/generated-types';
 import { SEARCH_PRODUCTS } from '../product-list/product-list.graphql';
 import { trigger, transition, animate, style, state } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
 
 export const slideInAnimation =
   trigger('apperCategory', [
@@ -35,8 +36,8 @@ export class HomePageComponent implements OnInit {
     }
 
     heroImage: SafeStyle;
-    constructor(private dataService: DataService, private sanitizer: DomSanitizer) { }
 
+    constructor(private dataService: DataService, private sanitizer: DomSanitizer, private translate: TranslateService) { }
 
     collapsedMenuCategory = false;
     ourAdvantagesList = [
