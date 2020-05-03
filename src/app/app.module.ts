@@ -53,15 +53,27 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
 class CustomTranslateLoader implements TranslateLoader {
     constructor(
         private http: HttpClient,
-        private prefix: string = '../assets/bestvouchers/i18n/',
-        private suffix: string = '.json',
+
+        // for testing
+        // private prefix: string = '../assets/bestvouchers/i18n/',
+        // private suffix: string = '.json',
+        // for testing
     ) {
 
     }
 
     public getTranslation(lang: string): Observable<any> {
+
+        // for testing
+        this.http
+            .get(`${environment.apiHost}:${environment.apiPort}/content-translation/${lang}`)
+            .subscribe((lang) => {
+                console.log('getTranslation', lang);
+            })
+        // for testing
+        
         return this.http
-            .get(`${this.prefix}${lang}${this.suffix}`);
+            .get(`${environment.apiHost}:${environment.apiPort}/content-translation/${lang}`);
     }
 }
 

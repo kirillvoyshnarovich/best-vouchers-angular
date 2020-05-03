@@ -21,7 +21,7 @@
                     {{ selectedVariant?.priceWithTax | formatPrice }}
                 </div>
                 <div class="qty">
-                    <span class="qty__label">{{'app.product_detail.qty' | translate}}</span>
+                    <span class="qty__label">{{'productDetail.qtyProduct' | translate}}</span>
                     <input 
                         type="number" 
                         min="0" 
@@ -30,7 +30,7 @@
                         [(ngModel)]="qty"
                         class="qty__control">
                     <button [disabled]="qty === 0" class="qty__add" (click)="addToCart(selectedVariant, qty)">
-                        {{'app.product_detail.add' | translate}}
+                        {{'productDetail.add' | translate}}
                     </button>
                 </div>
                 <div class="description" [innerHTML]="product?.description">
@@ -39,11 +39,11 @@
         </div>
         <div class="product__additional">
             <div class="product__table">
-                <div class="table-header">{{'app.product_detail.title' | translate}}</div>
+                <div class="table-header">{{'productDetail.title' | translate}}</div>
                 <div class="table-body">
                     <div class="table-description">A 30-minute theoretical introduction and 15 minutes of drifting practice on the track.</div>
                     <div class="table-list">
-                        <div class="table-list__header">{{'app.product_detail.available_location' | translate}}</div>
+                        <div class="table-list__header">{{'productDetail.availableLocation' | translate}}</div>
                         <ul class="table-list__ul">
                             <li class="table-list__ul-item" *ngFor="let location of listLocation">{{location}}</li>
                         </ul>

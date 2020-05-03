@@ -31,6 +31,7 @@ export class StateService {
     private langState = {
         currLang: 'en'
     }
+
     constructor(
         private translateService: TranslateService
     ) {
@@ -55,5 +56,9 @@ export class StateService {
 
     setLanguage(language: any): void {
         this.translateService.use(language);
+    }
+
+    getCurrentLanguage(): string {
+        return this.translateService.currentLang;
     }
 }

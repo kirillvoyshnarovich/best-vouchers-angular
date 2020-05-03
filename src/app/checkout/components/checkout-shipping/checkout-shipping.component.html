@@ -2,17 +2,17 @@
 <div class="shipping">
     <div class="shipping__form">
         <div class="shipping__header">
-            {{'app.shipping_address.title' | translate}}
+            {{'shippingAddress.title' | translate}}
         </div>
         <form class="form" [formGroup]="addressForm">
             <div class="form__group">
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="emailAddress" class="field-wrapper__label">{{'app.shipping_address.email' | translate}}<i>*</i></label>
+                        <label for="emailAddress" class="field-wrapper__label">{{'shippingAddress.emailAddress' | translate}}<i>*</i></label>
                         <input class="field-wrapper__input" formControlName="emailAddress" id="emailAddress">
                         <span class="info" (click)="viewTolltip()">
                             <fa-icon icon="question-circle"></fa-icon>
-                            <div class="info__tooltip" [ngClass]="{'display': displayTooltip}">{{'app.shipping_address.tooltip' | translate}}</div>
+                            <div class="info__tooltip" [ngClass]="{'display': displayTooltip}">{{'shippingAddress.tooltip' | translate}}</div>
                         </span>
                     </div>
                     <div class="field-wrapper__error" [ngClass]="{'errors-expanded': errors['emailAddress']}">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="firstName" class="field-wrapper__label">{{'app.shipping_address.first_name' | translate}}<i>*</i></label>
+                        <label for="firstName" class="field-wrapper__label">{{'shippingAddress.firstName' | translate}}<i>*</i></label>
                         <input class="field-wrapper__input" formControlName="firstName" id="firstName">
                     </div>
                     <div class="field-wrapper__error" [ngClass]="{'errors-expanded': errors['firstName']}">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="lastName" class="field-wrapper__label">{{'app.shipping_address.last_name' | translate}}<i>*</i></label>
+                        <label for="lastName" class="field-wrapper__label">{{'shippingAddress.lastName' | translate}}<i>*</i></label>
                         <input class="field-wrapper__input" formControlName="lastName" id="lastName">
                     </div>
                     <div class="field-wrapper__error" [ngClass]="{'errors-expanded': errors['lastName']}">
@@ -41,16 +41,16 @@
             </div>
 
             <div class="form__group">
-                <h4 class="header-street">{{'app.shipping_address.street_adress' | translate}}</h4>
+                <h4 class="header-street">{{'shippingAddress.streetAdress' | translate}}</h4>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="streetLine1" class="field-wrapper__label">{{'app.shipping_address.street_line_1' | translate}}</label>
+                        <label for="streetLine1" class="field-wrapper__label">{{'shippingAddress.streetLine1' | translate}}</label>
                         <input class="field-wrapper__input" formControlName="streetLine1" id="streetLine1">
                     </div>
                 </div>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="streetLine2" class="field-wrapper__label">{{'app.shipping_address.street_line_2' | translate}}</label>
+                        <label for="streetLine2" class="field-wrapper__label">{{'shippingAddress.streetLine2' | translate}}</label>
                         <input class="field-wrapper__input"  formControlName="streetLine2" id="streetLine2">
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             <div class="form__group">
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="city" class="field-wrapper__label">{{'app.shipping_address.city' | translate}}<i>*</i></label>
+                        <label for="city" class="field-wrapper__label">{{'shippingAddress.city' | translate}}<i>*</i></label>
                         <input class="field-wrapper__input" formControlName="city" id="city">
                     </div>
                     <div class="field-wrapper__error" [ngClass]="{'errors-expanded': errors['city']}">
@@ -72,19 +72,19 @@
                 </div>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="province" class="field-wrapper__label">{{'app.shipping_address.state_province' | translate}}</label>
+                        <label for="province" class="field-wrapper__label">{{'shippingAddress.stateProvince' | translate}}</label>
                         <input class="field-wrapper__input" formControlName="province" id="province">
                     </div>
                 </div>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="postalCode" class="field-wrapper__label">{{'app.shipping_address.zip_post' | translate}}</label>
+                        <label for="postalCode" class="field-wrapper__label">{{'shippingAddress.zipPost' | translate}}</label>
                         <input class="field-wrapper__input" formControlName="postalCode" id="postalCode">
                     </div>
                 </div>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="countryCode" class="field-wrapper__label">{{'app.shipping_address.country' | translate}}<i>*</i></label>
+                        <label for="countryCode" class="field-wrapper__label">{{'shippingAddress.country' | translate}}<i>*</i></label>
                         <select class="field-wrapper__input" formControlName="countryCode" id="countryCode">
                             <option *ngFor="let country of availableCountries" [ngValue]="country.code">
                                 {{ country.name }}
@@ -97,7 +97,7 @@
                 </div>
                 <div class="field-wrapper">
                     <div class="field-wrapper__control">
-                        <label for="phoneNumber" class="field-wrapper__label">{{'app.shipping_address.phone' | translate}}<i>*</i></label>
+                        <label for="phoneNumber" class="field-wrapper__label">{{'shippingAddress.phoneNumber' | translate}}<i>*</i></label>
                         <input class="field-wrapper__input"formControlName="phoneNumber" id="phoneNumber">
                     </div>
                     <div class="field-wrapper__error" [ngClass]="{'errors-expanded': errors['phoneNumber']}">
@@ -109,14 +109,14 @@
     </div>
     <div class="shipping__methods">
         <div class="shipping__header">
-            {{'app.shipping_address.shipping_method' | translate}}
+            {{'shippingAddress.shippingMethod' | translate}}
         </div>
         <div class="methods-table">
             <div class="methods-table__header">
-                    <div class="methods-table__cell cell-header">{{'app.shipping_address.select_method' | translate}}</div>
-                    <div class="methods-table__cell cell-header">{{'app.shipping_address.price' | translate}}</div>
-                    <div class="methods-table__cell cell-header">{{'app.shipping_address.shipping' | translate}}</div>
-                    <div class="methods-table__cell cell-header">{{'app.shipping_address.type_delivery' | translate}}</div>
+                    <div class="methods-table__cell cell-header">{{'shippingAddress.selectMethod' | translate}}</div>
+                    <div class="methods-table__cell cell-header">{{'shippingAddress.price' | translate}}</div>
+                    <div class="methods-table__cell cell-header">{{'shippingAddress.shipping' | translate}}</div>
+                    <div class="methods-table__cell cell-header">{{'shippingAddress.typeDelivery' | translate}}</div>
             </div>
             <div class="methods-table__row" *ngFor="let method of eligibleShippingMethods$ | async">
                     <div class="methods-table__cell cell-row">
@@ -128,14 +128,14 @@
                     </div>
                     <div class="methods-table__cell cell-row"><div class="price">{{ method.price / 100 | currency }}</div></div>
                     <div class="methods-table__cell cell-row">{{method.description}}</div>
-                    <div class="methods-table__cell cell-row">{{'app.shipping_address.type_delivery' | translate}}</div>
+                    <div class="methods-table__cell cell-row">{{'shippingAddress.typeDelivery' | translate}}</div>
             </div>
         </div>
     </div>
     <div class="shipping__control">
         <!-- [disabled]="!shippingMethodId || addressForm.invalid"  -->
         <button
-            (click)="proceedToPayment(addressForm.value)">{{'app.shipping_address.next' | translate}}</button>
+            (click)="proceedToPayment(addressForm.value)">{{'shippingAddress.next' | translate}}</button>
     </div>
 </div>
 

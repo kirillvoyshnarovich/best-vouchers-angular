@@ -47,14 +47,14 @@
                             <img src="../../../../assets/bestvouchers/paypal.png">
                         </div>
                         <div class="methods-item__info">
-                            {{'app.shipping_address.paypal_info' | translate}}
+                            {{'shippingAddress.paypalInfo' | translate}}
                         </div>
                     </div>
                     <div class="methods-item__body" [ngClass]="{'collapsed': openedItem === 1}">
                         <div class="methods-item__accept">
                             <input class="methods-item__checkbox" type="checkbox" >
                             <p class="methods-item__agreement" (click)="openModalAggrement()">
-                               <span class="text">{{'app.shipping_address.agreement' | translate}}</span>
+                               <span class="text">{{'shippingAddress.agreement' | translate}}</span>
                                <span class="asterics">*</span>
                             </p>
                         </div>
@@ -69,14 +69,14 @@
                             <input type="radio" name="name-methods" (change)="handleChange($event, 2)">
                         </div>
                         <div class="methods-item__info">
-                            {{'app.shipping_address.cash_delivery' | translate}}
+                            {{'shippingAddress.cashDelivery' | translate}}
                         </div>
                     </div>
                     <div class="methods-item__body" [ngClass]="{'collapsed': openedItem === 2}">
                         <div class="methods-item__accept">
                             <input class="methods-item__checkbox" type="checkbox">
                             <p class="methods-item__agreement" (click)="openModalAggrement()">
-                                <span class="text">{{'app.shipping_address.agreement' | translate}}</span>
+                                <span class="text">{{'shippingAddress.agreement' | translate}}</span>
                                 <span class="asterics">*</span>
                             </p>
                         </div>
