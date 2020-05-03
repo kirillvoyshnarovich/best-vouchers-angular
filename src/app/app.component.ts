@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
     mobileNavVisible$: Observable<boolean>;
     isHomePage$: Observable<boolean>;
 
-    listlang = [
+    defaultListLang = [
         {
             name: 'English',
             code: 'en'
