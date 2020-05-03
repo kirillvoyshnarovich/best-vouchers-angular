@@ -6,7 +6,7 @@
                 <div class="bv-container lang-container">
                     <div class="header__toggle">
                         <fa-icon icon="globe"></fa-icon>
-                        <span>{{'app.header.lang' | translate}}: {{currentLang.name}}</span>
+                        <span>{{'header.lang' | translate}}: {{currentLang?.name}}</span>
                         <ul class="header__list">
                             <li class="header__list-item" *ngFor="let lang of listlang" (click)="chooseLang(lang)">
                                 {{lang.name}}
@@ -25,23 +25,24 @@
                     </div>
                     <div class="header__control">
                         <bv-cart-toggle [routerLink]="['/checkout']"></bv-cart-toggle>
-                        <span>{{'app.header.cart' | translate}}</span>
+                        <span>{{'header.cart' | translate}}</span>
                         <bv-mini-cart></bv-mini-cart>
                     </div>  
                     <div class="header__support">
                         <fa-icon [icon]="['fab', 'whatsapp']"></fa-icon>
                         <div class="header__support-info">
-                            <span class="text">{{'app.header.support' | translate}}</span>
+                            <span class="text">{{'header.support' | translate}}</span>
                             <span class="phone">(+44) 752 066 07 48</span>
                         </div>
                     </div>
                     <div class="header__use-gift">
                         <button [routerLink]="['/check-your-order']">
-                            {{'app.header.gift' | translate}}
+                            {{'header.gift' | translate}}
                         </button>
                     </div>
                 </div>
             </div>
+            <!-- <button (click)="testCurrentLang()">TEST CURRENT LANG</button> -->
         </div>
     </bv-layout-header>
 
@@ -61,7 +62,7 @@
                     <div class="footer__row">
                         <div class="footer__section">
                             <div class="footer__section-wrapperTop">
-                                <span class="footer__section-name">{{'app.footer.contact' | translate}}</span>
+                                <span class="footer__section-name">{{'footer.contact' | translate}}</span>
                                 <span class=" footer__line"></span>
                             </div>
                             <div class="footer__column">
@@ -72,7 +73,7 @@
                                         </span>
                                     </div>
                                     <div class="left">
-                                        <span>{{'app.footer.email' | translate}}</span>
+                                        <span>{{'footer.emailCaption' | translate}}</span>
                                         <span>contact@thebestvouchers.com</span>
                                     </div>
                                 </div>
@@ -84,7 +85,7 @@
                                         </span>
                                     </div>
                                     <div class="left">
-                                        <span>{{'app.slider.title' | translate}}</span>
+                                        <span>{{'footer.phoneCaption' | translate}}</span>
                                         <span>(+44) 752 066 07 48</span>
                                     </div>
                                 </div>
@@ -92,7 +93,7 @@
                         </div>
                         <div class="footer__section">
                             <div class="footer__section-wrapperTop">
-                                <span class="footer__section-name">{{'app.footer.follow' | translate}}</span>
+                                <span class="footer__section-name">{{'footer.follow' | translate}}</span>
                                 <span class=" footer__line"></span>
                             </div>
                             <div class="footer__column">
@@ -105,17 +106,17 @@
                         </div>
                         <div class="footer__section">
                             <div class="footer__section-wrapperTop">
-                                <span class="footer__section-name">{{'app.footer.quick_links' | translate}}</span>
+                                <span class="footer__section-name">{{'footer.quickLinks' | translate}}</span>
                                 <span class=" footer__line"></span>
                             </div>
                             <div class="footer__column">
                                 <ul class="footer__links">
-                                    <li><a [routerLink]="['./terms-and-services']">{{'app.footer.link_term_service' | translate}}</a></li>
-                                    <li><a [routerLink]="['./check-your-order']">{{'app.footer.link_check_order' | translate}}</a></li>
-                                    <li><a [routerLink]="['./privacy-policy']">{{'app.footer.link_privacy_policy' | translate}}</a></li>
-                                    <li><a [routerLink]="['./return-policy']">{{'app.footer.link_return_policy' | translate}}</a></li>
-                                    <li><a [routerLink]="['./delivery']">{{'app.footer.link_delivery' | translate}}</a></li>
-                                    <li><a [routerLink]="['./contact']">{{'app.footer.link_contact' | translate}}</a></li>
+                                    <li><a [routerLink]="['./terms-and-services']">{{'footer.linkTermService' | translate}}</a></li>
+                                    <li><a [routerLink]="['./check-your-order']">{{'footer.linkCheckOrder' | translate}}</a></li>
+                                    <li><a [routerLink]="['./privacy-policy']">{{'footer.linkPrivacyPolicy' | translate}}</a></li>
+                                    <li><a [routerLink]="['./return-policy']">{{'footer.linkReturnPolicy' | translate}}</a></li>
+                                    <li><a [routerLink]="['./delivery']">{{'footer.linkDelivery' | translate}}</a></li>
+                                    <li><a [routerLink]="['./contact']">{{'footer.linkContact' | translate}}</a></li>
                                 </ul> 
                             </div>
                         </div>
@@ -124,7 +125,7 @@
             </div>
             <div class="footer__copyright">
                 <div class="bv-container ">
-                    {{'app.footer.copyright' | translate}}
+                    {{'footer.copyright' | translate}}
                 </div>
             </div>
         </div>

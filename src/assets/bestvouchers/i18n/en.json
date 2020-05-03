@@ -9,72 +9,71 @@
         "footer": {
             "copyright": "Copyright © 2020 TheBestVouchers.com All rights reserved.",
             "contact": "Contact us",
-            "email": "Email",
-            "phone": "Phone",
+            "emailCaption": "Email",
+            "phoneCaption": "Phone",
             "follow": "Follow us",
-            "quick_links": "Quick links",
-            "link_term_service": "Terms and Services",
-            "link_check_order": "Check your order",
-            "link_privacy_policy": "Privacy Policy",
-            "link_return_policy": "Return Policy",
-            "link_delivery": "Delivery",
-            "link_contact": "Contact Us"
+            "quickLinks": "Quick links",
+            "linkTermService": "Terms and Services",
+            "linkCheckOrder": "Check your order",
+            "linkPrivacyPolicy": "Privacy Policy",
+            "linkReturnPolicy": "Return Policy",
+            "linkDelivery": "Delivery",
+            "linkContact": "Contact Us"
         },
         "slider": {
-            "title": "Bestsellers"
+            "bestsellers": "Bestsellers"
         },
-        "product_detail": {
+        "productDetail": {
             "title": "Details",
             "add": "Add To Cart",
-            "qty": "Qty",
-            "available_location": "Available locations"
+            "qtyProduct": "Qty",
+            "availableLocation": "Available locations"
         },
-        "min_cart": {
-            "title": "Cart Summary",
+        "miniCart": {
+            "cartSummary": "Cart Summary",
             "payments": "Fast Payments",
-            "go": "Go to Cart",
-            "empty_cart": "The cart is empty"
+            "go": "Go to Cart"
         },
         "cart": {
-            "title": "Shopping Cart",
-            "caption_item": "Item",
-            "caption_price": "Price",
-            "caption_qty": "Qty",
-            "caption_subtotal": "Subtotal",
-            "remove_item": "Remove item",
-            "continur_shopping": "Continue shopping",
-            "update_shopping": "Update Shopping Cart",
-            "proceed_checkout": "Proceed To Checkout",
-            "empty_cart": "You don’t have any products in your shopping cart."
+            "shoppingCart": "Shopping Cart",
+            "captionItem": "Item",
+            "captionPrice": "Price",
+            "captionQty": "Qty",
+            "captionSubtotal": "Subtotal",
+            "removeItem": "Remove item",
+            "continueShopping": "Continue shopping",
+            "updateShopping": "Update Shopping Cart",
+            "proceedCheckout": "Proceed To Checkout",
+            "emptyCart": "You don’t have any products in your shopping cart."
         },
-        "shipping_address": {
+        "shippingAddress": {
             "title": "Shipping Address",
-            "email": "Email Address",
+            "emailAddress": "Email Address",
             "tooltip": "We'll send your order confirmation here.",
-            "first_name": "First Name",
-            "last_name": "Last Name",
-            "street_adress": "Street Address",
-            "street_line_1": "Street Line 1",
-            "street_line_2": "Street Line 2",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "streetAdress": "Street Address",
+            "streetLine1": "Street Line 1",
+            "streetLine2": "Street Line 2",
             "city": "City",
-            "state_province": "State/Province",
-            "zip_post": "Zip/Post code",
+            "stateProvince": "State/Province",
+            "zipPost": "Zip/Post code",
             "country": "Country",
-            "phone": "Phone number",
-            "shipping_method": "Shipping Method",
-            "select_method": "Select Method",
+            "phoneNumber": "Phone number",
+            "shippingMethod": "Shipping Method",
+            "selectMethod": "Select Method",
             "price": "Price",
             "shipping": "Shipping",
-            "type_delivery": "Type of delivery",
+            "typeDelivery": "Type of delivery",
             "next": "Next",
-            "order_summary": "Order Summary",
+            "orderSummary": "Order Summary",
             "subtotal": "Subtotal",
-            "order_total": "Order Total",
-            "any_items": "items in Cart",
+            "orderTotal": "Order Total",
+            "anyItems": "items in Cart",
             "qty": "Qty",
-            "paypal_info": "PayPal Express Checkout What is PayPal?",
+            "paypalInfo": "PayPal Express Checkout What is PayPal?",
             "agreement": "I accept the Terms and Conditions of thebestvouchers.com",
-            "cash_delivery": "Cash on Delivery"
+            "cashDelivery": "Cash on Delivery"
         }
     },
     "lang": {

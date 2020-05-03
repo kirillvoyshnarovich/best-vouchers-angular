@@ -1,8 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { StateService } from './core/providers/state/state.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Component({
     selector: 'sf-root',
@@ -13,7 +15,8 @@ export class AppComponent implements OnInit {
     cartDrawerVisible$: Observable<boolean>;
     mobileNavVisible$: Observable<boolean>;
     isHomePage$: Observable<boolean>;
-    listlang = [
+
+    defaultListLang = [
         {
             name: 'English',
             code: 'en'
@@ -95,14 +98,21 @@ export class AppComponent implements OnInit {
             code: 'ro'
         },
     ];
+
+    listlang = [
+    ];
     currentLang: any = null;
 
     showMiniCart = false;
 
     constructor(private router: Router,
-                private stateService: StateService) {
+                private stateService: StateService,
+                private http: HttpClient,
+                ) {
 
         this.stateService.setLanguage('en');
+        this.chooseLang({code: "en", name: "English", id: ''})
+        this.getAvailableLanguages();
     }
 
     ngOnInit(): void {
@@ -112,7 +122,6 @@ export class AppComponent implements OnInit {
             filter<any>(event => event instanceof RouterEvent),
             map((event: RouterEvent) => event.url === '/'),
         )
-        this.currentLang = this.listlang[0];
     }
 
     openCartDrawer() {
@@ -123,7 +132,7 @@ export class AppComponent implements OnInit {
         this.stateService.setState('cartDrawerOpen', false);
     }
 
-    chooseLang(lang: {code: string}) {
+    chooseLang(lang: {code: string, id: string, name: string}) {
         this.currentLang = lang;
         this.stateService.setLanguage(lang.code);
     }
@@ -136,4 +145,18 @@ export class AppComponent implements OnInit {
         this.showMiniCart = false;
     }
 
+    // for testing
+    testCurrentLang(): void {
+        let langCode = this.stateService.getCurrentLanguage();
+    }
+    // for testing
+
+    // temporarily
+    getAvailableLanguages(): void {
+        this.http.get(`${environment.apiHost}:${environment.apiPort}/content-translation`)
+        .subscribe((lang: any) => {
+            this.listlang = lang['languages'];
+        })
+    }
+    // temporarily
 }
