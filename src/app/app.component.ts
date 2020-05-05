@@ -101,6 +101,8 @@ export class AppComponent implements OnInit {
     ];
 
     listlang = [
+        {code: "en", name: "English", id: ''},
+        {code: "pl", name: "Polish", id: ''},
     ];
     currentLang: any = null;
 
@@ -117,9 +119,10 @@ export class AppComponent implements OnInit {
             ).subscribe((event: any) => {
                const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
                this.stateService.setLanguage(lang);
+               const lng = this.listlang.find(l => l.code === lang);
+               this.chooseLang({code: lng?.code ? lng.code : 'en', name: lng?.name ? lng.name: 'English', id: ''});
             });
-        
-       // this.chooseLang({code: "en", name: "English", id: ''})
+
         this.getAvailableLanguages();
     }
 
@@ -180,17 +183,17 @@ export class AppComponent implements OnInit {
 
     // temporarily
     getAvailableLanguages(): void {
-        this.http.get(`${environment.apiHost}:${environment.apiPort}/content-translation`)
-        .subscribe((lang: any) => {
-            console.log(lang);
-            this.listlang = lang['languages'];
-            if (this.translate.currentLang) {
-                const language = this.listlang.find((lang: any) => lang.code === this.translate.currentLang);
-                if (language) {
-                    this.chooseLang(language);
-                }
-            }
-        })
+        // this.http.get(`${environment.apiHost}${environment.apiPort}/content-translation`)
+        // .subscribe((lang: any) => {
+        //     console.log(lang);
+        //     this.listlang = lang['languages'];
+        //     if (this.translate.currentLang) {
+        //         const language = this.listlang.find((lang: any) => lang.code === this.translate.currentLang);
+        //         if (language) {
+        //             this.chooseLang(language);
+        //         }
+        //     }
+        // })
     }
     // temporarily
 }

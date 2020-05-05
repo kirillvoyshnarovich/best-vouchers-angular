@@ -46,7 +46,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateCompiler, TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const STATE_KEY = makeStateKey<any>('apollo.state');
 
@@ -65,16 +67,20 @@ class CustomTranslateLoader implements TranslateLoader {
     public getTranslation(lang: string): Observable<any> {
 
         // for testing
-        this.http
-            .get(`${environment.apiHost}:${environment.apiPort}/content-translation/${lang}`)
-            .subscribe((lang) => {
-                console.log('getTranslation', lang);
-            })
+        // this.http
+        //     .get(`${environment.apiHost}${environment.apiPort}/content-translation/${lang}`)
+        //     .subscribe((lang) => {
+        //         console.log('getTranslation', lang);
+        //     })
         // for testing
         
         return this.http
-            .get(`${environment.apiHost}:${environment.apiPort}/content-translation/${lang}`);
+            .get(`${environment.apiHost}${environment.apiPort}/./assets/i18n//${lang}`);
     }
+}
+
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/bestvouchers/i18n/', '.json');
 }
 
 @NgModule({
@@ -96,11 +102,12 @@ class CustomTranslateLoader implements TranslateLoader {
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useClass: CustomTranslateLoader,
+                useFactory: (createTranslateLoader),
                 deps: [HttpClient],
             }
         })
     ],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     bootstrap: [AppComponent],
 })
 export class AppModule {
