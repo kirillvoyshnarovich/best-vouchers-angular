@@ -22,7 +22,7 @@ export class DataService {
 
     constructor(private apollo: Apollo, private translate: TranslateService) {
         this.client = this.apollo.getClient() as any;
-     }
+    }
 
     query<T = any, V = any>(query: DocumentNode, variables?: V, fetchPolicy?: FetchPolicy): Observable<T> {
 
@@ -30,7 +30,14 @@ export class DataService {
 
         if (this.client.link.options.uri.indexOf('?languageCode=' + this.translate.currentLang) === -1) {
             const lang = this.translate.currentLang ? this.translate.currentLang : 'en';
-            this.client.link.options.uri = `${apiHost}:${apiPort}/${shopApiPath}?languageCode=${lang}`;
+            let channel = '';
+            if (lang === 'pl') {
+                channel = `&vendure-token=n9hsvfjt4gcjzry4tfi`;
+            }
+            if (lang === 'en') {
+                channel = `&vendure-token=xe7rw013cgxsq0gcfim`;
+            }
+            this.client.link.options.uri = `${apiHost}:${apiPort}/${shopApiPath}?languageCode=${lang}${channel}`;
         }
 
         return this.apollo.watchQuery<T, V>({

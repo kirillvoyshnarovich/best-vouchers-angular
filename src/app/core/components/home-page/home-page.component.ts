@@ -92,7 +92,7 @@ export class HomePageComponent implements OnInit {
             options: {},
         }).subscribe((response) => {
             this.categoryList = response['collections'].items;
-        })
+        });
 
         this.getCategory(this.initIdCategory);
     }
