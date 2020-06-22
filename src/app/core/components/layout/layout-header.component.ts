@@ -48,11 +48,14 @@ export class LayoutHeaderComponent implements AfterViewInit, OnDestroy {
 
     private setUpScrollHandler(_window: Window) {
         this.subscription = fromEvent(_window, 'scroll').pipe(
+            map(() => {console.log('scroll event', _window.scrollY)}),
             map(() => _window.scrollY),
             bufferTime(250),
+            map((value) => {console.log('value after bufferTime', value); return value}),
             filter(val => 1 < val.length),
             map(val => val[val.length - 1] - val[0]),
         ).subscribe((val) => {
+            console.log('value in subscribe', val);
             if (_window.scrollY === 0) {
                 this.setFloating(false);
             } else if (0 < val) {
