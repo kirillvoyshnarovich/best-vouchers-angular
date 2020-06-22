@@ -3,11 +3,11 @@
     <!-- [ngClass]="{'product-card_row': mode}" -->
     <div [ngClass]="{'product-card_row': mode}" class="product-card card-tabs">
         <ng-template [ngIf]="product">
-            <a [routerLink]="['/product', product.slug]" class="product-card__image-wrapper">
+            <a [routerLink]="['/'+ translate.currentLang +'/product', product.slug]" class="product-card__image-wrapper">
                 <img class="product-card__product-image" [src]="product.productAsset | assetPreview:200:200">
             </a>
             <div class="product-card__info">
-                <a class="product-card__name" [routerLink]="['/product', product.slug]">
+                <a class="product-card__name" [routerLink]="['/'+ translate.currentLang +'/product', product.slug]">
                     {{ product.productName }}
                 </a>
                 <span class="product-card__price">
@@ -16,7 +16,7 @@
                 <div class="product-card__description">
                     {{product.description}}
                 </div>
-                <button class="product-card__button" [routerLink]="['/product', product.slug]">
+                <button class="product-card__button" [routerLink]="['/'+ translate.currentLang +'/product', product.slug]">
                     Check
                 </button>
             </div>

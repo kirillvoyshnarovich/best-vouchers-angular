@@ -8,10 +8,7 @@
                     <div class="form-input">
                         <label>The e-mail address used while placing the order</label>
                         <input type="email" placeholder="E-mail" formControlName="email">
-                        <div 
-                            *ngIf="form.get('email').invalid && form.get('email').touched"
-                            class="validation"
-                        >
+                        <div *ngIf="form.get('email').invalid && form.get('email').touched" class="validation">
                             <small *ngIf="form.get('email').errors.required">
                                 The e-mail address cannot be empty
                             </small>
@@ -24,10 +21,7 @@
                     <div class="form-input">
                         <label>8-digit code from the card</label>
                         <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Code" formControlName="code">
-                        <div 
-                            *ngIf="form.get('code').invalid && form.get('code').touched"
-                            class="validation"
-                        >
+                        <div *ngIf="form.get('code').invalid && form.get('code').touched" class="validation">
                             <small *ngIf="form.get('code').errors.minlength">
                                 Code must contain 8 characters.
                             </small>

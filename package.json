@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4201",
-    "build": "ng build",
+    "build": "ng build --prod",
     "analyze-prod-bundle": "ng build --prod --statsJson=true && webpack-bundle-analyzer dist/browser/stats.json",
     "test": "ng test",
     "lint": "ng lint",
@@ -34,6 +34,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@nguniversal/express-engine": "^9.0.0",
     "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "apollo-angular": "^1.5.0",
     "apollo-angular-link-http": "^1.5.0",
     "apollo-cache-inmemory": "^1.5.1",

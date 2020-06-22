@@ -1,7 +1,7 @@
 export const environment = {
-    production: true,
-    apiHost: 'https://demo.vendure.io',
+    production: false,
+    apiHost: 'https://api.vauchers.ptstechnologies.net',
     apiPort: 443,
     shopApiPath: 'shop-api',
-    baseHref: '/storefront/',
+    baseHref: '/',
 };

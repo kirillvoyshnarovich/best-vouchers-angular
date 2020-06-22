@@ -66,7 +66,7 @@
         <ng-container *ngIf="!cart?.lines.length">
             <div class="empty-cart">
                 <div class="empty-cart__message">{{'cart.emptyCart' | translate}}</div>
-                <a class="empty-cart__link" routerLink="/">{{'cart.continueShopping' | translate}}</a>
+                <a class="empty-cart__link" [routerLink]="['/' + translate.currentLang]">{{'cart.continueShopping' | translate}}</a>
             </div>
         </ng-container>
     </div>

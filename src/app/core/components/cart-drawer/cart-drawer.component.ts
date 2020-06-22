@@ -7,6 +7,7 @@ import { StateService } from '../../providers/state/state.service';
 
 import { ADJUST_ITEM_QUANTITY, GET_ACTIVE_ORDER, REMOVE_ITEM_FROM_CART } from './cart-drawer.graphql';
 import { GetActiveOrder, AdjustItemQuantity, RemoveItemFromCart } from '../../../common/generated-types';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'bv-cart-drawer',
@@ -23,7 +24,8 @@ export class CartDrawerComponent implements OnInit {
     isEmpty$: Observable<boolean>;
 
     constructor(private dataService: DataService,
-                private stateService: StateService) {}
+                private stateService: StateService,
+                private translate: TranslateService) {}
 
     ngOnInit() {
         this.cart$ = merge(
