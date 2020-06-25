@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { DataService } from '../../../core/providers/data/data.service';
 import { BreakingChangeType } from 'graphql';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { StateService } from '../../providers/state/state.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'bv-quick-links',
@@ -97,14 +99,34 @@ export class QuickLinksComponent implements OnInit {
   ];
 
   subscruption:any = null;
-
+  listPages: any = [];
+  currentPage: any = null;
+  safeHtml: any = null;
   
   constructor (
     private route: ActivatedRoute,
     private router: Router,
     private dataService: DataService,
-    // private location: Location
+    // private location: Location,
+    private stateService: StateService,
+    private sanitizer:DomSanitizer
   ) {
+
+    this.stateService.page.subscribe((pages) => {
+      if(pages) {
+        this.listPages = pages;
+      }
+    })
+
+    this.route.paramMap.subscribe((params: any) => {
+      this.listPages.forEach((page: any) => {
+        if(params.params.slug === page.slug) {
+          this.currentPage = page;
+          this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.currentPage.content);
+          console.log('current page', this.currentPage);
+        }
+      });
+    });
 
     const url = this.router.url;
     // location.replaceState(url);

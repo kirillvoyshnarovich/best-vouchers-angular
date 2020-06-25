@@ -65,7 +65,6 @@ class CustomTranslateLoader implements TranslateLoader {
     }
 
     public getTranslation(lang: string): Observable<any> {
-
         // for testing
         // this.http
         //     .get(`${environment.apiHost}${environment.apiPort}/content-translation/${lang}`)
@@ -73,9 +72,8 @@ class CustomTranslateLoader implements TranslateLoader {
         //         console.log('getTranslation', lang);
         //     })
         // for testing
-        
-        return this.http
-            .get(`${environment.apiHost}${environment.apiPort}/./assets/i18n//${lang}`);
+        return this.http.get(`${environment.apiHost}${environment.apiPort}/content-translation/${lang}`);
+        // return this.http.get(`${environment.apiHost}${environment.apiPort}/./assets/i18n//${lang}`);
     }
 }
 

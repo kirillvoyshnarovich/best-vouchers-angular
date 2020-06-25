@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable  } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -31,6 +31,8 @@ export class StateService {
     private langState = {
         currLang: 'en'
     }
+    private listPages = [];
+    public page: BehaviorSubject<any> = new BehaviorSubject(null);
 
     constructor(
         private translateService: TranslateService
@@ -61,4 +63,15 @@ export class StateService {
     getCurrentLanguage(): string {
         return this.translateService.currentLang;
     }
+
+    // work with list quick links
+    setPages(list: any) {
+        this.listPages = list;
+        this.page.next(this.listPages);
+    }
+
+    getPages() {
+        return this.listPages;
+    }
+    // work witj list quick links
 }

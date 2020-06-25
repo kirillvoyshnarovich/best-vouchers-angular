@@ -6,6 +6,8 @@ import { StateService } from './core/providers/state/state.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
+import { DataService } from './core/providers/data/data.service';
+import gql from 'graphql-tag';
 
 @Component({
     selector: 'sf-root',
@@ -104,21 +106,26 @@ export class AppComponent implements OnInit {
         {code: "en", name: "English", id: ''},
         {code: "pl", name: "Polish", id: ''},
     ];
-    currentLang: any = null;
 
+    currentLang: any = null;
+    listPages: any = [];
     showMiniCart = false;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private stateService: StateService,
                 private http: HttpClient,
-                public translate: TranslateService
+                public translate: TranslateService,
+                private dataService: DataService
                 ) {
         this.router.events.pipe(
                 filter((event) => event instanceof ActivationEnd),
             ).subscribe((event: any) => {
                const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
                this.stateService.setLanguage(lang);
+                // get pages for current language
+               this.getPages(lang);
+
                const lng = this.listlang.find(l => l.code === lang);
                this.chooseLang({code: lng?.code ? lng.code : 'en', name: lng?.name ? lng.name: 'English', id: ''});
             });
@@ -196,4 +203,34 @@ export class AppComponent implements OnInit {
         // })
     }
     // temporarily
+
+    getPages(codelang: String) {
+        this.dataService.query<any, any>(GET_PAGES, {
+            code: codelang
+        }).subscribe((response) => {
+            this.listPages = response['getPages'].items;
+            this.stateService.setPages(this.listPages);
+        })
+    }
 }
+
+
+export const GET_PAGES = gql`
+    query GetPages($code: String!) {
+        getPages(code: $code) {
+            items {
+                id
+                slug
+                title
+                description
+                content
+                published
+                pageId
+                code
+                createdAt
+                updatedAt
+            }
+            totalItems
+        }
+    }
+`;

@@ -52,6 +52,10 @@ export const routes: Route[] = [
         component: QuickLinksComponent,
     },
     {
+        path: ':lang/quik-link/:slug',
+        component: QuickLinksComponent,
+    },
+    {
         path: ':lang/checkout',
         loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule),
     },
