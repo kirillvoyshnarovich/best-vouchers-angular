@@ -24,6 +24,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
 import { TermsConditionsModalComponent } from './components/terms-conditions-modal/terms-conditions-modal.component';
 import { PaypalControlComponent } from './components/paypal-control/paypal-control.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { RenderContentComponent } from './components/render-content/render-content.component';
 
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
@@ -42,7 +43,8 @@ const SHARED_DECLARATIONS = [
     AssetPreviewPipe,
     ConfirmModalComponent,
     TermsConditionsModalComponent,
-    PaypalControlComponent
+    PaypalControlComponent,
+    RenderContentComponent
 ];
 
 const IMPORTS = [

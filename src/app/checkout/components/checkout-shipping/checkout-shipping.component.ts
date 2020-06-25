@@ -115,7 +115,6 @@ export class CheckoutShippingComponent implements OnInit {
     }
 
     proceedToPayment(value: AddressFormValue | Address.Fragment) {
-        console.log('proceedToPayment', this.addressForm.valid)
         if(!this.addressForm.valid) {
 
             this.validateForm();
@@ -189,7 +188,6 @@ export class CheckoutShippingComponent implements OnInit {
     }
 
     validateForm() {
-        console.log('validate form ')
         this.errors = {};
         const controls = this.addressForm.controls;
         for(const key in controls) {

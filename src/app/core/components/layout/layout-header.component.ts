@@ -50,6 +50,7 @@ export class LayoutHeaderComponent implements AfterViewInit, OnDestroy {
         this.subscription = fromEvent(_window, 'scroll').pipe(
             map(() => _window.scrollY),
             bufferTime(250),
+            map((value) => value),
             filter(val => 1 < val.length),
             map(val => val[val.length - 1] - val[0]),
         ).subscribe((val) => {
