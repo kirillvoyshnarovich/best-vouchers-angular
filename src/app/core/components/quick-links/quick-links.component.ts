@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../../core/providers/data/data.service';
-import { BreakingChangeType } from 'graphql';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { StateService } from '../../providers/state/state.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'bv-quick-links',
@@ -102,12 +102,12 @@ export class QuickLinksComponent implements OnInit {
   listPages: any = [];
   currentPage: any = null;
   safeHtml: any = null;
+  firstRender: any = null;
+  currentPageSlug: any = null;
   
   constructor (
     private route: ActivatedRoute,
-    private router: Router,
     private dataService: DataService,
-    // private location: Location,
     private stateService: StateService,
     private sanitizer:DomSanitizer
   ) {
@@ -115,46 +115,18 @@ export class QuickLinksComponent implements OnInit {
     this.stateService.page.subscribe((pages) => {
       if(pages) {
         this.listPages = pages;
+        if(!this.firstRender && this.currentPageSlug) {
+          this.findPage(this.currentPageSlug);
+        }
       }
     })
 
     this.route.paramMap.subscribe((params: any) => {
-      this.listPages.forEach((page: any) => {
-        if(params.params.slug === page.slug) {
-          this.currentPage = page;
-          this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.currentPage.content);
-          console.log('current page', this.currentPage);
-        }
-      });
+      this.currentPageSlug = params.params.slug;
+      if(this.firstRender) {
+        this.findPage(this.currentPageSlug);
+      }
     });
-
-    const url = this.router.url;
-    // location.replaceState(url);
-    if(url) {
-      if (url.indexOf('/check-your-order') !== -1) {
-        this.mode = 'check';
-      }
-
-      if (url.indexOf('/terms-and-services') !== -1) {
-        this.mode = 'term';
-      }
-
-      if (url.indexOf('/privacy-policy') !== -1) {
-        this.mode = 'private';
-      }
-
-      if (url.indexOf('/return-policy') !== -1) {
-        this.mode = 'return';
-      }
-
-      if (url.indexOf('/delivery') !== -1) {
-        this.mode = 'delivery';
-      }
-
-      if (url.indexOf('/contact') !== -1) {
-        this.mode = 'contact';
-      }
-    }
   }
 
   ngOnInit(): void {
@@ -169,4 +141,39 @@ export class QuickLinksComponent implements OnInit {
       const formData = {...this.form.value};
     }
   }
+
+  getPage(id: String) {
+    this.dataService.query<any, any>(GET_PAGE, {
+      id: id
+    }).subscribe((response) => {
+      this.currentPage = response.getById;
+      this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.currentPage.content);
+      this.firstRender = true;
+    })
+  }
+
+  findPage(slug: String) {
+    this.listPages.forEach((page: any) => {
+      if(slug === page.page.slug) {
+        this.getPage(page.id);
+      }
+    });
+  }
 }
+
+
+export const GET_PAGE = gql`
+  query GetById($id: String!) {
+    getById(id: $id) {
+      id
+      title
+      code
+      description
+      content
+      published
+      page {
+        id
+      }
+    }
+  }
+`;

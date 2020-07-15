@@ -123,8 +123,10 @@ export class AppComponent implements OnInit {
             ).subscribe((event: any) => {
                const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
                this.stateService.setLanguage(lang);
-                // get pages for current language
-               this.getPages(lang);
+
+                if((this.currentLang && this.currentLang.code !== lang) || this.stateService.getPages().length === 0) {
+                    this.getPages(lang);
+                }
 
                const lng = this.listlang.find(l => l.code === lang);
                this.chooseLang({code: lng?.code ? lng.code : 'en', name: lng?.name ? lng.name: 'English', id: ''});
@@ -208,7 +210,8 @@ export class AppComponent implements OnInit {
         this.dataService.query<any, any>(GET_PAGES, {
             code: codelang
         }).subscribe((response) => {
-            this.listPages = response['getPages'].items;
+            console.log('getPages by lang', response);
+            this.listPages = response['getByLang'].items;
             this.stateService.setPages(this.listPages);
         })
     }
@@ -216,21 +219,16 @@ export class AppComponent implements OnInit {
 
 
 export const GET_PAGES = gql`
-    query GetPages($code: String!) {
-        getPages(code: $code) {
+    query GetByLang($code: String!) {
+        getByLang(code: $code) {
             items {
                 id
-                slug
                 title
-                description
-                content
-                published
-                pageId
-                code
-                createdAt
-                updatedAt
+                page {
+                    id
+                    slug
+                }
             }
-            totalItems
         }
     }
 `;

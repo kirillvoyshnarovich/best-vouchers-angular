@@ -1,6 +1,7 @@
 <div class="quick-links">
+    <!-- OLD LAYOUT -->
     <!-- [ngSwitch]="mode" -->
-    <ng-container [ngSwitch]="mode">
+    <ng-container *ngIf="false">
         <div *ngSwitchCase="'check'" class="check-your-order">
             <div class="bv-container container-q-l">
                 <h2 class="check-your-order__header">Activate</h2>
@@ -462,6 +463,7 @@
             <p style="text-align: center">The Buyer's signature</p>
         </div>
     </ng-container>
+    <!-- OLD LAYOUT -->
 
     <div class="bv-container terms-and-services">
         <bv-render-content *ngIf="currentPage?.id" [content]="safeHtml"></bv-render-content>

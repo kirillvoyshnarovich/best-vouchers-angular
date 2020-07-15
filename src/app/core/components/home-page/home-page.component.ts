@@ -91,6 +91,7 @@ export class HomePageComponent implements OnInit {
         this.dataService.query(GET_COLLECTIONS, {
             options: {},
         }).subscribe((response) => {
+            console.log('response', response);
             this.categoryList = response['collections'].items;
         });
 
