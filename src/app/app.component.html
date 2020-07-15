@@ -119,7 +119,7 @@
                                     <li><a [routerLink]="['/'+ translate.currentLang +'/contact']">{{'footer.linkContact' | translate}}</a></li> -->
 
                                     <li *ngFor="let page of listPages">
-                                        <a [routerLink]="['/'+ translate.currentLang +'/quik-link/'+ page.slug + '/']">
+                                        <a [routerLink]="['/'+ translate.currentLang +'/quik-link/'+ page.page.slug + '/']">
                                             {{page.title}}
                                         </a>
                                     </li>
