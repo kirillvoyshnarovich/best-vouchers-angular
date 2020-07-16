@@ -30,14 +30,7 @@ export class DataService {
 
         if (this.client.link.options.uri.indexOf('?languageCode=' + this.translate.currentLang) === -1) {
             const lang = this.translate.currentLang ? this.translate.currentLang : 'en';
-            let channel = '';
-            if (lang === 'pl') {
-                channel = `&vendure-token=n9hsvfjt4gcjzry4tfi`;
-            }
-            if (lang === 'en') {
-                channel = `&vendure-token=xe7rw013cgxsq0gcfim`;
-            }
-            this.client.link.options.uri = `${apiHost}:${apiPort}/${shopApiPath}?languageCode=${lang}${channel}`;
+            this.client.link.options.uri = `${apiHost}:${apiPort}/${shopApiPath}?languageCode=${lang}`;
         }
 
         return this.apollo.watchQuery<T, V>({
