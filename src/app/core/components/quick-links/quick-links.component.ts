@@ -12,97 +12,14 @@ import gql from 'graphql-tag';
   styleUrls: ['./quick-links.component.scss'],
 })
 export class QuickLinksComponent implements OnInit {
+
   form: FormGroup;
   mode: any = null;
-
-  listLocation = [
-    {
-      loc: 'Български',
-      email: 'contact.bg@thebestvouchers.com'
-    },
-    {
-      loc: 'Français',
-      email: 'contact.fr@thebestvouchers.com'
-    },
-    {
-      loc: 'Hrvatski',
-      email: 'contact.hr@thebestvouchers.com'
-    },
-    {
-      loc: 'Magyar',
-      email: 'contact.hu@thebestvouchers.com'
-    },
-    {
-      loc: 'Český',
-      email: 'contact.cz@thebestvouchers.com'
-    },
-    {
-      loc: 'Polska',
-      email: 'contact.pl@thebestvouchers.comm'
-    },
-    {
-      loc: 'Latviešu',
-      email: 'contact.lv@thebestvouchers.com'
-    },
-    {
-      loc: 'Português',
-      email: 'contact.pt@thebestvouchers.com'
-    },
-    {
-      loc: 'Ελληνικά',
-      email: 'contact.gr@thebestvouchers.com'
-    },
-    {
-      loc: 'Italiano',
-      email: 'contact.it@thebestvouchers.com'
-    },
-    {
-      loc: 'Română',
-      email: 'contact.ro@thebestvouchers.com'
-    },
-    {
-      loc: 'Slovenský',
-      email: 'contact.sk@thebestvouchers.com'
-    },
-    {
-      loc: 'Slovenščina',
-      email: 'contact.sl@thebestvouchers.com'
-    },
-    {
-      loc: 'Lietuvių',
-      email: 'contact.lt@thebestvouchers.com'
-    },
-    {
-      loc: 'Español',
-      email: 'contact.es@thebestvouchers.com'
-    },
-    {
-      loc: 'English',
-      email: 'contact.en@thebestvouchers.com'
-    },
-    {
-      loc: 'Turkish',
-      email: 'contact.tr@thebestvouchers.com'
-    },
-    {
-      loc: 'Eesti',
-      email: 'contact.ee@thebestvouchers.com'
-    },
-    {
-      loc: 'Deutsch',
-      email: 'contact.de@thebestvouchers.com'
-    },
-    {
-      loc: 'Indonesia',
-      email: 'contact.id@thebestvouchers.com'
-    },
-  ];
-
   subscruption:any = null;
   listPages: any = [];
   currentPage: any = null;
   safeHtml: any = null;
-  firstRender: any = null;
+
   currentPageSlug: any = null;
   
   constructor (
@@ -115,17 +32,15 @@ export class QuickLinksComponent implements OnInit {
     this.stateService.page.subscribe((pages) => {
       if(pages) {
         this.listPages = pages;
-        if(!this.firstRender && this.currentPageSlug) {
+        if(this.currentPageSlug) {
           this.findPage(this.currentPageSlug);
         }
       }
     })
 
-    this.route.paramMap.subscribe((params: any) => {
-      this.currentPageSlug = params.params.slug;
-      if(this.firstRender) {
-        this.findPage(this.currentPageSlug);
-      }
+    this.route.params.subscribe((params: any) => {
+      this.currentPageSlug = params.slug;
+      this.findPage(this.currentPageSlug);
     });
   }
 
@@ -148,7 +63,6 @@ export class QuickLinksComponent implements OnInit {
     }).subscribe((response) => {
       this.currentPage = response.getById;
       this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.currentPage.content);
-      this.firstRender = true;
     })
   }
 

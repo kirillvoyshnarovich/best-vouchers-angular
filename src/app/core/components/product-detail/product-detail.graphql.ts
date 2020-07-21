@@ -39,6 +39,9 @@ export const GET_PRODUCT_DETAIL = gql`
                     name
                 }
             }
+            customFields {
+                details
+            }
         }
     }
     ${ASSET_FRAGMENT}

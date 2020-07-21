@@ -1513,6 +1513,8 @@ export namespace GetProductDetail {
         assets: Assets[];
 
         collections: Collections[];
+
+        customFields: any
     };
 
     export type Variants = {

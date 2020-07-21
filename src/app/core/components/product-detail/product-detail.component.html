@@ -37,18 +37,11 @@
                 </div>
             </div>
         </div>
-        <div class="product__additional">
+
+        <div class="product__additional" *ngIf="product && product.customFields && product.customFields.details">
             <div class="product__table">
                 <div class="table-header">{{'productDetail.details' | translate}}</div>
-                <div class="table-body">
-                    <div class="table-description">A 30-minute theoretical introduction and 15 minutes of drifting practice on the track.</div>
-                    <div class="table-list">
-                        <div class="table-list__header">{{'productDetail.availableLocation' | translate}}</div>
-                        <ul class="table-list__ul">
-                            <li class="table-list__ul-item" *ngFor="let location of listLocation">{{location}}</li>
-                        </ul>
-                    </div>
-                </div>
+                <div class="table-body" [innerHTML]="product?.customFields?.details"></div>
             </div>
         </div>
     </div>
