@@ -96,6 +96,8 @@ export class HomePageComponent implements OnInit {
     thisPage: any = [];
     advertising: any = [];
     banners: any = [];
+    existBanners: any = false;
+    existAdvertising: any = false;
 
     // 'sideBar_first',
     // 'sideBar_second',
@@ -125,6 +127,7 @@ export class HomePageComponent implements OnInit {
                 this.advertising = [];
                 this.banners = [];
                 this.thisPage = r;
+                console.log('thisPage', this.thisPage);
                 if (r.advertising[0]) {
                     this.thisPage.advertising.forEach((item: any) => {
                     item.source = item.source.replace(/\\/g, '/'); // fix later !!!!!!
@@ -135,13 +138,18 @@ export class HomePageComponent implements OnInit {
                         product: (item.product) ? item.product : null,
                     };
                     });
-
+                    this.existAdvertising = true;
+                } else {
+                    this.existAdvertising = false;
                 }
                 if (r.banner[0]) {
                     this.thisPage.banner.forEach((banner: any) => {
                         banner.source = banner.source.replace(/\\/g, '/'); // fix later !!!!!!
                         this.banners.push(`url(${banner.source})`);
                     });
+                    this.existBanners = true;
+                } else {
+                    this.existBanners = false;
                 }
             });
           }
