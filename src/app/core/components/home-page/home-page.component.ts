@@ -1,13 +1,19 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { animate, trigger, transition, style, state } from '@angular/animations';
+import { Component, HostListener, OnInit } from '@angular/core';
+
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { DataService } from '../../providers/data/data.service';
+
 import { SearchProducts } from '../../../common/generated-types';
 import { SEARCH_PRODUCTS } from '../product-list/product-list.graphql';
-import { trigger, transition, animate, style, state } from '@angular/animations';
+
+
 import { TranslateService } from '@ngx-translate/core';
 
 export const slideInAnimation =
@@ -37,7 +43,11 @@ export class HomePageComponent implements OnInit {
 
     heroImage: SafeStyle;
 
-    constructor(private dataService: DataService, private sanitizer: DomSanitizer, private translate: TranslateService) { }
+    constructor(
+        private dataService: DataService,
+        private sanitizer: DomSanitizer,
+        private translate: TranslateService,
+        private route: ActivatedRoute) { }
 
     collapsedMenuCategory = false;
     ourAdvantagesList = [
@@ -64,7 +74,7 @@ export class HomePageComponent implements OnInit {
             our clients!`,
             icon: 'lock'
         }
-    ]
+    ];
 
     indexStart = 0;
     indexEnd = 5;
@@ -72,7 +82,7 @@ export class HomePageComponent implements OnInit {
     categoryList: any[] = [];
     currentActiveMenu = null;
     initIdCategory: any = 6;
-    listVendersInitialCategory:any = [];
+    listVendersInitialCategory: any = [];
     currentPage = 0;
 
     offsetMainSlider = 'translateX(0%)';
@@ -83,16 +93,58 @@ export class HomePageComponent implements OnInit {
     currentWidthWindow = 0;
     stepInPercent = 0;
     countSlideView = 0;
+    thisPage: any = [];
+    advertising: any = [];
+    banners: any = [];
+
+    // 'sideBar_first',
+    // 'sideBar_second',
+    // 'top_first',
+    // 'top_second',
+    // 'bottom_firstRow_first',
+    // 'bottom_firstRow_second',
+    // 'bottom_secondRow'
 
     ngOnInit() {
         this.heroImage = this.sanitizer.bypassSecurityTrustStyle(this.getHeroImageUrl());
-        this.calculateSizes()
+        this.calculateSizes();
 
         this.dataService.query(GET_COLLECTIONS, {
             options: {},
         }).subscribe((response) => {
-            console.log('response', response);
             this.categoryList = response['collections'].items;
+        });
+
+        this.route.data
+        .subscribe((response) => {
+          if (response.page) {
+            response.page.
+            pipe(
+              distinctUntilChanged(),
+            ).subscribe((r: any) => {
+                this.advertising = [];
+                this.banners = [];
+                this.thisPage = r;
+                if (r.advertising[0]) {
+                    this.thisPage.advertising.forEach((item: any) => {
+                    item.source = item.source.replace(/\\/g, '/'); // fix later !!!!!!
+                    this.advertising[item.location] = {
+                        source: item.source,
+                        link: item.link,
+                        category: item.category,
+                        product: (item.product) ? item.product : null,
+                    };
+                    });
+
+                }
+                if (r.banner[0]) {
+                    this.thisPage.banner.forEach((banner: any) => {
+                        banner.source = banner.source.replace(/\\/g, '/'); // fix later !!!!!!
+                        this.banners.push(`url(${banner.source})`);
+                    });
+                }
+            });
+          }
         });
 
         this.getCategory(this.initIdCategory);
@@ -109,17 +161,17 @@ export class HomePageComponent implements OnInit {
     }
 
     changeActiveMenu(category: any): void {
-        this.initIdCategory= category.id;
+        this.initIdCategory = category.id;
         this.offsetMainSlider = 'translateX(0%)';
         this.hiddenItems = true;
         this.getCategory(this.initIdCategory);
     }
 
     toggleMainSliderNext(next: any): void {
-        if(next && this.stepTranslateMainSlider < this.amountSlideInRow) {
+        if (next && this.stepTranslateMainSlider < this.amountSlideInRow) {
             this.stepTranslateMainSlider += 1;
-            this.offsetMainSlider = 'translate(-'+ this.stepInPercent*(this.stepTranslateMainSlider)+'%)';
-        } else if(!next && this.stepTranslateMainSlider <= this.amountSlideInRow && 
+            this.offsetMainSlider = 'translate(-' + this.stepInPercent * (this.stepTranslateMainSlider)+'%)';
+        } else if (!next && this.stepTranslateMainSlider <= this.amountSlideInRow &&
             this.stepTranslateMainSlider > 0) {
 
             this.stepTranslateMainSlider -= 1;
@@ -128,9 +180,8 @@ export class HomePageComponent implements OnInit {
     }
     // for slider in below
 
-
     getCategory(id: any): void {
-        let perPage = 24;
+        const perPage = 24;
         this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
             input: {
                 term: '',
@@ -142,12 +193,11 @@ export class HomePageComponent implements OnInit {
             },
         }).subscribe((response) => {
             this.listVendersInitialCategory = response['search'].items;
-            this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length/2) - 3;
-
+            this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length / 2) - 3;
             // later check !!!
             setTimeout(() => {
                 this.hiddenItems = false;
-            })
+            });
         });
     }
 
@@ -158,11 +208,10 @@ export class HomePageComponent implements OnInit {
     // utility
     calculateSizes(): void {
         this.currentWidthWindow = window.innerWidth;
-    
-        if(this.currentWidthWindow > 767) {
+        if (this.currentWidthWindow > 767) {
           this.stepInPercent = 33.3;
           this.countSlideView = 5;
-        } else if(this.currentWidthWindow <= 767) {
+        } else if (this.currentWidthWindow <= 767) {
           this.stepInPercent = 50;
           this.countSlideView = 4;
         }
@@ -187,4 +236,3 @@ const GET_COLLECTIONS = gql`
         }
     }
 `;
-

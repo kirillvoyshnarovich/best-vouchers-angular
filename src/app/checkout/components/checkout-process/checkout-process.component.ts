@@ -38,9 +38,9 @@ export class CheckoutProcessComponent implements OnInit {
 
     ngOnInit() {
         // for first init
-        let url = this.location.path().split('/');
+        const url = this.location.path().split('/');
         this.currentProcess = url[url.length - 1];
-        switch(this.currentProcess){
+        switch (this.currentProcess) {
             case 'shipping' : this.activeStage = 2, this.isCartPage = false;
                 break;
             case 'payment' : this.activeStage = 3, this.isCartPage = false;
@@ -50,10 +50,10 @@ export class CheckoutProcessComponent implements OnInit {
         // for first init
 
         this.router.events.subscribe((event) => {
-            if(event instanceof NavigationEnd) {
+            if (event instanceof NavigationEnd) {
                 const url = this.router.url.split('/');
                 this.currentProcess = url[url.length - 1];
-                switch(this.currentProcess){
+                switch (this.currentProcess) {
                     case 'shipping' : this.activeStage = 2, this.isCartPage = false;
                         break;
                     case 'payment' : this.activeStage = 3, this.isCartPage = false;
@@ -61,7 +61,7 @@ export class CheckoutProcessComponent implements OnInit {
                     default: this.activeStage = 0, this.isCartPage = true;
                 }
             }
-        })
+        });
 
         // this.signedIn$ = this.stateService.select(state => state.signedIn);
         // this.cart$ = this.route.data.pipe(switchMap(data => data.activeOrder as Observable<GetOrderForCheckout.ActiveOrder>));
