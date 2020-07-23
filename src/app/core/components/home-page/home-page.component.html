@@ -44,7 +44,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="advertising">
+            <div class="advertising" *ngIf="existAdvertising">
                 <a *ngIf="advertising['sideBar_first'].link" [href]="advertising['sideBar_first'].link">
                     <img [src]="advertising['sideBar_first'].source">
                 </a>
@@ -54,7 +54,7 @@
                     [routerLink]="['/'+ translate.currentLang +'/category', advertising['sideBar_first'].category]"
                     [src]="advertising['sideBar_first'].source">
             </div>
-            <div class="paypal">
+            <div class="paypal" *ngIf="existAdvertising">
                 <a *ngIf="advertising['sideBar_second'].link" [href]="advertising['sideBar_second'].link">
                     <img [src]="advertising['sideBar_second'].source">
                 </a>
@@ -67,8 +67,8 @@
         </div>
         
         <div class="main-content__grid">
-            <div class="best-deal">
-                <div class="best-deal__image">
+            <div class="best-deal" *ngIf="existAdvertising">
+                <div class="best-deal__image" >
                     <a *ngIf="advertising['top_first'].link" [href]="advertising['top_first'].link">
                         <img [src]="advertising['top_first'].source">
                     </a>
@@ -173,7 +173,7 @@
                     </div>
                 </div>
             </div>
-            <div class="advertising">
+            <div class="advertising" *ngIf="existAdvertising">
                 <div class="advertising__row">
                     <div class="advertising__small-box">
                         <a *ngIf="advertising['bottom_firstRow_first'].link" [href]="advertising['bottom_firstRow_first'].link">
