@@ -9,10 +9,10 @@ import { HomePageComponent } from './core/components/home-page/home-page.compone
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { 
-    faGlobe, 
-    faShoppingBag, 
-    faGlobeEurope, 
+import {
+    faGlobe,
+    faShoppingBag,
+    faGlobeEurope,
     faCheck,
     faTruck,
     faHistory,
@@ -39,9 +39,10 @@ import {
     faTwitter,
     faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -66,20 +67,20 @@ class CustomTranslateLoader implements TranslateLoader {
 
     public getTranslation(lang: string): Observable<any> {
         // for testing
-        // this.http
+        // return this.http
         //     .get(`${environment.apiHost}${environment.apiPort}/content-translation/${lang}`)
-        //     .subscribe((lang) => {
-        //         console.log('getTranslation', lang);
-        //     })
+            // .subscribe((lang) => {
+            // })
         // for testing
-        return this.http.get(`${environment.apiHost}${environment.apiPort}/content-translation/${lang}`);
+
+        return this.http.get(`${environment.apiHost}:${environment.apiPort}/content-translation/${lang}`);
         // return this.http.get(`${environment.apiHost}${environment.apiPort}/./assets/i18n//${lang}`);
     }
 }
 
-export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/bestvouchers/i18n/', '.json');
-}
+// export function createTranslateLoader(http: HttpClient) {
+//     return new TranslateHttpLoader(http, '/content-translation/', '.json');
+// }
 
 @NgModule({
     declarations: [
@@ -100,7 +101,7 @@ export function createTranslateLoader(http: HttpClient) {
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
+                useClass: CustomTranslateLoader,
                 deps: [HttpClient],
             }
         })
@@ -116,9 +117,9 @@ export class AppModule {
         private library: FaIconLibrary
     ) {
         this.library.addIcons(
-            faGlobe, 
-            faShoppingBag, 
-            faGlobeEurope, 
+            faGlobe,
+            faShoppingBag,
+            faGlobeEurope,
             faCheck,
             faTruck,
             faHistory,

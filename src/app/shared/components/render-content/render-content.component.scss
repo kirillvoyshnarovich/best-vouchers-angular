@@ -1,6 +1,8 @@
-::ng-deep .render-content {
+.render-content {
     // all: unset !important;
     // ::ng-deep * {
     //     all: unset !important;
     // }
+    padding: 20px 0px;
+    margin: 0 auto !important;
 }

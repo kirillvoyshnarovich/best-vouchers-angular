@@ -25,7 +25,7 @@ export class CheckoutGuard implements CanActivate {
         const signedIn$ = this.stateService.select(state => state.signedIn);
         return combineLatest(orderState$, signedIn$).pipe(
             map(([orderState, signedIn]) => {
-                const component = route.component;
+            const component = route.component;
                 
                  if (component === CheckoutShippingComponent) {
                     if (orderState === 'AddingItems') {

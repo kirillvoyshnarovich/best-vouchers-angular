@@ -7,6 +7,7 @@ import { getRouteArrayParam } from '../../../common/utils/get-route-array-param'
 import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
 import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
+import { NumberValueAccessor } from '@angular/forms';
 
 @Component({
     selector: 'bv-product-list',
@@ -32,7 +33,18 @@ export class ProductListComponent implements OnInit {
     currentPage = 1;
     load: boolean = true;
 
+    // 'sideBar_first',
+    // 'sideBar_second',
+    // 'top_first',
+    // 'top_second',
+    // 'bottom_firstRow_first',
+    // 'bottom_firstRow_second',
+    // 'bottom_secondRow'
+
     rowModeView = false;
+    advertising: any = {};
+    thisPage: any = [];
+    safeHtml: any = null;
 
     constructor(private dataService: DataService,
                 private route: ActivatedRoute,
@@ -54,6 +66,25 @@ export class ProductListComponent implements OnInit {
             this.stateService.setState('lastCollectionId', collectionId || null);
             this.getItems();
             this.getBreadCrumbs();
+        });
+
+        this.route.data
+        .subscribe((response) => {
+          if (response.page) {
+            response.page.
+            pipe(
+              distinctUntilChanged(),
+            ).subscribe((r: any) => {
+              this.advertising = [];
+              if (r.advertising[0]) {
+                this.thisPage = r;
+                this.thisPage.advertising.forEach((item: any) => {
+                  item.source = item.source.replace(/\\/g, '/'); // fix later !!!!!!
+                  this.advertising[item.location] = item.source;
+                });
+              }
+            });
+          }
         });
     }
 
@@ -82,11 +113,11 @@ export class ProductListComponent implements OnInit {
         this.dataService.query<GetCollection.Query, GetCollection.Variables>(GET_COLLECTION, {
             id: this.collectionId,
         }).subscribe((response) => {
-            if(response['collection']) {
+            if (response['collection']) {
 
                 this.breadcrumbs = response['collection'].breadcrumbs;
             }
-        })
+        });
     }
 
     choosePage(page: number): void {

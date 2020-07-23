@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { DataService } from '../../../core/providers/data/data.service';
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { StateService } from '../../providers/state/state.service';
+
 import { DomSanitizer } from '@angular/platform-browser';
+import { distinctUntilChanged } from 'rxjs/operators';
+
 import gql from 'graphql-tag';
 
 @Component({
@@ -15,32 +21,51 @@ export class QuickLinksComponent implements OnInit {
 
   form: FormGroup;
   mode: any = null;
-  subscruption:any = null;
+  subscruption: any = null;
   listPages: any = [];
   currentPage: any = null;
   safeHtml: any = null;
+  banners: any = [];
 
   currentPageSlug: any = null;
-  
-  constructor (
+
+  constructor(
     private route: ActivatedRoute,
     private dataService: DataService,
     private stateService: StateService,
-    private sanitizer:DomSanitizer
+    private sanitizer: DomSanitizer
   ) {
 
     this.stateService.page.subscribe((pages) => {
-      if(pages) {
+      if (pages) {
         this.listPages = pages;
-        if(this.currentPageSlug) {
-          this.findPage(this.currentPageSlug);
+        if (this.currentPageSlug) {
         }
       }
-    })
+    });
 
     this.route.params.subscribe((params: any) => {
       this.currentPageSlug = params.slug;
-      this.findPage(this.currentPageSlug);
+    });
+
+    this.route.data
+    .subscribe((response) => {
+      if (response.page) {
+        response.page.
+        pipe(
+          distinctUntilChanged(),
+        ).subscribe((r: any) => {
+          this.banners = [];
+          if (r.translations[0]) {
+            this.currentPage = r;
+            this.currentPage.banner.forEach((item: any) => {
+              item.source = item.source.replace(/\\/g, '/'); // fix later !!!!!!
+              this.banners.push(`url(${item.source})`);
+            });
+            this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(r.translations[0].content);
+          }
+        });
+      }
     });
   }
 
@@ -52,33 +77,15 @@ export class QuickLinksComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.valid){
+    if (this.form.valid) {
       const formData = {...this.form.value};
     }
   }
-
-  getPage(id: String) {
-    this.dataService.query<any, any>(GET_PAGE, {
-      id: id
-    }).subscribe((response) => {
-      this.currentPage = response.getById;
-      this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.currentPage.content);
-    })
-  }
-
-  findPage(slug: String) {
-    this.listPages.forEach((page: any) => {
-      if(slug === page.page.slug) {
-        this.getPage(page.id);
-      }
-    });
-  }
 }
 
-
 export const GET_PAGE = gql`
-  query GetById($id: String!) {
-    getById(id: $id) {
+  query GetById($options: optionsPageShop!) {
+    getById(options: $options) {
       id
       title
       code

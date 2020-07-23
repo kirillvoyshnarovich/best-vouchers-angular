@@ -12,23 +12,17 @@ export class RenderContentComponent implements OnInit, OnChanges {
 
   @Input() content: any;
   safeHtml: any | null = '';
-  textContent = `<span style="font-size:28px">TEST SPAN !!!!!!!!</span>`
-
-
-
+  textContent = `<span style="font-size:28px">TEST SPAN !!!!!!!!</span>`;
 
   constructor(
-    private sanitizer:DomSanitizer
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
-    console.log('content', this.content);
     this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.content);
-    console.log('safeHtml', this.safeHtml)
   }
 
   ngOnChanges(changes: any) {
-    console.log('chnages', changes);
-  }
 
+  }
 }

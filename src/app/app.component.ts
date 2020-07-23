@@ -121,15 +121,16 @@ export class AppComponent implements OnInit {
         this.router.events.pipe(
                 filter((event) => event instanceof ActivationEnd),
             ).subscribe((event: any) => {
-               const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
-               this.stateService.setLanguage(lang);
 
-                if((this.currentLang && this.currentLang.code !== lang) || this.stateService.getPages().length === 0) {
+                const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
+                this.stateService.setLanguage(lang);
+
+                if ((this.currentLang && this.currentLang.code !== lang) || this.stateService.getPages().length === 0) {
                     this.getPages(lang);
                 }
 
-               const lng = this.listlang.find(l => l.code === lang);
-               this.chooseLang({code: lng?.code ? lng.code : 'en', name: lng?.name ? lng.name: 'English', id: ''});
+                // const lng = this.listlang.find(l => l.code === lang);
+                // this.chooseLang({code: lng?.code ? lng.code : 'en', name: lng?.name ? lng.name: 'English', id: ''});
             });
 
         this.getAvailableLanguages();
@@ -164,16 +165,16 @@ export class AppComponent implements OnInit {
             if (url === '/') {
                 url += lang.code;
                 this.router.navigate([url]);
+
             } else if (url.startsWith('/' + currLang)) {
                 url = url.replace('/' + currLang, '/' + lang.code);
                 this.router.navigate([url]);
             }
+
             setTimeout(() => {
                 window.location.reload();
-            });
+            }, 200);
         }
-       
-        console.log(this.router.url);
     }
 
     viewMiniCart(): void {
@@ -184,39 +185,32 @@ export class AppComponent implements OnInit {
         this.showMiniCart = false;
     }
 
-    // for testing
     testCurrentLang(): void {
         let langCode = this.stateService.getCurrentLanguage();
     }
-    // for testing
 
-    // temporarily
     getAvailableLanguages(): void {
-        // this.http.get(`${environment.apiHost}${environment.apiPort}/content-translation`)
-        // .subscribe((lang: any) => {
-        //     console.log(lang);
-        //     this.listlang = lang['languages'];
-        //     if (this.translate.currentLang) {
-        //         const language = this.listlang.find((lang: any) => lang.code === this.translate.currentLang);
-        //         if (language) {
-        //             this.chooseLang(language);
-        //         }
-        //     }
-        // })
+        this.http.get(`${environment.apiHost}:${environment.apiPort}/content-translation`)
+        .subscribe((lang: any) => {
+            this.listlang = lang['languages'];
+            if (this.translate.currentLang) {
+                const language = this.listlang.find((lang: any) => lang.code === this.translate.currentLang);
+                if (language) {
+                    this.chooseLang(language);
+                }
+            }
+        });
     }
-    // temporarily
 
-    getPages(codelang: String) {
+    getPages(codelang: string) {
         this.dataService.query<any, any>(GET_PAGES, {
             code: codelang
         }).subscribe((response) => {
-            console.log('getPages by lang', response);
             this.listPages = response['getByLang'].items;
             this.stateService.setPages(this.listPages);
-        })
+        });
     }
 }
-
 
 export const GET_PAGES = gql`
     query GetByLang($code: String!) {

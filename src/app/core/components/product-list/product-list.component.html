@@ -3,7 +3,8 @@
 <div class="bv-container container-p-l">
     <div class="content">
         <div class="content__sidebar">
-            <img src="../../../../assets/bestvouchers/baner.jpg">
+            <img *ngIf="advertising['sideBar_first']" [src]="advertising['sideBar_first']">
+            <img *ngIf="advertising['sideBar_second']" [src]="advertising['sideBar_second']">
         </div>
         <div class="content__grid">
             <div [ngClass]="{'product-list_row': rowModeView}" class="product-list">
