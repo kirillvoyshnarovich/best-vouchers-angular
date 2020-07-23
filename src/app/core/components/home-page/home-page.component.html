@@ -12,16 +12,37 @@
 <div class="bv-wrapper">
     <div class="our-advantages">
         <div class="our-advantages__list">
-            <div class="our-advantages__item" *ngFor="let item of ourAdvantagesList">
+            <!-- *ngFor="let item of ourAdvantagesList" -->
+            <div class="our-advantages__item" >
                 <div class="our-advantages__left">
-                    <fa-icon icon="truck" *ngIf="item.icon === 'trunk'" flip="horizontal"></fa-icon>
-                    <fa-icon icon="history" *ngIf="item.icon === 'history'"></fa-icon>
-                    <fa-icon icon="lock" *ngIf="item.icon === 'lock'"></fa-icon>
+                    <fa-icon icon="truck" flip="horizontal"></fa-icon>
                 </div>
                 <div class="our-advantages__rigth">
-                    <h3 class="our-advantages__title">{{item.title}}</h3>
+                    <h3 class="our-advantages__title">{{'benefits.freeShipping' | translate}}</h3>
                     <div class="our-advantages__description">
-                        {{item.description}}
+                        {{'benefits.contentFreeShipping' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="our-advantages__item" >
+                <div class="our-advantages__left">
+                    <fa-icon icon="history"></fa-icon>
+                </div>
+                <div class="our-advantages__rigth">
+                    <h3 class="our-advantages__title">{{'benefits.moneyBack' | translate}}</h3>
+                    <div class="our-advantages__description">
+                        {{'benefits.contentMoneyBack' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="our-advantages__item" >
+                <div class="our-advantages__left">
+                    <fa-icon icon="lock"></fa-icon>
+                </div>
+                <div class="our-advantages__rigth">
+                    <h3 class="our-advantages__title">{{'benefits.paymentScured' | translate}}</h3>
+                    <div class="our-advantages__description">
+                        {{'benefits.contentPaymentScured' | translate}}
                     </div>
                 </div>
             </div>
@@ -45,17 +66,17 @@
                 </ul>
             </div>
             <div class="advertising" *ngIf="existAdvertising">
-                <a *ngIf="advertising['sideBar_first'] && advertising['sideBar_first']?.link" [href]="advertising['sideBar_first']?.link">
+                <a *ngIf="advertising['sideBar_first']?.link" [href]="advertising['sideBar_first']?.link">
                     <img [src]="advertising['sideBar_first']?.source">
                 </a>
 
-                <img *ngIf="advertising['sideBar_first'] && advertising['sideBar_first']?.category || 
+                <img *ngIf="advertising['sideBar_first']?.category || 
                     (!advertising['sideBar_first']?.link || !advertising['sideBar_first']?.category)" 
                     [routerLink]="['/'+ translate.currentLang +'/category', advertising['sideBar_first']?.category]"
                     [src]="advertising['sideBar_first']?.source">
             </div>
             <div class="paypal" *ngIf="existAdvertising">
-                <a *ngIf="advertising['sideBar_second'] && advertising['sideBar_second']?.link" [href]="advertising['sideBar_second']?.link">
+                <a *ngIf="advertising['sideBar_second']?.link" [href]="advertising['sideBar_second']?.link">
                     <img [src]="advertising['sideBar_second']?.source">
                 </a>
 
@@ -69,10 +90,10 @@
         <div class="main-content__grid">
             <div class="best-deal" *ngIf="existAdvertising">
                 <div class="best-deal__image" >
-                    <a *ngIf="advertising['top_first'] && advertising['top_first']?.link" [href]="advertising['top_first']?.link">
+                    <a *ngIf="advertising['top_first']?.link" [href]="advertising['top_first']?.link">
                         <img [src]="advertising['top_first']?.source">
                     </a>
-                    <img *ngIf="advertising['top_first'] && advertising['top_first']?.category || (!advertising['top_first']?.category && !advertising['top_first']?.link)" [src]="advertising['top_first']?.source" 
+                    <img *ngIf="advertising['top_first']?.category || (!advertising['top_first']?.category && !advertising['top_first']?.link)" [src]="advertising['top_first']?.source" 
                         [routerLink]="['/'+ translate.currentLang +'/category', advertising['top_first']?.category]">
                     <!-- <img src="../../../../assets/bestvouchers/best-deal-mobile.jpg"> -->
                 </div>
@@ -99,7 +120,7 @@
     
                             <img *ngIf="advertising['top_second']?.category || 
                                 (!advertising['top_second']?.link && !advertising['top_second']?.category)" [src]="advertising['top_second']?.source" 
-                                [routerLink]="['/'+ translate.currentLang +'/product', advertising['top_second']?.product.translations[0].slug]">
+                                [routerLink]="['/'+ translate.currentLang +'/product', advertising['top_second']?.product?.translations[0]?.slug]">
                         </ng-container>
 
                     </div>
