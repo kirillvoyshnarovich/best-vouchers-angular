@@ -175,12 +175,13 @@
                     </div>
                     <div class="products__tabs">
                         <div (click)="changeActiveMenu(category)" 
-                            [ngClass]="{'active-tab': category.id == +initIdCategory}" 
+                            [ngClass]="{'active-tab': category.id == initIdCategory}" 
                             class="products__tab" *ngFor="let category of categoryList">
                             {{category.name}}
                         </div>
                     </div>
                 </div>
+
                 <div [@apperCategory]="hiddenItems ? 'hidden' : 'appear'" class="products__list" *ngIf="listVendersInitialCategory.length">
                     <div class="products__row" [ngStyle]="{'transform': offsetMainSlider}">
                         <ng-container *ngFor="let product of listVendersInitialCategory; let even = even">

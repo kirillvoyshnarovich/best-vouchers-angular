@@ -81,7 +81,7 @@ export class HomePageComponent implements OnInit {
 
     categoryList: any[] = [];
     currentActiveMenu = null;
-    initIdCategory: any = 6;
+    initIdCategory: any;
     listVendersInitialCategory: any = [];
     currentPage = 0;
 
@@ -108,13 +108,13 @@ export class HomePageComponent implements OnInit {
     // 'bottom_secondRow'
 
     ngOnInit() {
-        this.heroImage = this.sanitizer.bypassSecurityTrustStyle(this.getHeroImageUrl());
         this.calculateSizes();
 
         this.dataService.query(GET_COLLECTIONS, {
             options: {},
         }).subscribe((response) => {
             this.categoryList = response['collections'].items;
+            this.initIdCategory = this.categoryList[0] ? this.categoryList[0].id : null;
         });
 
         this.route.data
@@ -158,12 +158,6 @@ export class HomePageComponent implements OnInit {
         this.getCategory(this.initIdCategory);
     }
 
-    private getHeroImageUrl(): string {
-        const { apiHost, apiPort } = environment;
-        // ${apiHost}:${apiPort}
-        return `url('/assets/bestvouchers/wiosna_slider.jpg')`;
-    }
-
     chnageCollapsed(): void {
         this.collapsedMenuCategory = !this.collapsedMenuCategory;
     }
@@ -200,6 +194,7 @@ export class HomePageComponent implements OnInit {
                 skip: this.currentPage * perPage,
             },
         }).subscribe((response) => {
+            console.log(response['search'].items)
             this.listVendersInitialCategory = response['search'].items;
             this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length / 2) - 3;
             // later check !!!
