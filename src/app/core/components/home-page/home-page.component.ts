@@ -128,7 +128,6 @@ export class HomePageComponent implements OnInit {
     }
     // for slider in below
 
-
     getCategory(id: any): void {
         let perPage = 24;
         this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
