@@ -54,6 +54,23 @@
             }
         }
 
+        &__control {
+            background-color: #2d265a;
+            border: 0;
+            color: #fff;
+            text-transform: capitalize;
+            padding: 0 40px;
+            height: 48px;
+            font-family: 'Open Sans',sans-serif;
+            font-size: 2rem;
+            margin-top: 10px;
+            transition: background-color 0.2s linear;
+    
+            &:hover {
+                background-color: #fa4157;
+            }
+        }
+
         &__body {
             padding: 0 15px;
 

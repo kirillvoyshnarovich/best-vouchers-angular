@@ -9,7 +9,7 @@ import { StateService } from '../../providers/state/state.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
 import { distinctUntilChanged } from 'rxjs/operators';
-
+import { TranslateService } from '@ngx-translate/core';
 import gql from 'graphql-tag';
 
 @Component({
@@ -33,7 +33,8 @@ export class QuickLinksComponent implements OnInit {
     private route: ActivatedRoute,
     private dataService: DataService,
     private stateService: StateService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public translate: TranslateService,
   ) {
 
     this.stateService.page.subscribe((pages) => {
@@ -60,7 +61,13 @@ export class QuickLinksComponent implements OnInit {
             this.currentPage = r;
             this.currentPage.banner.forEach((item: any) => {
               item.source = item.source.replace(/\\/g, '/'); // fix later !!!!!!
-              this.banners.push(`url(${item.source})`);
+              this.banners.push({
+                url: `url(${item.source})`,
+                buttonText: item.buttonText,
+                category: item.category,
+                description: item.description,
+                headerBanner: item.headerBanner,
+              });
             });
             this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(r.translations[0].content);
           }

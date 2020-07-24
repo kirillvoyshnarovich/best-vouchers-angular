@@ -46,7 +46,7 @@ export class HomePageComponent implements OnInit {
     constructor(
         private dataService: DataService,
         private sanitizer: DomSanitizer,
-        private translate: TranslateService,
+        translate: TranslateService,
         private route: ActivatedRoute) { }
 
     collapsedMenuCategory = false;
@@ -145,7 +145,13 @@ export class HomePageComponent implements OnInit {
                 if (r.banner[0]) {
                     this.thisPage.banner.forEach((banner: any) => {
                         banner.source = banner.source.replace(/\\/g, '/'); // fix later !!!!!!
-                        this.banners.push(`url(${banner.source})`);
+                        this.banners.push({
+                            url: `url(${banner.source})`,
+                            buttonText: banner.buttonText,
+                            category: banner.category,
+                            description: banner.description,
+                            headerBanner: banner.headerBanner,
+                        });
                     });
                     this.existBanners = true;
                 } else {

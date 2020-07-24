@@ -48,7 +48,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         } else {
             // GraphQL errors still return 200 OK responses, but have the actual error message
             // inside the body of the response.
-            const graqhQLErrors = response.body.errors;
+            const graqhQLErrors = response.body && response.body.errors;
             if (graqhQLErrors && Array.isArray(graqhQLErrors)) {
                 const firstCode: string = graqhQLErrors[0].extensions.code;
                 if (firstCode === 'FORBIDDEN') {

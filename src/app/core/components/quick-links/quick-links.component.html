@@ -466,17 +466,23 @@
     <!-- OLD LAYOUT -->
 
 
-    <div *ngFor="let banner of banners" class="return-policy__header" [style.background-image]="banner">
-        <!-- <img [src]="banner"> -->
-        <!-- <div class="bv-container container-q-l">
-            <h1 class="return-policy__caption">Returns Policy</h1>
-            <p class="return-policy__description">Not everything always goes as we want, even if we plan it very carefully. 
-                At The Best Vouchers, we understand that sometimes, as a result of an emergency, 
-                something unfortunate may happen that will prevent you from using your coupon. 
-                Therefore, we allow cancellation of the voucher and offer refund of its costs to 
-                your bank account.
+    <div *ngFor="let banner of banners" class="return-policy__header" [style.background-image]="banner.url">
+        <div class="bv-container container-q-l">
+            <h1 class="return-policy__caption" *ngIf="banner.headerBanner">{{banner.headerBanner}}</h1>
+            <p class="return-policy__description" *ngIf="banner.description">
+                {{banner.description}}
             </p>
-        </div> -->
+            <ng-container *ngIf="banner.buttonText">
+                <button *ngIf="banner.category" 
+                    class="return-policy__control" [routerLink]="['/'+ translate.currentLang +'/category', banner.category]">
+                    {{banner.buttonText}}
+                </button>
+                <button *ngIf="!banner.category" 
+                    class="return-policy__control">
+                    {{banner.buttonText}}
+                </button>
+            </ng-container>
+        </div>
     </div>
 
     <bv-render-content *ngIf="currentPage?.id" [content]="safeHtml"></bv-render-content>
