@@ -1,11 +1,21 @@
-<div *ngFor="let banner of banners" class="banner" [style.background-image]="banner">
+<div *ngFor="let banner of banners" class="banner" [style.background-image]="banner.url">
     <div class="banner__description">
-        <!-- <h1>
-            Unique springtime gifts
+        <h1 *ngIf="banner.headerBanner">
+            {{banner.headerBanner}}
         </h1>
-        <button class="banner__control">
-            Check
-        </button> -->
+        <p class="banner__description-text" *ngIf="banner.description">
+            {{banner.description}}
+        </p>
+        <ng-container *ngIf="banner.buttonText">
+            <button *ngIf="banner.category" 
+                class="banner__control" [routerLink]="['/'+ translate.currentLang +'/category', banner.category]">
+                {{banner.buttonText}}
+            </button>
+            <button *ngIf="!banner.category" 
+                class="banner__control">
+                {{banner.buttonText}}
+            </button>
+        </ng-container>
     </div>
 </div>
 

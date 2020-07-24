@@ -104,6 +104,10 @@ export const GET_PAGE_BY_SLUG = gql`
         id
         alt
         source
+        description
+        headerBanner
+        buttonText
+        category
       }
     }
   }

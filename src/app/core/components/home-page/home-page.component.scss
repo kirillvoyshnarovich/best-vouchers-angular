@@ -25,6 +25,10 @@
         left: 13%;
         top: 30%;
 
+        &-text {
+            font-size: 16px;
+        }
+
         @media only screen and (max-width: 991px) {
             top: 10%;
         }
