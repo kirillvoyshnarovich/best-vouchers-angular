@@ -46,7 +46,7 @@ export class HomePageComponent implements OnInit {
     constructor(
         private dataService: DataService,
         private sanitizer: DomSanitizer,
-        translate: TranslateService,
+        public translate: TranslateService,
         private route: ActivatedRoute) { }
 
     collapsedMenuCategory = false;
