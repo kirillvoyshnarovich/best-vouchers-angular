@@ -78,7 +78,7 @@ export class CheckoutPaymentComponent {
     addItemStateMutation() {
         this.dataService.mutate<TransitionToArrangingPayment.Mutation>(TRANSITION_TO_ADD_ITEM)
         .subscribe((response) => {
-            console.log('response', response)
+
         })
     }
 }

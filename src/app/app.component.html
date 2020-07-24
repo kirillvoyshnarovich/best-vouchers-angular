@@ -19,7 +19,7 @@
                 <div class="bv-container header-container">
 
                     <div class="header__logo">
-                        <a [routerLink]="['/'+ translate.currentLang]" class="logo-link d-md-inline-block ">
+                        <a [routerLink]="['/'+ translate.currentLang + '/home']" class="logo-link d-md-inline-block ">
                             <img src="../assets/bestvouchers/logo_1.png" class="logo" alt="best vouchers logo">
                         </a>
                     </div>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="header__use-gift">
-                        <button [routerLink]="['/'+ translate.currentLang +'/check-your-order']">
+                        <button [routerLink]="['/'+ translate.currentLang + '/quik-link' + '/test_slug_5']">
                             {{'header.gift' | translate}}
                         </button>
                     </div>
@@ -111,13 +111,6 @@
                             </div>
                             <div class="footer__column">
                                 <ul class="footer__links">
-                                    <!-- <li><a [routerLink]="['/'+ translate.currentLang +'/terms-and-services']">{{'footer.linkTermService' | translate}}</a></li>
-                                    <li><a [routerLink]="['/'+ translate.currentLang +'/check-your-order']">{{'footer.linkCheckOrder' | translate}}</a></li>
-                                    <li><a [routerLink]="['/'+ translate.currentLang +'/privacy-policy']">{{'footer.linkPrivacyPolicy' | translate}}</a></li>
-                                    <li><a [routerLink]="['/'+ translate.currentLang +'/return-policy']">{{'footer.linkReturnPolicy' | translate}}</a></li>
-                                    <li><a [routerLink]="['/'+ translate.currentLang +'/delivery']">{{'footer.linkDelivery' | translate}}</a></li>
-                                    <li><a [routerLink]="['/'+ translate.currentLang +'/contact']">{{'footer.linkContact' | translate}}</a></li> -->
-
                                     <li *ngFor="let page of listPages">
                                         <a [routerLink]="['/'+ translate.currentLang +'/quik-link/'+ page.page.slug + '/']">
                                             {{page.title}}
