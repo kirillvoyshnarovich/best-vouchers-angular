@@ -37,11 +37,12 @@ export class PageResolver implements Resolve<any> {
     }
 
     code = (params.lang) ? params.lang : 'en';
-    let url = this.router.url;
+    const url = this.router.url;
+
     const pageContent$ = this.dataService.query<any>(GET_PAGE_BY_SLUG, {
       options: {
-        code: code,
-        slug: slug,
+        code,
+        slug,
       },
     }).pipe(
       map(data => data.getBySlug),

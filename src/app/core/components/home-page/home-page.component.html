@@ -66,7 +66,7 @@
                     <span class="list-category__icon">
                         <fa-icon icon="outdent"></fa-icon>
                     </span>
-                    All Products
+                    {{'categories.allProducts' | translate}}
                 </div>
                 <ul [ngClass]="{'collapse_ul': collapsedMenuCategory}" class="list-category__ul">
                     <li class="list-category__item" *ngFor="let category of categoryList" [routerLink]="['/'+ translate.currentLang +'/category', category.id]">
@@ -203,7 +203,7 @@
             <div class="products">
                 <div class="products__bar">
                     <div class="products__most-popular">
-                        <h3 class="products__title">MOST POPULAR BY CATEGORY</h3>
+                        <h3 class="products__title">{{'categories.mostPopularByCategory' | translate}}</h3>
                         <div class="products__control">
                             <button class="products__control-button" (click)="toggleMainSliderNext(false)">
                                 <fa-icon icon="caret-left"></fa-icon>
