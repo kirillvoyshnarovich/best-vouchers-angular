@@ -37,7 +37,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         'Sheffield',
         'Bristol',
         'Belfast',
-        'Leicester'
+        'Leicester',
     ];
     // test data
     private sub: Subscription;

@@ -1,20 +1,16 @@
-import { animate, trigger, transition, style, state } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import gql from 'graphql-tag';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
 import { DataService } from '../../providers/data/data.service';
 
 import { SearchProducts } from '../../../common/generated-types';
 import { SEARCH_PRODUCTS } from '../product-list/product-list.graphql';
-
-
-import { TranslateService } from '@ngx-translate/core';
 
 export const slideInAnimation =
   trigger('apperCategory', [
@@ -25,7 +21,7 @@ export const slideInAnimation =
         opacity: 1,
     })),
     transition('hidden => appear', [
-        animate('1s')
+        animate('1s'),
     ]),
   ]);
 
@@ -33,15 +29,13 @@ export const slideInAnimation =
     selector: 'bv-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
-    animations: [slideInAnimation]
+    animations: [slideInAnimation],
 })
 export class HomePageComponent implements OnInit {
 
     @HostListener('window:resize', ['$event.target']) onResize(target: any) {
         this.calculateSizes();
     }
-
-    heroImage: SafeStyle;
 
     constructor(
         private dataService: DataService,
@@ -54,26 +48,26 @@ export class HomePageComponent implements OnInit {
         {
             id: 1,
             title: 'FREE SHIPPING',
-            description: `All the prices displayed on our site are the totals, 
-            with no hidden payments like the shipment fee. We guarantee free 
+            description: `All the prices displayed on our site are the totals,
+            with no hidden payments like the shipment fee. We guarantee free
             shipping every time you order something from our website!`,
-            icon: 'trunk'
+            icon: 'trunk',
         },
         {
             id: 2,
             title: '14 DAYS MONEY BACK',
-            description: `Your plans have changed? No worries! We guarantee 
+            description: `Your plans have changed? No worries! We guarantee
             that the money will be back into your account within 14 days. A 100% guarantee!`,
-            icon: 'history'
+            icon: 'history',
         },
         {
             id: 3,
             title: 'PAYMENT SECURED',
-            description: `We make sure that payments on our site remain as safe as possible. 
-            Our protocols are constantly updated and adjusted to guarantee maximum safety to 
+            description: `We make sure that payments on our site remain as safe as possible.
+            Our protocols are constantly updated and adjusted to guarantee maximum safety to
             our clients!`,
-            icon: 'lock'
-        }
+            icon: 'lock',
+        },
     ];
 
     indexStart = 0;
@@ -98,14 +92,6 @@ export class HomePageComponent implements OnInit {
     banners: any = [];
     existBanners: any = false;
     existAdvertising: any = false;
-
-    // 'sideBar_first',
-    // 'sideBar_second',
-    // 'top_first',
-    // 'top_second',
-    // 'bottom_firstRow_first',
-    // 'bottom_firstRow_second',
-    // 'bottom_secondRow'
 
     ngOnInit() {
         this.calculateSizes();
@@ -178,12 +164,12 @@ export class HomePageComponent implements OnInit {
     toggleMainSliderNext(next: any): void {
         if (next && this.stepTranslateMainSlider < this.amountSlideInRow) {
             this.stepTranslateMainSlider += 1;
-            this.offsetMainSlider = 'translate(-' + this.stepInPercent * (this.stepTranslateMainSlider)+'%)';
+            this.offsetMainSlider = 'translate(-' + this.stepInPercent * (this.stepTranslateMainSlider) + '%)';
         } else if (!next && this.stepTranslateMainSlider <= this.amountSlideInRow &&
             this.stepTranslateMainSlider > 0) {
 
             this.stepTranslateMainSlider -= 1;
-            this.offsetMainSlider = 'translate(-'+ this.stepInPercent*(this.stepTranslateMainSlider)+'%)';
+            this.offsetMainSlider = 'translate(-' + this.stepInPercent * (this.stepTranslateMainSlider) + '%)';
         }
     }
     // for slider in below
@@ -200,7 +186,7 @@ export class HomePageComponent implements OnInit {
                 skip: this.currentPage * perPage,
             },
         }).subscribe((response) => {
-            console.log(response['search'].items)
+            console.log(response['search'].items);
             this.listVendersInitialCategory = response['search'].items;
             this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length / 2) - 3;
             // later check !!!

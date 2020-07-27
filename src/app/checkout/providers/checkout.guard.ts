@@ -9,6 +9,7 @@ import { StateService } from '../../core/providers/state/state.service';
 import { CheckoutConfirmationComponent } from '../components/checkout-confirmation/checkout-confirmation.component';
 import { CheckoutPaymentComponent } from '../components/checkout-payment/checkout-payment.component';
 import { CheckoutShippingComponent } from '../components/checkout-shipping/checkout-shipping.component';
+
 import { GET_ORDER_FOR_CHECKOUT } from './checkout-resolver.graphql';
 
 @Injectable({ providedIn: 'root' })
