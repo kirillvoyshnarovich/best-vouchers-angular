@@ -1,5 +1,21 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewEncapsulation, OnChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ViewEncapsulation,
+  OnChanges,
+  OnDestroy,
+  AfterViewInit
+} from '@angular/core';
+
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+import {
+  FormGroup,
+  FormControl,
+  Validators 
+} from '@angular/forms';
 
 @Component({
   selector: 'bv-render-content',
@@ -8,21 +24,83 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class RenderContentComponent implements OnInit, OnChanges {
+export class RenderContentComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+
+  form: FormGroup;
+  renderContainer: any;
+  subscription: any;
+  buttonSubmit: any;
+  formElements: any;
+  validationMessageForm: any;
 
   @Input() content: any;
   safeHtml: any | null = '';
-  textContent = `<span style="font-size:28px">TEST SPAN !!!!!!!!</span>`;
 
   constructor(
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
     this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.content);
   }
 
-  ngOnChanges(changes: any) {
+  ngAfterViewInit() {
+    this.renderContainer = document.querySelector('.render-content');
+    this.formElements  = this.renderContainer.querySelector('form');
+    this.buttonSubmit = this.formElements.querySelector('.simple-button-plugin');
+    this.insertMessageBlock();
+    const existAllField = this.checkForm();
+    console.log('handle from', existAllField);
+    if (existAllField) {
+      this.subscription = this.buttonSubmit.addEventListener('click', this.hunbleSubmitForm.bind(this));
+    }
+  }
 
+  ngOnChanges(changes: any) {};
+
+  ngOnDestroy() {
+    this.buttonSubmit.removeEventListener('click');
+  }
+
+  hunbleSubmitForm(event: any) {
+    event.preventDefault();
+    const data: any = {};
+    for (let i = 0; i < this.formElements.elements.length; i++) {
+      data[`${this.formElements.elements[i].name}`] = this.formElements.elements[i].value;
+    }
+
+    this.validationFormBeforeSending(data);
+  }
+
+  insertMessageBlock() {
+    this.buttonSubmit.insertAdjacentHTML('beforeBegin', '<div id="validation-message-form"></div>');
+    this.validationMessageForm = this.formElements.querySelector('#validation-message-form');
+  }
+
+  checkForm() {
+    let existField = true;
+    const fields: any = {
+      email: true,
+      password: true,
+    };
+
+    for (let i = 0; i < this.formElements.elements.length; i++) {
+      if (!fields[this.formElements.elements[i].name]) {
+        existField = false;
+      }
+    }
+
+    return existField;
+  }
+
+  validationFormBeforeSending(values: any) {
+    this.validationMessageForm.textContent = '';
+    for (const key in values) {
+      if (key) {
+        if (!values[key]) {
+          this.validationMessageForm.textContent = `${key} field is required`;
+        }
+      }
+    }
   }
 }

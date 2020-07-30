@@ -44,31 +44,6 @@ export class HomePageComponent implements OnInit {
         private route: ActivatedRoute) { }
 
     collapsedMenuCategory = false;
-    ourAdvantagesList = [
-        {
-            id: 1,
-            title: 'FREE SHIPPING',
-            description: `All the prices displayed on our site are the totals,
-            with no hidden payments like the shipment fee. We guarantee free
-            shipping every time you order something from our website!`,
-            icon: 'trunk',
-        },
-        {
-            id: 2,
-            title: '14 DAYS MONEY BACK',
-            description: `Your plans have changed? No worries! We guarantee
-            that the money will be back into your account within 14 days. A 100% guarantee!`,
-            icon: 'history',
-        },
-        {
-            id: 3,
-            title: 'PAYMENT SECURED',
-            description: `We make sure that payments on our site remain as safe as possible.
-            Our protocols are constantly updated and adjusted to guarantee maximum safety to
-            our clients!`,
-            icon: 'lock',
-        },
-    ];
 
     indexStart = 0;
     indexEnd = 5;
@@ -93,6 +68,16 @@ export class HomePageComponent implements OnInit {
     existBanners: any = false;
     existAdvertising: any = false;
 
+    listLocationDefault = [
+        'sideBar_first',
+        'sideBar_second',
+        'top_first',
+        'top_second',
+        'bottom_firstRow_first',
+        'bottom_firstRow_second',
+        'bottom_secondRow',
+      ];
+
     ngOnInit() {
         this.calculateSizes();
 
@@ -113,7 +98,6 @@ export class HomePageComponent implements OnInit {
                 this.advertising = [];
                 this.banners = [];
                 this.thisPage = r;
-                console.log('thisPage', this.thisPage);
                 if (r.advertising[0]) {
                     this.thisPage.advertising.forEach((item: any) => {
                     item.source = item.source.replace(/\\/g, '/'); // fix later !!!!!!
@@ -186,7 +170,6 @@ export class HomePageComponent implements OnInit {
                 skip: this.currentPage * perPage,
             },
         }).subscribe((response) => {
-            console.log(response['search'].items);
             this.listVendersInitialCategory = response['search'].items;
             this.amountSlideInRow = Math.ceil(this.listVendersInitialCategory.length / 2) - 3;
             // later check !!!
