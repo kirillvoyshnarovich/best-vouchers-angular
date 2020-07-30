@@ -466,24 +466,32 @@
     <!-- OLD LAYOUT -->
 
 
-    <div *ngFor="let banner of banners" class="return-policy__header" [style.background-image]="banner.url">
+    <div *ngFor="let banner of banners" class="quick-link-banner__header" [style.background-image]="banner.url">
         <div class="bv-container container-q-l">
-            <h1 class="return-policy__caption" *ngIf="banner.headerBanner">{{banner.headerBanner}}</h1>
-            <p class="return-policy__description" *ngIf="banner.description">
+            <h1 class="quick-link-banner__caption" *ngIf="banner.headerBanner">{{banner.headerBanner}}</h1>
+            <p class="quick-link-banner__description" *ngIf="banner.description">
                 {{banner.description}}
             </p>
             <ng-container *ngIf="banner.buttonText">
                 <button *ngIf="banner.category" 
-                    class="return-policy__control" [routerLink]="['/'+ translate.currentLang +'/category', banner.category]">
+                    class="quick-link-banner__control" [routerLink]="['/'+ translate.currentLang +'/category', banner.category]">
                     {{banner.buttonText}}
                 </button>
                 <button *ngIf="!banner.category" 
-                    class="return-policy__control">
+                    class="quick-link-banner__control">
                     {{banner.buttonText}}
                 </button>
             </ng-container>
         </div>
     </div>
 
-    <bv-render-content *ngIf="currentPage?.id" [content]="safeHtml"></bv-render-content>
+    <ng-container *ngIf="safeHtml">
+        <bv-render-content *ngIf="currentPage?.id" [content]="safeHtml"></bv-render-content>
+    </ng-container>
+
+    <ng-container *ngIf="!safeHtml">
+        <div class="quick-link-content-not-exist">
+            Content for the current language does not exist
+        </div>
+    </ng-container>
 </div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
 import gql from 'graphql-tag';
-import { map, shareReplay, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, take, tap } from 'rxjs/operators';
 
 import { StateService } from './core/providers/state/state.service';
 
@@ -37,7 +37,6 @@ export class PageResolver implements Resolve<any> {
     }
 
     code = (params.lang) ? params.lang : 'en';
-    const url = this.router.url;
 
     const pageContent$ = this.dataService.query<any>(GET_PAGE_BY_SLUG, {
       options: {
@@ -45,7 +44,23 @@ export class PageResolver implements Resolve<any> {
         slug,
       },
     }).pipe(
+      distinctUntilChanged(),
       map(data => data.getBySlug),
+      map(data => {
+        data.banner = data.banner.map((item: any) => {
+          let bt = {};
+          if (item.bannerTranslations && item.bannerTranslations[0]) {
+            bt = {...item.bannerTranslations[0]};
+          }
+          delete item.bannerTranslations;
+          item = {
+            ...item,
+            ...bt,
+          };
+          return item;
+        });
+        return data;
+      }),
     );
     const stream = pageContent$.pipe(
       shareReplay(1),
@@ -56,22 +71,6 @@ export class PageResolver implements Resolve<any> {
     );
   }
 }
-
-export const GET_PAGE = gql`
-  query GetById($options: optionsPageShop!) {
-    getById(options: $options) {
-      id
-      title
-      code
-      description
-      content
-      published
-      page {
-        id
-      }
-    }
-  }
-`;
 
 export const GET_PAGE_BY_SLUG = gql`
   query GetBySlug($options: optionsPageShop!) {
@@ -90,6 +89,7 @@ export const GET_PAGE_BY_SLUG = gql`
         alt
         location
         link
+        code
         product {
           id
           translations {
@@ -103,12 +103,16 @@ export const GET_PAGE_BY_SLUG = gql`
       }
       banner {
         id
-        alt
         source
-        description
-        headerBanner
-        buttonText
-        category
+        bannerTranslations {
+          id
+          alt
+          description
+          headerBanner
+          buttonText
+          category
+          code
+        }
       }
     }
   }

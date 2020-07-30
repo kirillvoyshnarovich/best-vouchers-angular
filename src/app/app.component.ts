@@ -127,7 +127,7 @@ export class AppComponent implements OnInit {
                 const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
                 this.stateService.setLanguage(lang);
 
-                if ((this.currentLang && this.currentLang.code !== lang) || this.stateService.getPages().length === 0) {
+                if (!this.currentLang || this.currentLang.code !== lang) {
                     this.getPages(lang);
                 }
 
@@ -175,7 +175,7 @@ export class AppComponent implements OnInit {
 
             setTimeout(() => {
                 window.location.reload();
-            }, 200);
+            }, 100);
         }
     }
 

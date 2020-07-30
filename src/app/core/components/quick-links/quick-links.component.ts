@@ -8,7 +8,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { StateService } from '../../providers/state/state.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, take } from 'rxjs/operators';
+
 import { TranslateService } from '@ngx-translate/core';
 import gql from 'graphql-tag';
 
@@ -36,12 +37,10 @@ export class QuickLinksComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public translate: TranslateService,
   ) {
-
     this.stateService.page.subscribe((pages) => {
       if (pages) {
         this.listPages = pages;
-        if (this.currentPageSlug) {
-        }
+        if (this.currentPageSlug) {}
       }
     });
 
@@ -55,6 +54,7 @@ export class QuickLinksComponent implements OnInit {
         response.page.
         pipe(
           distinctUntilChanged(),
+          take(1),
         ).subscribe((r: any) => {
           this.banners = [];
           if (r.translations[0]) {
@@ -71,6 +71,8 @@ export class QuickLinksComponent implements OnInit {
             });
             this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(r.translations[0].content);
           }
+
+          console.log('safeHtml', this.safeHtml);
         });
       }
     });

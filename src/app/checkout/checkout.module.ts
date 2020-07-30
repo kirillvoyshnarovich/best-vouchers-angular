@@ -11,6 +11,7 @@ import { CheckoutShippingComponent } from './components/checkout-shipping/checko
 import { CheckoutStageIndicatorComponent } from './components/checkout-stage-indicator/checkout-stage-indicator.component';
 
 import { CheckoutOrderComponent } from './components/checkout-order/checkout-order.component';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 const DECLARATIONS = [

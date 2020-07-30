@@ -1,8 +1,46 @@
 .render-content {
-    // all: unset !important;
-    // ::ng-deep * {
-    //     all: unset !important;
-    // }
     padding: 20px 0px;
     margin: 0 auto !important;
+
+    #validation-message-form {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+        font-size: 14px;
+        color: red;
+    }
+
+    * {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: normal;
+        letter-spacing: 0.6px;
+    }
+
+    input {
+        background: #fff;
+        background-clip: padding-box;
+        border: 1px solid #c2c2c2;
+        border-radius: 1px;
+        font-family: 'Open Sans','Open Sans';
+        font-size: 14px;
+        height: 32px;
+        line-height: 1.42857143;
+        padding: 0 9px;
+        vertical-align: baseline;
+        width: auto;
+        box-sizing: border-box;
+
+        &:focus {
+            outline: 0;
+            border: 1px solid #d7d7d7;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    ol {
+        li {
+            font-size: 15px;
+        }
+    }
 }
