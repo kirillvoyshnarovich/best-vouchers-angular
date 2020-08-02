@@ -3,9 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+    // production: false,
+    // apiHost: 'http://localhost',
+    // apiPort: 3000,
+    // shopApiPath: 'shop-api',
+    // baseHref: '/',
     production: false,
-    apiHost: 'http://localhost',
-    apiPort: 3000,
+    apiHost: 'https://api.vauchers.ptstechnologies.net',
+    apiPort: 443,
     shopApiPath: 'shop-api',
     baseHref: '/',
 };
