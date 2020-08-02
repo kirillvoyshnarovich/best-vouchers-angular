@@ -45,7 +45,7 @@ export class CheckoutProcessComponent implements OnInit {
                 break;
             case 'payment' : this.activeStage = 3, this.isCartPage = false;
                 break;
-            default: this.activeStage = 0, this.isCartPage = true;;
+            default: this.activeStage = 0, this.isCartPage = true;
         }
         // for first init
 

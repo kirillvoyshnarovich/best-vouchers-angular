@@ -1,13 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent, ActivationEnd, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, Router, RouterEvent } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { StateService } from './core/providers/state/state.service';
-import { HttpClient } from '@angular/common/http';
+
 import { environment } from '../environments/environment';
-import { TranslateService } from '@ngx-translate/core';
+
 import { DataService } from './core/providers/data/data.service';
-import gql from 'graphql-tag';
+import { StateService } from './core/providers/state/state.service';
 
 @Component({
     selector: 'sf-root',
@@ -22,89 +24,89 @@ export class AppComponent implements OnInit {
     defaultListLang = [
         {
             name: 'English',
-            code: 'en'
+            code: 'en',
         },
         {
             name: 'Polski',
-            code: 'pl'
+            code: 'pl',
         },
         {
             name: 'Ελληνικά',
-            code: 'el'
+            code: 'el',
         },
         {
             name: 'Český',
-            code: 'cs'
+            code: 'cs',
         },
         {
             name: 'Português',
-            code: 'pt'
+            code: 'pt',
         },
         {
             name: 'Magyar',
-            code: 'hu'
+            code: 'hu',
         },
         {
             name: 'Français',
-            code: 'fr'
+            code: 'fr',
         },
         {
             name: 'Български',
-            code: 'bg'
+            code: 'bg',
         },
         {
             name: 'Hrvatski',
-            code: 'hr'
+            code: 'hr',
         },
         {
             name: 'Italiano',
-            code: 'it'
+            code: 'it',
         },
         {
             name: 'Slovenský',
-            code: 'sl'
+            code: 'sl',
         },
         {
             name: 'Slovenščina',
-            code: 'sk'
+            code: 'sk',
         },
         {
             name: 'Eesti',
-            code: 'et'
+            code: 'et',
         },
         {
             name: 'Deutsch',
-            code: 'nl'
+            code: 'nl',
         },
         {
             name: 'Lietuvių',
-            code: 'lt'
+            code: 'lt',
         },
         {
             name: 'Español',
-            code: 'es' 
+            code: 'es',
         },
         {
             name: 'Latviešu',
-            code: 'lv'
+            code: 'lv',
         },
         {
             name: 'Turkish',
-            code: 'tr'
+            code: 'tr',
         },
         {
             name: 'Indonesia',
-            code: 'id'
+            code: 'id',
         },
         {
             name: 'Română',
-            code: 'ro'
+            code: 'ro',
         },
     ];
 
     listlang = [
-        {code: "en", name: "English", id: ''},
-        {code: "pl", name: "Polish", id: ''},
+        {code: 'en', name: 'English', id: ''},
+        {code: 'pl', name: 'Polish', id: ''},
     ];
 
     currentLang: any = null;
@@ -116,7 +118,7 @@ export class AppComponent implements OnInit {
                 private stateService: StateService,
                 private http: HttpClient,
                 public translate: TranslateService,
-                private dataService: DataService
+                private dataService: DataService,
                 ) {
         this.router.events.pipe(
                 filter((event) => event instanceof ActivationEnd),
@@ -125,7 +127,7 @@ export class AppComponent implements OnInit {
                 const lang = event.snapshot.params.lang ? event.snapshot.params.lang : 'en';
                 this.stateService.setLanguage(lang);
 
-                if ((this.currentLang && this.currentLang.code !== lang) || this.stateService.getPages().length === 0) {
+                if (!this.currentLang || this.currentLang.code !== lang) {
                     this.getPages(lang);
                 }
 
@@ -173,7 +175,7 @@ export class AppComponent implements OnInit {
 
             setTimeout(() => {
                 window.location.reload();
-            }, 200);
+            }, 100);
         }
     }
 
@@ -186,7 +188,7 @@ export class AppComponent implements OnInit {
     }
 
     testCurrentLang(): void {
-        let langCode = this.stateService.getCurrentLanguage();
+        const langCode = this.stateService.getCurrentLanguage();
     }
 
     getAvailableLanguages(): void {
@@ -194,7 +196,7 @@ export class AppComponent implements OnInit {
         .subscribe((lang: any) => {
             this.listlang = lang['languages'];
             if (this.translate.currentLang) {
-                const language = this.listlang.find((lang: any) => lang.code === this.translate.currentLang);
+                const language = this.listlang.find((lan: any) => lan.code === this.translate.currentLang);
                 if (language) {
                     this.chooseLang(language);
                 }
@@ -204,7 +206,7 @@ export class AppComponent implements OnInit {
 
     getPages(codelang: string) {
         this.dataService.query<any, any>(GET_PAGES, {
-            code: codelang
+            code: codelang,
         }).subscribe((response) => {
             this.listPages = response['getByLang'].items;
             this.stateService.setPages(this.listPages);

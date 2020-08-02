@@ -9,7 +9,9 @@ import { CheckoutPaymentComponent } from './components/checkout-payment/checkout
 import { CheckoutProcessComponent } from './components/checkout-process/checkout-process.component';
 import { CheckoutShippingComponent } from './components/checkout-shipping/checkout-shipping.component';
 import { CheckoutStageIndicatorComponent } from './components/checkout-stage-indicator/checkout-stage-indicator.component';
+
 import { CheckoutOrderComponent } from './components/checkout-order/checkout-order.component';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 const DECLARATIONS = [

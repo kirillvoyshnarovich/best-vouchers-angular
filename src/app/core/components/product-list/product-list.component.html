@@ -3,8 +3,47 @@
 <div class="bv-container container-p-l">
     <div class="content">
         <div class="content__sidebar">
-            <img *ngIf="advertising['sideBar_first']" [src]="advertising['sideBar_first']">
-            <img *ngIf="advertising['sideBar_second']" [src]="advertising['sideBar_second']">
+            <!-- IF EXIST PRODUCT -->
+            <ng-container *ngIf="advertising['sideBar_first']?.product">    
+                <img [routerLink]="['/'+ translate.currentLang +'/product', advertising['sideBar_first']?.product?.translations[0]?.slug]"
+                [src]="advertising['sideBar_first']?.source">
+            </ng-container>
+            <!-- IF NOT EXIST PRODUCT -->
+            <ng-container *ngIf="!advertising['sideBar_first']?.product">
+                <!-- IF EXIST LINK -->
+                <a *ngIf="advertising['sideBar_first']?.link" [href]="advertising['sideBar_first']?.link">
+                    <img [src]="advertising['sideBar_first']?.source">
+                </a>
+                <!-- IF NOT EXIST LINK AND EXIST CATEGORY-->
+                <img *ngIf="!(advertising['sideBar_first']?.link) && advertising['sideBar_first']?.category" 
+                    [routerLink]="['/'+ translate.currentLang +'/category', advertising['sideBar_first']?.category]"
+                    [src]="advertising['sideBar_first']?.source">
+                <!-- IF NOT EXIST LINK AND NOT EXIST CATEGORY-->
+                <img *ngIf="!(advertising['sideBar_first']?.link) && !(advertising['sideBar_first']?.category)" 
+                    [src]="advertising['sideBar_first']?.source">
+            </ng-container>
+
+            <!--  -->
+
+            <!-- IF EXIST PRODUCT -->
+            <ng-container *ngIf="advertising['sideBar_second']?.product">    
+                <img [routerLink]="['/'+ translate.currentLang +'/product', advertising['sideBar_second']?.product?.translations[0]?.slug]"
+                [src]="advertising['sideBar_second']?.source">
+            </ng-container>
+            <!-- IF NOT EXIST PRODUCT -->
+            <ng-container *ngIf="!advertising['sideBar_second']?.product">
+                <!-- IF EXIST LINK -->
+                <a *ngIf="advertising['sideBar_second']?.link" [href]="advertising['sideBar_second']?.link">
+                    <img [src]="advertising['sideBar_second']?.source">
+                </a>
+                <!-- IF NOT EXIST LINK AND EXIST CATEGORY-->
+                <img *ngIf="!(advertising['sideBar_second']?.category) && advertising['sideBar_second']?.category" 
+                    [routerLink]="['/'+ translate.currentLang +'/category', advertising['sideBar_second']?.category]"
+                    [src]="advertising['sideBar_second']?.source">
+                <!-- IF NOT EXIST LINK AND NOT EXIST CATEGORY-->
+                <img *ngIf="!(advertising['sideBar_second']?.link) && !(advertising['sideBar_second']?.category)" 
+                    [src]="advertising['sideBar_second']?.source">
+            </ng-container>
         </div>
         <div class="content__grid">
             <div [ngClass]="{'product-list_row': rowModeView}" class="product-list">
