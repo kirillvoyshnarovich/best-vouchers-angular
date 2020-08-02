@@ -47,11 +47,13 @@ export class RenderContentComponent implements OnInit, OnChanges, AfterViewInit,
   ngAfterViewInit() {
     this.renderContainer = document.querySelector('.render-content');
     this.formElements  = this.renderContainer.querySelector('form');
-    this.buttonSubmit = this.formElements.querySelector('.simple-button-plugin');
+    if (this.formElements) {
+      this.buttonSubmit = this.formElements.querySelector('.simple-button-plugin');
+    }
     this.insertMessageBlock();
     const existAllField = this.checkForm();
     console.log('handle from', existAllField);
-    if (existAllField) {
+    if (existAllField && this.buttonSubmit) {
       this.subscription = this.buttonSubmit.addEventListener('click', this.hunbleSubmitForm.bind(this));
     }
   }
@@ -73,8 +75,10 @@ export class RenderContentComponent implements OnInit, OnChanges, AfterViewInit,
   }
 
   insertMessageBlock() {
-    this.buttonSubmit.insertAdjacentHTML('beforeBegin', '<div id="validation-message-form"></div>');
-    this.validationMessageForm = this.formElements.querySelector('#validation-message-form');
+    if (this.buttonSubmit) {
+      this.buttonSubmit.insertAdjacentHTML('beforeBegin', '<div id="validation-message-form"></div>');
+      this.validationMessageForm = this.formElements.querySelector('#validation-message-form');
+    }
   }
 
   checkForm() {
@@ -84,9 +88,11 @@ export class RenderContentComponent implements OnInit, OnChanges, AfterViewInit,
       password: true,
     };
 
-    for (let i = 0; i < this.formElements.elements.length; i++) {
-      if (!fields[this.formElements.elements[i].name]) {
-        existField = false;
+    if (this.formElements) {
+      for (let i = 0; i < this.formElements.elements.length; i++) {
+        if (!fields[this.formElements.elements[i].name]) {
+          existField = false;
+        }
       }
     }
 
